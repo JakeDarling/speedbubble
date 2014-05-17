@@ -19,10 +19,10 @@ public class SpeedBubble extends ApplicationAdapter {
 	int score;
 	BitmapFont bubbleFontSmall, bubbleFontBig;
 	
-	Animation spinningCoin, poppingBubble;
-	TextureAtlas coinAtlas, bubbleAtlas;
-	TextureRegion[] coinFrames, bubbleFrames;
-	TextureRegion currentCoin, currentBubble;
+	Animation poppingBubble;
+	TextureAtlas bubbleAtlas;
+	TextureRegion[] bubbleFrames;
+	TextureRegion currentBubble;
 	
 	Sound bubbleSound;
 	
@@ -44,13 +44,6 @@ public class SpeedBubble extends ApplicationAdapter {
 		bubbleFontSmall.setScale(.5f);
 		bubbleFontBig = new BitmapFont(Gdx.files.internal("bubble.fnt"));
 		
-		coinAtlas = new TextureAtlas("coinSprites.pack");
-		coinFrames = new TextureRegion[6];
-		
-		for (int i = 1; i<=6; i++){
-			coinFrames[i-1] = coinAtlas.findRegion("coin"+i);
-		}
-		
 		bubbleAtlas = new TextureAtlas("bubbleAnimation.pack");
 		bubbleFrames = new TextureRegion[5];
 		
@@ -58,7 +51,6 @@ public class SpeedBubble extends ApplicationAdapter {
 			bubbleFrames[i] = bubbleAtlas.findRegion("bubble"+i);
 		}
 		
-		spinningCoin = new Animation(.1f, coinFrames);
 		poppingBubble = new Animation(.025f, bubbleFrames);
 		
 		bubble = new Sprite(bubbleAtlas.findRegion("bubble0"));

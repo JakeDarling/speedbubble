@@ -1,0 +1,40 @@
+
+bubbleAnimation.png
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+bubble0
+  rotate: false
+  xy: 1, 1
+  size: 70, 70
+  orig: 70, 70
+  offset: 0, 0
+  index: -1
+bubble1
+  rotate: false
+  xy: 73, 1
+  size: 70, 70
+  orig: 70, 70
+  offset: 0, 0
+  index: -1
+bubble2
+  rotate: false
+  xy: 145, 1
+  size: 70, 70
+  orig: 70, 70
+  offset: 0, 0
+  index: -1
+bubble3
+  rotate: false
+  xy: 217, 1
+  size: 70, 70
+  orig: 70, 70
+  offset: 0, 0
+  index: -1
+bubble4
+  rotate: false
+  xy: 289, 1
+  size: 70, 70
+  orig: 70, 70
+  offset: 0, 0
+  index: -1
