@@ -10,6 +10,8 @@ public class GameScreen implements Screen {
     private SpeedBubble sb;
     private SpriteBatch batch;
 
+    private GameMode mode;
+
     private boolean popStarted;
     private float timeLeft;
     private float stateTime;
@@ -24,6 +26,10 @@ public class GameScreen implements Screen {
     }
 
     private void update() {
+        stateTime += Gdx.graphics.getDeltaTime();
+        timeLeft -= Gdx.graphics.getDeltaTime();
+
+        //mode.update();
         if (Gdx.input.justTouched()){
             if(Gdx.input.getX()>=Assets.bubble.getX() && Gdx.input.getX() <= Assets.bubble.getX()+Assets.bubble.getWidth()
                     && ((Gdx.input.getY() - Gdx.graphics.getHeight()) * -1) >= Assets.bubble.getY() && ((Gdx.input.getY() - Gdx.graphics.getHeight()) * -1) <= Assets.bubble.getY()+Assets.bubble.getHeight()){
@@ -42,13 +48,11 @@ public class GameScreen implements Screen {
         Gdx.gl.glClearColor(1,1,1,1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-        stateTime += Gdx.graphics.getDeltaTime();
-        timeLeft -= Gdx.graphics.getDeltaTime();
-
         Assets.currentBubble = Assets.poppingBubble.getKeyFrame(stateTime, false);
 
-        batch.begin();
+
         update();
+        batch.begin();
         if(popStarted) drawAnimation();
         Assets.bubble.draw(batch);
         Assets.bubbleFontSmall.draw(batch, "BUBBLES POPPED: " + score, 0,
