@@ -1,0 +1,105 @@
+
+skinAtlas.png
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+button_PlayDown
+  rotate: false
+  xy: 1, 25
+  size: 100, 100
+  orig: 100, 100
+  offset: 0, 0
+  index: -1
+button_StopDown
+  rotate: false
+  xy: 1, 25
+  size: 100, 100
+  orig: 100, 100
+  offset: 0, 0
+  index: -1
+button_PlayUp
+  rotate: false
+  xy: 103, 25
+  size: 100, 100
+  orig: 100, 100
+  offset: 0, 0
+  index: -1
+button_StopUp
+  rotate: false
+  xy: 205, 25
+  size: 100, 100
+  orig: 100, 100
+  offset: 0, 0
+  index: -1
+button_GreenChecked
+  rotate: false
+  xy: 1, 1
+  size: 175, 22
+  split: 74, 74, 8, 8
+  orig: 175, 22
+  offset: 0, 0
+  index: -1
+button_GreenDown
+  rotate: false
+  xy: 307, 103
+  size: 175, 22
+  split: 66, 66, 8, 8
+  orig: 175, 22
+  offset: 0, 0
+  index: -1
+button_GreenUp
+  rotate: false
+  xy: 307, 79
+  size: 175, 22
+  split: 67, 67, 8, 8
+  orig: 175, 22
+  offset: 0, 0
+  index: -1
+button_RedChecked
+  rotate: false
+  xy: 484, 103
+  size: 175, 22
+  split: 67, 67, 8, 8
+  orig: 175, 22
+  offset: 0, 0
+  index: -1
+button_RedDown
+  rotate: false
+  xy: 307, 55
+  size: 175, 22
+  split: 67, 67, 8, 8
+  orig: 175, 22
+  offset: 0, 0
+  index: -1
+button_RedUp
+  rotate: false
+  xy: 484, 79
+  size: 175, 22
+  split: 67, 67, 8, 8
+  orig: 175, 22
+  offset: 0, 0
+  index: -1
+button_BlueDown
+  rotate: false
+  xy: 661, 102
+  size: 89, 23
+  split: 39, 38, 9, 9
+  orig: 89, 23
+  offset: 0, 0
+  index: -1
+button_BlueUp
+  rotate: false
+  xy: 307, 30
+  size: 89, 23
+  split: 41, 41, 11, 4
+  orig: 89, 23
+  offset: 0, 0
+  index: -1
+button_BlueChecked
+  rotate: false
+  xy: 752, 102
+  size: 67, 23
+  split: 24, 24, 9, 9
+  orig: 67, 23
+  offset: 0, 0
+  index: -1

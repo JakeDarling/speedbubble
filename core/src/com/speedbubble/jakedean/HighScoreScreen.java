@@ -3,7 +3,13 @@ package com.speedbubble.jakedean;
 import com.badlogic.gdx.Screen;
 
 public class HighScoreScreen implements Screen {
-
+	
+	private SpeedBubble game;
+	
+	public HighScoreScreen (SpeedBubble s){
+		game = s;
+	}
+	
     @Override
     public void render(float delta) {
 

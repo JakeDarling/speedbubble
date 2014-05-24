@@ -1,0 +1,49 @@
+{
+com.badlogic.gdx.graphics.g2d.BitmapFont: {cooper: {file: cooper.fnt}, cooper5: {file: cooper5.fnt}, cooper10: {file: cooper10.fnt}, cooper15: {file: cooper15.fnt} },
+com.badlogic.gdx.graphics.Color: {
+	blue: {a:1, b:1, g:0, r:0 },
+	green: {a:1, b:0, g:1, r:0 },
+	red: {a:1, b:0, g:0, r:1 },
+	white: {a:1, b:1, g:1, r:1 },
+	black: {a:1, b:0, g:0, r:0 }
+},
+com.badlogic.gdx.scenes.scene2d.ui.TextButton$TextButtonStyle: {
+	blue: { down: button_BlueDown, up: button_BlueUp, font: cooper, fontColor: black, downFontColor: white},
+	blueToggle: { down: button_BlueDown, up: button_BlueUp, checked: button_BlueChecked, font: cooper, fontColor: black, downFontColor: white},
+	green: { down: button_GreenDown, up: button_GreenUp, font: cooper, fontColor: black, downFontColor: white},
+	greenToggle: { down: button_GreenDown, up: button_GreenUp, checked: button_GreenChecked, font: cooper, fontColor: black, downFontColor: white},
+	red: { down: button_RedDown, up: button_RedUp, font: cooper, fontColor: black, downFontColor: white},
+	redToggle: { down: button_RedDown, up: button_RedUp, checked: button_RedChecked, font: cooper, fontColor: black, downFontColor: white},
+	
+	blue5: { down: button_BlueDown, up: button_BlueUp, font: cooper5, fontColor: black, downFontColor: white},
+	blueToggle5: { down: button_BlueDown, up: button_BlueUp, checked: button_BlueChecked, font: cooper5, fontColor: black, downFontColor: white},
+	green5: { down: button_GreenDown, up: button_GreenUp, font: cooper5, fontColor: black, downFontColor: white},
+	greenToggle5: { down: button_GreenDown, up: button_GreenUp, checked: button_GreenChecked, font: cooper5, fontColor: black, downFontColor: white},
+	red5: { down: button_RedDown, up: button_RedUp, font: cooper5, fontColor: black, downFontColor: white},
+	redToggle5: { down: button_RedDown, up: button_RedUp, checked: button_RedChecked, font: cooper5, fontColor: black, downFontColor: white},
+	
+	blue10: { down: button_BlueDown, up: button_BlueUp, font: cooper10, fontColor: black, downFontColor: white},
+	blueToggle10: { down: button_BlueDown, up: button_BlueUp, checked: button_BlueChecked, font: cooper10, fontColor: black, downFontColor: white},
+	green10: { down: button_GreenDown, up: button_GreenUp, font: cooper10, fontColor: black, downFontColor: white},
+	greenToggle10: { down: button_GreenDown, up: button_GreenUp, checked: button_GreenChecked, font: cooper10, fontColor: black, downFontColor: white},
+	red10: { down: button_RedDown, up: button_RedUp, font: cooper10, fontColor: black, downFontColor: white},
+	redToggle10: { down: button_RedDown, up: button_RedUp, checked: button_RedChecked, font: cooper10, fontColor: black, downFontColor: white},
+	
+	blue15: { down: button_BlueDown, up: button_BlueUp, font: cooper15, fontColor: black, downFontColor: white},
+	blueToggle15: { down: button_BlueDown, up: button_BlueUp, checked: button_BlueChecked, font: cooper15, fontColor: black, downFontColor: white},
+	green15: { down: button_GreenDown, up: button_GreenUp, font: cooper15, fontColor: black, downFontColor: white},
+	greenToggle15: { down: button_GreenDown, up: button_GreenUp, checked: button_GreenChecked, font: cooper15, fontColor: black, downFontColor: white},
+	red15: { down: button_RedDown, up: button_RedUp, font: cooper15, fontColor: black, downFontColor: white},
+	redToggle15: { down: button_RedDown, up: button_RedUp, checked: button_RedChecked, font: cooper15, fontColor: black, downFontColor: white},
+	
+	play: {down: button_PlayDown, up: button_PlayUp, font: cooper},
+	stop: {down: button_StopDown, up: button_StopUp, font: cooper}
+},
+com.badlogic.gdx.scenes.scene2d.ui.Label$LabelStyle: {
+	default: {font: cooper, fontColor: black},
+	defaultWhite: {font: cooper, fontColor: white},
+	cooper5: {font: cooper5, fontColor: black},
+	cooper10: {font: cooper10, fontColor:black},
+	cooper15: {font: cooper15, fontColor:black}
+}
+}

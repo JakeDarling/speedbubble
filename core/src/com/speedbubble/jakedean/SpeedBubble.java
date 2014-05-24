@@ -19,7 +19,7 @@ public class SpeedBubble extends Game {
 	public void create () {
         Assets.load();
 
-		setScreen(new GameScreen(this));
+		setScreen(new MainMenuScreen(this));
 	}
 
 	@Override
