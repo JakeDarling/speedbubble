@@ -7,14 +7,6 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class SpeedBubble extends Game {
 
-
-	Boolean popStarted = false, gameOver = false, failure = false;
-
-	
-	SpriteBatch batch;
-	
-	float stateTime=0;
-	
 	@Override
 	public void create () {
         Assets.load();

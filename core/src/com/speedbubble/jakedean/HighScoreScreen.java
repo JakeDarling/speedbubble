@@ -1,6 +1,8 @@
 package com.speedbubble.jakedean;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.files.FileHandle;
 
 public class HighScoreScreen implements Screen {
 	

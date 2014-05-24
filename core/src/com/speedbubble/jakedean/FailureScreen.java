@@ -10,7 +10,11 @@ public class FailureScreen implements Screen {
     private SpriteBatch batch;
     private int score;
 
+    private SpeedBubble sb;
+
     public FailureScreen(SpeedBubble sb, int score) {
+        this.score = score;
+        this.sb = sb;
         batch = new SpriteBatch();
     }
 
