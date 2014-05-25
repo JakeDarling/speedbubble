@@ -5,9 +5,9 @@ import java.io.Serializable;
 public class Score implements Serializable {
 
     private String name;
-    private int score;
+    private float score;
 
-    public Score(String name, int score) {
+    public Score(String name, float score) {
         this.name = name;
         this.score = score;
     }
@@ -16,7 +16,11 @@ public class Score implements Serializable {
         return name;
     }
 
-    public int getScore() {
+    public float getScore() {
         return score;
+    }
+
+    public String toString() {
+        return name + " " + score;
     }
 }
