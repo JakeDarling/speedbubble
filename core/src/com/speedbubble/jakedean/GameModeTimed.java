@@ -7,7 +7,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class GameModeTimed implements GameMode {
 	
-	private boolean popStarted;
+	private boolean popStarted, gameStarted;
     private float timeLeft;
     private float stateTime;
     private int score;
@@ -20,6 +20,7 @@ public class GameModeTimed implements GameMode {
     	background = new Texture(Gdx.files.internal("inGameBackground.png"));
     	
     	popStarted = false;
+    	gameStarted = false;
     	timeLeft = 15F;
     	stateTime = 0;
     	score = 0;
@@ -27,9 +28,11 @@ public class GameModeTimed implements GameMode {
 	
 	@Override
     public void update(GameScreen screen, float deltaTime) {
+		if (gameStarted){
 		stateTime += deltaTime;
         timeLeft -= deltaTime;
         Assets.currentBubble = Assets.poppingBubble.getKeyFrame(stateTime, false);
+		}
         
     	 if (Gdx.input.justTouched()){
              if(Gdx.input.getX()>=Assets.bubble.getX() && Gdx.input.getX() <= Assets.bubble.getX()+Assets.bubble.getWidth()
@@ -37,6 +40,7 @@ public class GameModeTimed implements GameMode {
                  stateTime=0;
                  Assets.previousBubble.setPosition(Assets.bubble.getX(), Assets.bubble.getY());
                  popStarted=true;
+                 gameStarted = true;
                  Assets.relocateBubble();
                  Assets.bubbleSound.play();
                  score++;

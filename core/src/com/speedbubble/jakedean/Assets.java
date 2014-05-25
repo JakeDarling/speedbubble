@@ -30,13 +30,13 @@ public class Assets {
             bubbleFrames[i] = bubbleAtlas.findRegion("bubble"+i);
         }
 
-        poppingBubble = new Animation(.02f, bubbleFrames);
+        poppingBubble = new Animation(.01f, bubbleFrames);
 
         bubble = new Sprite(bubbleAtlas.findRegion("bubble0"));
         relocateBubble();
-        bubble.setSize(100, 100);
+        bubble.setSize(200, 200);
         previousBubble = new Sprite(bubbleAtlas.findRegion("bubble0"));
-        previousBubble.setSize(100,100);
+        previousBubble.setSize(200,200);
     }
 
     public static void relocateBubble(){
