@@ -19,11 +19,7 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 
 public class MainMenuScreen implements Screen{
 	
-	public enum Mode{
-		TIMED, FIFTY_BUBBLE, ARCADE, ZEN, DEFAULT
-	}
-	
-	private Mode mode;
+	private GameModeEnum selection;
 	
 	private int width=800, height=480;
 	private boolean landscape = false;
@@ -32,7 +28,6 @@ public class MainMenuScreen implements Screen{
 	int rows, cols, buttonWidth, buttonHeight; 
 	float spacingW, spacingH;
 	
-	private SpeedBubble game;
 	private Stage stage;
 	private Viewport v;
 	private SpriteBatch batch;
@@ -47,7 +42,7 @@ public class MainMenuScreen implements Screen{
 	private TextureAtlas skinAtlas;
 	private Texture background;
 	
-	public MainMenuScreen(SpeedBubble sb){
+	public MainMenuScreen(final SpeedBubble game){
 				
 		if(width>height){landscape=true;}
 		else{landscape=false;}
@@ -56,19 +51,17 @@ public class MainMenuScreen implements Screen{
 		skin = new Skin(Gdx.files.internal("skin/skin.json"), skinAtlas);
 		buttonSound = Gdx.audio.newSound(Gdx.files.internal("bubbles.mp3"));
 		
-		mode = Mode.DEFAULT;
-		
 		timed = new TextButton("TIMED", skin, "blue");
 		timed.getLabel().setFontScale(1.3f);
 		timed.addListener(new InputListener(){
             public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
             	playSound(buttonSound);
-            	mode = Mode.TIMED;
+            	selection = GameModeEnum.TIMED;
                 return true;
             }
             public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
             		game.getScreen().dispose();
-            		game.setScreen(new GameScreen(game, mode));
+            		game.setScreen(new GameScreen(game, selection));
             }
 		});
 		
@@ -79,12 +72,12 @@ public class MainMenuScreen implements Screen{
 		fiftyBubble.addListener(new InputListener(){
             public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
             	playSound(buttonSound);
-            	mode = Mode.FIFTY_BUBBLE;
+            	selection = GameModeEnum.FIFTY_BUBBLE;
                 return true;
             }
             public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
             	game.getScreen().dispose();
-            	game.setScreen(new GameScreen(game, mode));
+            	game.setScreen(new GameScreen(game, selection));
             }
 		});
 		
@@ -93,12 +86,12 @@ public class MainMenuScreen implements Screen{
 		arcade.addListener(new InputListener(){
             public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
             	playSound(buttonSound);
-            	mode = Mode.ARCADE;
+            	selection = GameModeEnum.ARCADE;
                 return true;
             }
             public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
             	game.getScreen().dispose();
-            	game.setScreen(new GameScreen(game, mode));
+            	game.setScreen(new GameScreen(game, selection));
             }
 		});
 		
@@ -119,12 +112,12 @@ public class MainMenuScreen implements Screen{
 		zen.addListener(new InputListener(){
             public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
             	playSound(buttonSound);
-            	mode = Mode.ZEN;
+            	selection = GameModeEnum.ZEN;
                 return true;
             }
             public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
             	game.getScreen().dispose();
-            	game.setScreen(new GameScreen(game, mode));
+            	game.setScreen(new GameScreen(game, selection));
             }
 		});
 		
@@ -177,7 +170,6 @@ public class MainMenuScreen implements Screen{
 		setTable(table);
 		
 		batch = new SpriteBatch();
-		game = sb;
 		
 		stage.addActor(table);
 		Gdx.input.setInputProcessor(stage);
@@ -260,7 +252,7 @@ public class MainMenuScreen implements Screen{
 		camera.update();
 		batch.setProjectionMatrix(camera.combined);
 		batch.begin();
-		batch.draw(background, Gdx.graphics.getWidth() - 1024, Gdx.graphics.getHeight() - 512);
+		batch.draw(background, camera.position.x - 1024, camera.position.y - 512);
 		batch.end();
 		
 		stage.draw();

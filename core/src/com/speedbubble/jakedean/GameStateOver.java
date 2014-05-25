@@ -1,24 +1,21 @@
 package com.speedbubble.jakedean;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
-public class GameOverScreen implements Screen {
+public class GameStateOver implements GameState {
 
     private int score;
     private SpriteBatch batch;
-    private SpeedBubble sb;
 
-    public GameOverScreen(SpeedBubble sb, int score) {
-        this.sb = sb;
+    public GameStateOver(int score) {
         this.score = score;
         batch = new SpriteBatch();
     }
 
     @Override
-    public void render(float delta) {
+    public void draw (GameScreen screen, float delta) {
         Gdx.gl.glClearColor(0,1,0,1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         batch.begin();
@@ -29,33 +26,12 @@ public class GameOverScreen implements Screen {
         batch.end();
     }
 
-    @Override
-    public void resize(int width, int height) {
-
-    }
-
-    @Override
-    public void show() {
-
-    }
-
-    @Override
-    public void hide() {
-
-    }
-
-    @Override
-    public void pause() {
-
-    }
-
-    @Override
-    public void resume() {
-
-    }
-
-    @Override
-    public void dispose() {
-
-    }
+	@Override
+	public void update(GameScreen screen, float deltaTime) {
+		if (Gdx.input.justTouched()){
+    		screen.getGame().setScreen(new MainMenuScreen(screen.getGame()));;
+    	}
+	}
+    
+    
 }

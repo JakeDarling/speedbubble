@@ -30,7 +30,7 @@ public class Assets {
             bubbleFrames[i] = bubbleAtlas.findRegion("bubble"+i);
         }
 
-        poppingBubble = new Animation(.025f, bubbleFrames);
+        poppingBubble = new Animation(.02f, bubbleFrames);
 
         bubble = new Sprite(bubbleAtlas.findRegion("bubble0"));
         relocateBubble();

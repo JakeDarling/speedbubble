@@ -1,25 +1,21 @@
 package com.speedbubble.jakedean;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
-public class FailureScreen implements Screen {
+public class GameStateFail implements GameState {
 
     private SpriteBatch batch;
     private int score;
 
-    private SpeedBubble sb;
-
-    public FailureScreen(SpeedBubble sb, int score) {
+    public GameStateFail (int score) {
         this.score = score;
-        this.sb = sb;
         batch = new SpriteBatch();
     }
 
     @Override
-    public void render(float delta) {
+    public void draw(GameScreen screen, float deltaTime) {
         Gdx.gl.glClearColor(1,0,0,1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         batch.begin();
@@ -30,33 +26,11 @@ public class FailureScreen implements Screen {
         batch.end();
     }
 
-    @Override
-    public void resize(int width, int height) {
+	@Override
+	public void update(GameScreen screen, float deltaTime) {
+		if (Gdx.input.justTouched()){
+			screen.reset();
+    	}
+	}
 
-    }
-
-    @Override
-    public void show() {
-
-    }
-
-    @Override
-    public void hide() {
-
-    }
-
-    @Override
-    public void pause() {
-
-    }
-
-    @Override
-    public void resume() {
-
-    }
-
-    @Override
-    public void dispose() {
-
-    }
 }
