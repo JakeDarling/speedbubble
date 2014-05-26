@@ -13,7 +13,6 @@ public class HighScores {
     private static final int MAXHIGHSCORES = 10;
     private static FileHandle hsHandle;
 
-
     private static class ScoreComparator implements Comparator<Score> {
         public int compare(Score a, Score b) {
             if (a.getScore() < b.getScore())
@@ -24,25 +23,42 @@ public class HighScores {
         }
 
     }
-    public static void writeHighScore(String name, float score) {
+
+    /**
+     * Function to write highscores to gdx local files
+     * Sorting is done here along with brute attempt at insertion
+     *
+     * @param name - nape to display
+     * @param score - score value (time(s), bubbles popped, etc)
+     */
+    public static void writeHighScore(String name, float score, boolean desc) {
         hsHandle = Gdx.files.local(HIGHSCOREFILE);
 
 
-        Array<Score> scores = fetchHighScores();
+        Array<Score> scores = fetchHighScores(false);
 
+        // Add the score from the game that just ended
         scores.add(new Score(name, score));
+        // Sort lowest[0] to highest[-1]
         scores.sort(new ScoreComparator());
 
         if (scores.size > MAXHIGHSCORES) {
             scores.removeIndex(MAXHIGHSCORES);
         }
 
+        // IF we want descending order (e.g. timed)
+        if (desc) scores.reverse();
+
         for (Score s : scores) {
             hsHandle.writeString(s.toString(), true);
         }
     }
 
-    public static Array<Score> fetchHighScores() {
+    /**
+     * Read high scores from high score file
+     * @return high score list in ascending or descending order
+     */
+    public static Array<Score> fetchHighScores(boolean desc) {
         Array<Score> scores = new Array<Score>();
         hsHandle = Gdx.files.local(HIGHSCOREFILE);
 
@@ -52,6 +68,9 @@ public class HighScores {
             String[] splits = lines[i].split(" ");
             scores.add(new Score(splits[0], Float.valueOf(splits[1])));
         }
+
+        if (desc) scores.reverse();
+
         return scores;
     }
 
