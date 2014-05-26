@@ -59,7 +59,7 @@ public class GameModeTimed implements GameMode {
          }
     	 
     	 if (timeLeft < 0){
-    		 screen.setState(new GameStateOverTimed(score)); 
+    		 screen.setState(new GameStateGetName(screen, score)); 
     	 }
     }
 	

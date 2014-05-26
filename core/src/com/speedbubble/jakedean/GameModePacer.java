@@ -55,7 +55,7 @@ public class GameModePacer implements GameMode{
              }
              else{
             	 Assets.playSound(Assets.failSound);
-            	 screen.setState(new GameStateOverPacer(bubbles));
+            	 screen.setState(new GameStateGetName(screen, bubbles));
              }
          }
     	 
@@ -70,7 +70,7 @@ public class GameModePacer implements GameMode{
     	 
     	 if (time <= 0){
     		 Assets.playSound(Assets.failSound);
-    		 screen.setState(new GameStateOverPacer(bubbles)); 
+    		 screen.setState(new GameStateGetName(screen, bubbles)); 
     	 }
     }
 	

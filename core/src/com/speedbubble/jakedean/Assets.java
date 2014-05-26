@@ -12,12 +12,15 @@ public class Assets {
     public static TextureRegion[] bubbleFrames;
     public static TextureRegion currentBubble;
     public static BitmapFont gameFont;
+    
+    public static String name;
 
     public static Sound bubbleSound, failSound;
 
     public static Sprite bubble, previousBubble;
 
-    public static void load() {
+    public static void load() {    	
+    	
         bubbleSound = Gdx.audio.newSound(Gdx.files.internal("bubble.mp3"));
         failSound = Gdx.audio.newSound(Gdx.files.internal("largeBubble.mp3"));
         

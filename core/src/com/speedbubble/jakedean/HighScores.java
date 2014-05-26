@@ -9,8 +9,12 @@ import java.util.ArrayList;
 import java.util.Comparator;
 
 public class HighScores {
-    private static final String HIGHSCOREFILE = "scores.txt";
-    private static final int MAXHIGHSCORES = 10;
+    public static final String TIMED = "timedScores.txt";
+    public static final String ARCADE = "arcadeScores.txt";
+    public static final String FIFTY = "fbScores.txt";
+    public static final String PACER = "pacerScores.txt";
+    
+    private static final int MAXHIGHSCORES = 5;
     private static FileHandle hsHandle;
 
     private static class ScoreComparator implements Comparator<Score> {
@@ -21,7 +25,6 @@ public class HighScores {
                 return 1;
             else return 0;
         }
-
     }
 
     /**
@@ -31,26 +34,34 @@ public class HighScores {
      * @param name - nape to display
      * @param score - score value (time(s), bubbles popped, etc)
      */
-    public static void writeHighScore(String name, float score, boolean desc) {
-        hsHandle = Gdx.files.local(HIGHSCOREFILE);
-
-
-        Array<Score> scores = fetchHighScores(false);
-
-        // Add the score from the game that just ended
-        scores.add(new Score(name, score));
-        // Sort lowest[0] to highest[-1]
-        scores.sort(new ScoreComparator());
-
-        if (scores.size > MAXHIGHSCORES) {
-            scores.removeIndex(MAXHIGHSCORES);
+    public static void writeHighScore(String file, String name, float score, boolean desc) {
+        hsHandle = Gdx.files.local(file);
+        
+        if(hsHandle.readString().equals("")){
+        	
+        	Score s = new Score(name, score);
+        	hsHandle.writeString(s.toString()+"\n", false);
         }
+        else{
+        	Array<Score> scores = fetchHighScores(file, false);
 
-        // IF we want descending order (e.g. timed)
-        if (desc) scores.reverse();
-
-        for (Score s : scores) {
-            hsHandle.writeString(s.toString(), true);
+	        // Add the score from the game that just ended
+	        scores.add(new Score(name, score));
+	        // Sort lowest[0] to highest[-1]
+	        scores.sort(new ScoreComparator());
+	        
+	        // IF we want descending order (e.g. timed)
+	        if (desc) scores.reverse();
+	
+	        if (scores.size > MAXHIGHSCORES) {
+	            scores.removeIndex(MAXHIGHSCORES);
+	        }
+	        
+	        hsHandle.writeString("", false);
+	        
+	        for (Score s : scores) {
+	            hsHandle.writeString(s.toString() + "\n", true);
+	        }
         }
     }
 
@@ -58,15 +69,21 @@ public class HighScores {
      * Read high scores from high score file
      * @return high score list in ascending or descending order
      */
-    public static Array<Score> fetchHighScores(boolean desc) {
+    public static Array<Score> fetchHighScores(String file, boolean desc) {
         Array<Score> scores = new Array<Score>();
-        hsHandle = Gdx.files.local(HIGHSCOREFILE);
-
-        String text = hsHandle.readString();
-        String[] lines = text.split("\n");
-        for (int i = 0; i < lines.length - 1; i++) {
-            String[] splits = lines[i].split(" ");
-            scores.add(new Score(splits[0], Float.valueOf(splits[1])));
+        hsHandle = Gdx.files.local(file);
+        
+        if (hsHandle.readString().equals("")){
+        	Score s = new Score("fake", 0);
+        	scores.add(s);
+        }
+        else{
+	        String text = hsHandle.readString();
+	        String[] lines = text.split("\n");
+	        for (int i = 0; i < lines.length; i++) {
+	            String[] splits = lines[i].split(" ");
+	            scores.add(new Score(splits[0], Float.valueOf(splits[1])));
+	        }
         }
 
         if (desc) scores.reverse();

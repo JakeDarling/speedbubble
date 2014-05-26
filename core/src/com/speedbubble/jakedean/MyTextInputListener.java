@@ -4,24 +4,18 @@ import com.badlogic.gdx.Input.TextInputListener;
 
 public class MyTextInputListener implements TextInputListener {
 	
-	private String name;
-	private float score;
+	public boolean enteredData = false;
 	
-	public MyTextInputListener(float s){
-		score = s;
+	@Override
+	public void input (String text) {
+		Assets.name = text;
+		enteredData = true;
 	}
-	
-	   @Override
-	   public void input (String text) {
-		   name = text;
-		   HighScores.writeHighScore(name, score, false);
-	   }
 
-	   @Override
-	   public void canceled () {
-	   }
-	   
-	   public String getName(){
-		   return name;
-	   }
+	@Override
+	public void canceled () {
+		Assets.name = "name";
+		enteredData = true;
 	}
+	
+}

@@ -57,7 +57,7 @@ public class GameModeFiftyBubble implements GameMode{
          }
     	 
     	 if (bubbles <= 0){
-    		 screen.setState(new GameStateOverFB(time)); 
+    		 screen.setState(new GameStateGetName(screen, time)); 
     	 }
     }
 	

@@ -119,7 +119,7 @@ public class GameModeArcade implements GameMode{
         
         if (missedBubble){
         	Assets.playSound(Assets.failSound);
-        	screen.setState(new GameStateOverArcade(bubblesPopped));
+        	screen.setState(new GameStateGetName(screen, bubblesPopped));
         }
 
         speed += 5 * deltaTime;

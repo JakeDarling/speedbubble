@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 public class GameStateOverFB implements GameState {
 	
     private float score;
+    private Score highestScore;
     private SpriteBatch batch;
     
     private BitmapFont gameFont, gameFont2;
@@ -22,6 +23,9 @@ public class GameStateOverFB implements GameState {
     	gameFont2 = new BitmapFont(Gdx.files.internal("gameFont.fnt"));
     	gameFont2.setColor(1, 1, 1, 1);
     	gameFont2.setScale(.75f);
+    	
+    	HighScores.writeHighScore(HighScores.FIFTY, Assets.name, score, false);
+    	highestScore = HighScores.fetchHighScores(HighScores.FIFTY, false).first();
     }
 
     @Override
@@ -38,6 +42,11 @@ public class GameStateOverFB implements GameState {
     	        Gdx.graphics.getHeight()/2 + (float)2.5*gameFont.getBounds("GAME OVER").height);
     	gameFont.draw(batch, "SCORE: " + String.format("%.3f", score), (Gdx.graphics.getWidth() - gameFont.getBounds("SCORE: 18.578").width)/2,
     	        Gdx.graphics.getHeight()/2 + gameFont.getBounds("SCORE: 18.578").height/2);
+    	gameFont.setColor(0,0,1,1);
+    	gameFont.draw(batch, "HIGHEST SCORE: " + String.format("%.3f", highestScore.getScore()), (Gdx.graphics.getWidth() - gameFont.getBounds("HIGHEST SCORE: 00.00").width)/2,
+    	        Gdx.graphics.getHeight()/2 - 3*gameFont.getBounds("HIGHEST SCORE: 00.00").height/2);
+    	gameFont.draw(batch, "SET BY: " + highestScore.getName(), (Gdx.graphics.getWidth() - gameFont.getBounds("SET BY: AAAAA").width)/2,
+    	        Gdx.graphics.getHeight()/2 - 3*gameFont.getBounds("SET BY: AAAAA").height);
     	gameFont2.draw(batch, "MAIN MENU", (Gdx.graphics.getWidth() - gameFont2.getBounds("MAIN MENU").width)/4,
     	        (float)2.5*gameFont2.getBounds("MAIN MENU").height);
     	gameFont2.draw(batch, "RETRY", (Gdx.graphics.getWidth() - gameFont2.getBounds("RETRY").width)*3/4,

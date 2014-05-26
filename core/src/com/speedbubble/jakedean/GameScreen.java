@@ -5,7 +5,7 @@ import com.badlogic.gdx.Screen;
 public class GameScreen implements Screen {
 	
 	private SpeedBubble game;
-	private GameModeEnum selector;
+	public GameModeEnum selector;
     private GameMode mode;
     private GameState state;
 
@@ -50,7 +50,7 @@ public class GameScreen implements Screen {
     	case TIMED:
     		mode = new GameModeTimed();
     		break;
-    	case ZEN:
+    	case PACER:
     		mode = new GameModePacer();
     		break;
     	}

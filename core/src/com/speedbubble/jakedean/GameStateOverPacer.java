@@ -10,6 +10,8 @@ public class GameStateOverPacer implements GameState {
     private int score;
     private SpriteBatch batch;
     
+    private Score highestScore;
+    
     private BitmapFont gameFont, gameFont2;
 
     public GameStateOverPacer(int score) {
@@ -22,6 +24,9 @@ public class GameStateOverPacer implements GameState {
     	gameFont2 = new BitmapFont(Gdx.files.internal("gameFont.fnt"));
     	gameFont2.setColor(1, 1, 1, 1);
     	gameFont2.setScale(.75f);
+    	
+    	HighScores.writeHighScore(HighScores.PACER, Assets.name, score, true);
+    	highestScore = HighScores.fetchHighScores(HighScores.PACER, false).first();
     }
 
     @Override
@@ -38,6 +43,11 @@ public class GameStateOverPacer implements GameState {
     	        Gdx.graphics.getHeight()/2 + (float)2.5*gameFont.getBounds("GAME OVER").height);
     	gameFont.draw(batch, "SCORE: " + score, (Gdx.graphics.getWidth() - gameFont.getBounds("SCORE: 50").width)/2,
     	        Gdx.graphics.getHeight()/2 + gameFont.getBounds("SCORE: 50").height/2);
+    	gameFont.setColor(0,0,1,1);
+    	gameFont.draw(batch, "HIGHEST SCORE: " + String.format("%.0f", highestScore.getScore()), (Gdx.graphics.getWidth() - gameFont.getBounds("HIGHEST SCORE: 50").width)/2,
+    	        Gdx.graphics.getHeight()/2 - 3*gameFont.getBounds("HIGHEST SCORE: 50").height/2);
+    	gameFont.draw(batch, "SET BY: " + highestScore.getName(), (Gdx.graphics.getWidth() - gameFont.getBounds("SET BY: AAAAA").width)/2,
+    	        Gdx.graphics.getHeight()/2 - 3*gameFont.getBounds("SET BY: AAAAA").height);
     	gameFont2.draw(batch, "MAIN MENU", (Gdx.graphics.getWidth() - gameFont2.getBounds("MAIN MENU").width)/4,
     	        (float)2.5*gameFont2.getBounds("MAIN MENU").height);
     	gameFont2.draw(batch, "RETRY", (Gdx.graphics.getWidth() - gameFont2.getBounds("RETRY").width)*3/4,

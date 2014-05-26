@@ -120,7 +120,7 @@ public class MainMenuScreen implements Screen{
 		pacer.addListener(new InputListener(){
             public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
             	Assets.playSound(Assets.bubbleSound);
-            	selection = GameModeEnum.ZEN;
+            	selection = GameModeEnum.PACER;
                 return true;
             }
             public void touchUp (InputEvent event, float x, float y, int pointer, int button) {

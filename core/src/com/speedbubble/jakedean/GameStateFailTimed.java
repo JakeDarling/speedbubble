@@ -36,8 +36,8 @@ public class GameStateFailTimed implements GameState {
     	gameFont.setColor(0, 0, 0, 1);
         gameFont.draw(batch, "FAIL", (Gdx.graphics.getWidth() - gameFont.getBounds("FAIL").width)/2,
                 Gdx.graphics.getHeight()/2 + (float)2.5*gameFont.getBounds("FAIL").height);
-        gameFont.draw(batch, "FINAL SCORE: " + score, (Gdx.graphics.getWidth() - gameFont.getBounds("FINAL SCORE: 50").width)/2,
-                Gdx.graphics.getHeight()/2 + gameFont.getBounds("FINAL SCORE: 50").height/2);
+        gameFont.draw(batch, "FINAL SCORE: " + score, (Gdx.graphics.getWidth() - gameFont.getBounds("FINAL SCORE: 0").width)/2,
+                Gdx.graphics.getHeight()/2 + gameFont.getBounds("FINAL SCORE: 0").height/2);
         gameFont2.draw(batch, "MAIN MENU", (Gdx.graphics.getWidth() - gameFont2.getBounds("MAIN MENU").width)/4,
                 (float)2.5*gameFont2.getBounds("MAIN MENU").height);
         gameFont2.draw(batch, "RETRY", (Gdx.graphics.getWidth() - gameFont2.getBounds("RETRY").width)*3/4,
