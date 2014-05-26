@@ -33,7 +33,7 @@ public class MainMenuScreen implements Screen{
 	private SpriteBatch batch;
 	private OrthographicCamera camera;
 	
-	private Sound buttonSound;
+	private Sound loopingBubbleSound;
 	
 /** all menu stuff */
 	private Table table, optionsMenu;
@@ -49,19 +49,20 @@ public class MainMenuScreen implements Screen{
 		
 		skinAtlas = new TextureAtlas(Gdx.files.internal("skin/skinAtlas.pack"));
 		skin = new Skin(Gdx.files.internal("skin/skin.json"), skinAtlas);
-		buttonSound = Gdx.audio.newSound(Gdx.files.internal("bubbles.mp3"));
+		loopingBubbleSound = Gdx.audio.newSound(Gdx.files.internal("bubbles.mp3"));
 		
 		timed = new TextButton("TIMED", skin, "blue");
 		timed.getLabel().setFontScale(1.3f);
 		timed.addListener(new InputListener(){
             public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
-            	playSound(buttonSound);
+            	playSound(Assets.bubbleSound);
             	selection = GameModeEnum.TIMED;
                 return true;
             }
             public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
-            		game.getScreen().dispose();
-            		game.setScreen(new GameScreen(game, selection));
+            	loopingBubbleSound.stop();
+            	game.getScreen().dispose();
+            	game.setScreen(new GameScreen(game, selection));
             }
 		});
 		
@@ -71,11 +72,12 @@ public class MainMenuScreen implements Screen{
 		fiftyBubble.getLabel();
 		fiftyBubble.addListener(new InputListener(){
             public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
-            	playSound(buttonSound);
+            	playSound(Assets.bubbleSound);
             	selection = GameModeEnum.FIFTY_BUBBLE;
                 return true;
             }
             public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
+            	loopingBubbleSound.stop();
             	game.getScreen().dispose();
             	game.setScreen(new GameScreen(game, selection));
             }
@@ -85,11 +87,12 @@ public class MainMenuScreen implements Screen{
 		arcade.getLabel().setFontScaleY(1.5f);
 		arcade.addListener(new InputListener(){
             public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
-            	playSound(buttonSound);
+            	playSound(Assets.bubbleSound);
             	selection = GameModeEnum.ARCADE;
                 return true;
             }
             public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
+            	loopingBubbleSound.stop();
             	game.getScreen().dispose();
             	game.setScreen(new GameScreen(game, selection));
             }
@@ -98,10 +101,11 @@ public class MainMenuScreen implements Screen{
 		highScores = new TextButton("HIGH\nSCORES", skin, "green");
 		highScores.addListener(new InputListener(){
             public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
-            	playSound(buttonSound);
+            	playSound(Assets.bubbleSound);
                 return true;
             }
             public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
+            	loopingBubbleSound.stop();
             	game.getScreen().dispose();
             	game.setScreen(new HighScoreScreen(game));
             }
@@ -111,11 +115,12 @@ public class MainMenuScreen implements Screen{
 		pacer.getLabel().setFontScale(1.25f);
 		pacer.addListener(new InputListener(){
             public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
-            	playSound(buttonSound);
+            	playSound(Assets.bubbleSound);
             	selection = GameModeEnum.ZEN;
                 return true;
             }
             public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
+            	loopingBubbleSound.stop();
             	game.getScreen().dispose();
             	game.setScreen(new GameScreen(game, selection));
             }
@@ -125,10 +130,11 @@ public class MainMenuScreen implements Screen{
 		credits.getLabel().setFontScaleY(1.5f);
 		credits.addListener(new InputListener(){
             public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
-            	playSound(buttonSound);
+            	playSound(Assets.bubbleSound);
                 return true;
             }
             public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
+            	loopingBubbleSound.stop();
             	game.getScreen().dispose();
             	game.setScreen(new CreditScreen(game));
             }
@@ -138,10 +144,11 @@ public class MainMenuScreen implements Screen{
 		options.getLabel().setFontScaleY(1.5f);
 		options.addListener(new InputListener(){
             public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
-            	playSound(buttonSound);
+            	playSound(Assets.bubbleSound);
                 return true;
             }
             public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
+            	loopingBubbleSound.stop();
             	stage.getRoot().clear();
             	stage.addActor(optionsMenu);
             }
@@ -150,7 +157,7 @@ public class MainMenuScreen implements Screen{
 		quit = new TextButton("EXIT\nGAME", skin, "red");
 		quit.addListener(new InputListener(){
             public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
-            	playSound(buttonSound);
+            	playSound(Assets.bubbleSound);
                 return true;
             }
             public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
@@ -173,6 +180,8 @@ public class MainMenuScreen implements Screen{
 		
 		stage.addActor(table);
 		Gdx.input.setInputProcessor(stage);
+		
+		loopingBubbleSound.loop(.1f);
 	}
 	
 	private void playSound(Sound s){

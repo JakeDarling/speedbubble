@@ -85,7 +85,7 @@ public class GameModeArcade implements GameMode{
         	if(Gdx.input.getX()>=topBubble.getX() && Gdx.input.getX() <= topBubble.getX()+topBubble.getWidth()
     			&& ((Gdx.input.getY() - Gdx.graphics.getHeight()) * -1) >= topBubble.getY() 
     			&& ((Gdx.input.getY() - Gdx.graphics.getHeight()) * -1) <= topBubble.getY()+topBubble.getHeight()
-    			&& Gdx.input.getY() < sideLength)
+    			&& topBubble.getY() > Gdx.graphics.getHeight() - 3*sideLength/2)
         	{
 	    		stateTime=0;
 	    		Assets.previousBubble.setPosition(topBubble.getX(), topBubble.getY());
