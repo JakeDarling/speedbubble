@@ -118,6 +118,7 @@ public class GameModeArcade implements GameMode{
         }
         
         if (missedBubble){
+        	Assets.failSound.play();
         	screen.setState(new GameStateOverArcade(bubblesPopped));
         }
 

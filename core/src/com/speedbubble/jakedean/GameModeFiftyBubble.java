@@ -50,11 +50,13 @@ public class GameModeFiftyBubble implements GameMode{
                  Assets.bubbleSound.play();
                  bubbles--;
              }
-             else{ screen.setState(new GameStateFailFB(time)); }
+             else{
+            	 Assets.failSound.play();
+            	 screen.setState(new GameStateFailFB(time)); 
+             }
          }
     	 
     	 if (bubbles <= 0){
-    		 dispose();
     		 screen.setState(new GameStateOverFB(time)); 
     	 }
     }
@@ -79,9 +81,5 @@ public class GameModeFiftyBubble implements GameMode{
         Assets.currentBubble = Assets.poppingBubble.getKeyFrame(stateTime, false);
         batch.draw(Assets.currentBubble, Assets.previousBubble.getX(), Assets.previousBubble.getY(), Assets.previousBubble.getWidth(), Assets.previousBubble.getHeight());
     }
-	
-	public void dispose(){
-		
-	}
 
 }

@@ -50,11 +50,13 @@ public class GameModeTimed implements GameMode {
                  Assets.bubbleSound.play();
                  score++;
              }
-             else{ screen.setState(new GameStateFailTimed(score)); }
+             else{
+            	 Assets.failSound.play();
+            	 screen.setState(new GameStateFailTimed(score));
+             }
          }
     	 
     	 if (timeLeft < 0){
-    		 dispose();
     		 screen.setState(new GameStateOverTimed(score)); 
     	 }
     }
@@ -79,8 +81,5 @@ public class GameModeTimed implements GameMode {
         Assets.currentBubble = Assets.poppingBubble.getKeyFrame(stateTime, false);
         batch.draw(Assets.currentBubble, Assets.previousBubble.getX(), Assets.previousBubble.getY(), Assets.previousBubble.getWidth(), Assets.previousBubble.getHeight());
     }
-	
-	public void dispose(){
-		
-	}
+
 }

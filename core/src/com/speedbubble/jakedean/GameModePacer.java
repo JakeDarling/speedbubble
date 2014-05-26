@@ -53,7 +53,10 @@ public class GameModePacer implements GameMode{
                  bubbles++;
                  tracker++;
              }
-             else{ screen.setState(new GameStateOverPacer(bubbles)); }
+             else{
+            	 Assets.failSound.play();
+            	 screen.setState(new GameStateOverPacer(bubbles));
+             }
          }
     	 
     	 if (tracker >= 25){
@@ -66,7 +69,7 @@ public class GameModePacer implements GameMode{
     	 }
     	 
     	 if (time <= 0){
-    		 dispose();
+    		 Assets.failSound.play();
     		 screen.setState(new GameStateOverPacer(bubbles)); 
     	 }
     }
@@ -92,8 +95,5 @@ public class GameModePacer implements GameMode{
         batch.draw(Assets.currentBubble, Assets.previousBubble.getX(), Assets.previousBubble.getY(), Assets.previousBubble.getWidth(), Assets.previousBubble.getHeight());
     }
 	
-	public void dispose(){
-		
-	}
 
 }
