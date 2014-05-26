@@ -37,7 +37,7 @@ public class MainMenuScreen implements Screen{
 	
 /** all menu stuff */
 	private Table table, optionsMenu;
-	private TextButton timed, fiftyBubble, arcade, zen, highScores, credits, options, quit;
+	private TextButton timed, fiftyBubble, arcade, pacer, highScores, credits, options, quit;
 	private Skin skin;
 	private TextureAtlas skinAtlas;
 	private Texture background;
@@ -107,9 +107,9 @@ public class MainMenuScreen implements Screen{
             }
 		});
 		
-		zen = new TextButton("ZEN", skin, "blue");
-		zen.getLabel().setFontScale(1.5f);
-		zen.addListener(new InputListener(){
+		pacer = new TextButton("PACER", skin, "blue");
+		pacer.getLabel().setFontScale(1.25f);
+		pacer.addListener(new InputListener(){
             public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
             	playSound(buttonSound);
             	selection = GameModeEnum.ZEN;
@@ -210,7 +210,7 @@ public class MainMenuScreen implements Screen{
 			table.add(timed).width(buttonWidth).height(buttonHeight).padTop(0).padLeft(0);
 			table.add(fiftyBubble).width(buttonWidth).height(buttonHeight).padTop(0).padLeft(spacingW);
 			table.add(arcade).width(buttonWidth).height(buttonHeight).padTop(0).padLeft(spacingW);
-			table.add(zen).width(buttonWidth).height(buttonHeight).padTop(0).padLeft(spacingW);
+			table.add(pacer).width(buttonWidth).height(buttonHeight).padTop(0).padLeft(spacingW);
 			table.row();
 			table.add(highScores).width(buttonWidth).height(buttonHeight).padTop(spacingH).padLeft(0);
 			table.add(options).width(buttonWidth).height(buttonHeight).padTop(spacingH).padLeft(spacingW);
@@ -232,7 +232,7 @@ public class MainMenuScreen implements Screen{
 			table.add(fiftyBubble).width(buttonWidth).height(buttonHeight).padTop(0).padLeft(spacingW);
 			table.row();
 			table.add(arcade).width(buttonWidth).height(buttonHeight).padTop(spacingH).padLeft(0);
-			table.add(zen).width(buttonWidth).height(buttonHeight).padTop(spacingH).padLeft(spacingW);
+			table.add(pacer).width(buttonWidth).height(buttonHeight).padTop(spacingH).padLeft(spacingW);
 			table.row();
 			table.add(highScores).width(buttonWidth).height(buttonHeight).padTop(spacingH).padLeft(0);
 			table.add(options).width(buttonWidth).height(buttonHeight).padTop(spacingH).padLeft(spacingW);
