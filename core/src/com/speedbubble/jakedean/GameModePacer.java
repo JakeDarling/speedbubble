@@ -1,8 +1,8 @@
 package com.speedbubble.jakedean;
 
-public class GameModeZen implements GameMode{
+public class GameModePacer implements GameMode{
 	
-	public GameModeZen(){
+	public GameModePacer(){
 		
 	}
 	

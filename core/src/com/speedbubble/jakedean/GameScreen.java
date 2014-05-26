@@ -51,7 +51,7 @@ public class GameScreen implements Screen {
     		mode = new GameModeTimed();
     		break;
     	case ZEN:
-    		mode = new GameModeZen();
+    		mode = new GameModePacer();
     		break;
     	}
     }
