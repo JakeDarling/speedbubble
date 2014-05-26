@@ -8,9 +8,11 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
@@ -36,8 +38,10 @@ public class MainMenuScreen implements Screen{
 	private Sound loopingBubbleSound;
 	
 /** all menu stuff */
-	private Table table, optionsMenu;
-	private TextButton timed, fiftyBubble, arcade, pacer, highScores, credits, options, quit;
+	private Table table;
+	private TextButton timed, fiftyBubble, arcade, pacer, highScores, credits, options, quit, playSounds, stopSounds, back;
+	private Label sounds;
+	private Group optionsMenu;
 	private Skin skin;
 	private TextureAtlas skinAtlas;
 	private Texture background;
@@ -55,7 +59,7 @@ public class MainMenuScreen implements Screen{
 		timed.getLabel().setFontScale(1.3f);
 		timed.addListener(new InputListener(){
             public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
-            	playSound(Assets.bubbleSound);
+            	Assets.playSound(Assets.bubbleSound);
             	selection = GameModeEnum.TIMED;
                 return true;
             }
@@ -72,7 +76,7 @@ public class MainMenuScreen implements Screen{
 		fiftyBubble.getLabel();
 		fiftyBubble.addListener(new InputListener(){
             public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
-            	playSound(Assets.bubbleSound);
+            	Assets.playSound(Assets.bubbleSound);
             	selection = GameModeEnum.FIFTY_BUBBLE;
                 return true;
             }
@@ -87,7 +91,7 @@ public class MainMenuScreen implements Screen{
 		arcade.getLabel().setFontScaleY(1.5f);
 		arcade.addListener(new InputListener(){
             public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
-            	playSound(Assets.bubbleSound);
+            	Assets.playSound(Assets.bubbleSound);
             	selection = GameModeEnum.ARCADE;
                 return true;
             }
@@ -101,7 +105,7 @@ public class MainMenuScreen implements Screen{
 		highScores = new TextButton("HIGH\nSCORES", skin, "green");
 		highScores.addListener(new InputListener(){
             public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
-            	playSound(Assets.bubbleSound);
+            	Assets.playSound(Assets.bubbleSound);
                 return true;
             }
             public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
@@ -115,7 +119,7 @@ public class MainMenuScreen implements Screen{
 		pacer.getLabel().setFontScale(1.25f);
 		pacer.addListener(new InputListener(){
             public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
-            	playSound(Assets.bubbleSound);
+            	Assets.playSound(Assets.bubbleSound);
             	selection = GameModeEnum.ZEN;
                 return true;
             }
@@ -130,7 +134,7 @@ public class MainMenuScreen implements Screen{
 		credits.getLabel().setFontScaleY(1.5f);
 		credits.addListener(new InputListener(){
             public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
-            	playSound(Assets.bubbleSound);
+            	Assets.playSound(Assets.bubbleSound);
                 return true;
             }
             public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
@@ -144,11 +148,11 @@ public class MainMenuScreen implements Screen{
 		options.getLabel().setFontScaleY(1.5f);
 		options.addListener(new InputListener(){
             public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
-            	playSound(Assets.bubbleSound);
+            	Assets.playSound(Assets.bubbleSound);
+            	createOptionsMenu();
                 return true;
             }
             public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
-            	loopingBubbleSound.stop();
             	stage.getRoot().clear();
             	stage.addActor(optionsMenu);
             }
@@ -157,7 +161,7 @@ public class MainMenuScreen implements Screen{
 		quit = new TextButton("EXIT\nGAME", skin, "red");
 		quit.addListener(new InputListener(){
             public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
-            	playSound(Assets.bubbleSound);
+            	Assets.playSound(Assets.bubbleSound);
                 return true;
             }
             public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
@@ -165,6 +169,46 @@ public class MainMenuScreen implements Screen{
             	Gdx.app.exit();
             }
 		});
+		
+		playSounds = new TextButton("", skin, "play");
+		playSounds.addListener(new InputListener(){
+            public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
+            	Settings.soundEnabled = true;
+            	loopingBubbleSound.loop();
+                return true;
+            }
+            public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
+            	updateOptionsMenu();
+            }
+		});
+		
+		stopSounds = new TextButton("", skin, "stop");
+		stopSounds.addListener(new InputListener(){
+            public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
+            	Settings.soundEnabled = false;
+                return true;
+            }
+            public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
+            	loopingBubbleSound.stop();
+            	updateOptionsMenu();
+            }
+		});
+		
+		back = new TextButton("BACK", skin, "red");
+		back.addListener(new InputListener(){
+            public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
+            	Assets.playSound(Assets.bubbleSound);
+                return true;
+            }
+            public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
+            	stage.getRoot().clear();
+            	stage.addActor(table);
+            }
+		});
+		
+		sounds = new Label("SOUND EFFECTS", skin, "defaultWhite");
+		
+		optionsMenu = new Group();
 		
 		background = new Texture(Gdx.files.internal("mainMenuBackground.png"));
 		
@@ -181,13 +225,45 @@ public class MainMenuScreen implements Screen{
 		stage.addActor(table);
 		Gdx.input.setInputProcessor(stage);
 		
-		loopingBubbleSound.loop(.1f);
+		Assets.playLoopingSound(loopingBubbleSound);
 	}
 	
-	private void playSound(Sound s){
-		if (Settings.soundEnabled){
-			s.play();
+	private void updateOptionsMenu(){
+		if(Settings.soundEnabled){
+			playSounds.setVisible(false);
+			stopSounds.setVisible(true);
 		}
+		if(!Settings.soundEnabled){
+			playSounds.setVisible(true);
+			stopSounds.setVisible(false);
+		}
+	}
+	
+	private void createOptionsMenu(){
+		updateOptionsMenu();
+		if(landscape){
+			playSounds.setSize(Gdx.graphics.getHeight()/2, Gdx.graphics.getHeight()/2);
+			playSounds.setPosition(camera.position.x - playSounds.getWidth()/2, camera.position.y - playSounds.getHeight()/2);
+			stopSounds.setSize(playSounds.getWidth(), playSounds.getHeight());
+			stopSounds.setPosition(playSounds.getX(), playSounds.getY());
+			back.setSize(playSounds.getWidth(), playSounds.getHeight()/2);
+			back.setPosition(playSounds.getX(), playSounds.getY() - 3*back.getHeight()/2);
+			
+		}
+		else{
+			playSounds.setSize(Gdx.graphics.getWidth()/2, Gdx.graphics.getWidth()/2);
+			playSounds.setPosition(camera.position.x - playSounds.getWidth()/2, camera.position.y - playSounds.getHeight()/2);
+			stopSounds.setSize(playSounds.getWidth(), playSounds.getHeight());
+			stopSounds.setPosition(playSounds.getX(), playSounds.getY());
+			back.setSize(playSounds.getWidth(), playSounds.getHeight()/2);
+			back.setPosition(playSounds.getX(), playSounds.getY() - 3*back.getHeight()/2);
+		}
+		sounds.setFontScale(1.5f);
+		sounds.setPosition(camera.position.x - sounds.getPrefWidth()/2, playSounds.getY() + playSounds.getHeight() + sounds.getPrefHeight());
+		optionsMenu.addActor(playSounds);
+		optionsMenu.addActor(stopSounds);
+		optionsMenu.addActor(sounds);
+		optionsMenu.addActor(back);
 	}
 	
 	private void updateWindow(){

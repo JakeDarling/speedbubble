@@ -49,12 +49,12 @@ public class GameModePacer implements GameMode{
                  popStarted=true;
                  gameStarted = true;
                  Assets.relocateBubble();
-                 Assets.bubbleSound.play();
+                 Assets.playSound(Assets.bubbleSound);
                  bubbles++;
                  tracker++;
              }
              else{
-            	 Assets.failSound.play();
+            	 Assets.playSound(Assets.failSound);
             	 screen.setState(new GameStateOverPacer(bubbles));
              }
          }
@@ -69,7 +69,7 @@ public class GameModePacer implements GameMode{
     	 }
     	 
     	 if (time <= 0){
-    		 Assets.failSound.play();
+    		 Assets.playSound(Assets.failSound);
     		 screen.setState(new GameStateOverPacer(bubbles)); 
     	 }
     }

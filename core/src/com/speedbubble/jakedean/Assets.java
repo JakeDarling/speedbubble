@@ -43,4 +43,16 @@ public class Assets {
         bubble.setPosition(MathUtils.random(0, Gdx.graphics.getWidth() - bubble.getWidth()), MathUtils.random(0,
                 Gdx.graphics.getHeight()-bubble.getHeight()- 2*gameFont.getBounds("HI").height));
     }
+    
+    public static void playSound(Sound s){
+		if (Settings.soundEnabled){
+			s.play();
+		}
+	}
+    
+    public static void playLoopingSound(Sound s){
+    	if (Settings.soundEnabled){
+    		s.loop();
+    	}
+    }
 }

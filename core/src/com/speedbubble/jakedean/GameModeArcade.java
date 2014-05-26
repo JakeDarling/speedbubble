@@ -90,7 +90,7 @@ public class GameModeArcade implements GameMode{
 	    		stateTime=0;
 	    		Assets.previousBubble.setPosition(topBubble.getX(), topBubble.getY());
 	    		popStarted=true;
-	    		Assets.bubbleSound.play();
+	    		Assets.playSound(Assets.bubbleSound);
 	    		bubblesPopped++;
         	}
         	else{
@@ -118,7 +118,7 @@ public class GameModeArcade implements GameMode{
         }
         
         if (missedBubble){
-        	Assets.failSound.play();
+        	Assets.playSound(Assets.failSound);
         	screen.setState(new GameStateOverArcade(bubblesPopped));
         }
 

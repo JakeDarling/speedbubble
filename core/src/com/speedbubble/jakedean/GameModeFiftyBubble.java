@@ -47,11 +47,11 @@ public class GameModeFiftyBubble implements GameMode{
                  popStarted=true;
                  gameStarted = true;
                  Assets.relocateBubble();
-                 Assets.bubbleSound.play();
+                 Assets.playSound(Assets.bubbleSound);
                  bubbles--;
              }
              else{
-            	 Assets.failSound.play();
+            	 Assets.playSound(Assets.failSound);
             	 screen.setState(new GameStateFailFB(time)); 
              }
          }

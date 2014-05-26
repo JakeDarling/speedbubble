@@ -18,6 +18,8 @@ public class GameModeTimed implements GameMode {
     private SpriteBatch batch;
     private Texture background;
     
+    private String name;
+    
     public GameModeTimed (){
     	batch = new SpriteBatch();
     	background = new Texture(Gdx.files.internal("inGameBackground.png"));
@@ -47,11 +49,11 @@ public class GameModeTimed implements GameMode {
                  popStarted=true;
                  gameStarted = true;
                  Assets.relocateBubble();
-                 Assets.bubbleSound.play();
+                 Assets.playSound(Assets.bubbleSound);
                  score++;
              }
              else{
-            	 Assets.failSound.play();
+            	 Assets.playSound(Assets.failSound);
             	 screen.setState(new GameStateFailTimed(score));
              }
          }

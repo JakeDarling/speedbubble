@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.utils.Array;
 
 public class GameStateOverTimed implements GameState {
 	
@@ -11,6 +12,10 @@ public class GameStateOverTimed implements GameState {
     private SpriteBatch batch;
     
     private BitmapFont gameFont, gameFont2;
+    
+    private String name;
+    private Array<Score> highScores;
+    private Score highestScore;
 
     public GameStateOverTimed(int score) {
         this.score = score;
@@ -22,6 +27,11 @@ public class GameStateOverTimed implements GameState {
     	gameFont2 = new BitmapFont(Gdx.files.internal("gameFont.fnt"));
     	gameFont2.setColor(1, 1, 1, 1);
     	gameFont2.setScale(.75f);
+    	
+    	name = "Dean";
+    	HighScores.writeHighScore(name, score, false);
+    	highScores = HighScores.fetchHighScores(false);
+    	highestScore = highScores.first();
     }
 
     @Override
@@ -38,6 +48,8 @@ public class GameStateOverTimed implements GameState {
     	        Gdx.graphics.getHeight()/2 + (float)2.5*gameFont.getBounds("GAME OVER").height);
     	gameFont.draw(batch, "SCORE: " + score, (Gdx.graphics.getWidth() - gameFont.getBounds("SCORE: 50").width)/2,
     	        Gdx.graphics.getHeight()/2 + gameFont.getBounds("SCORE: 50").height/2);
+//    	gameFont.draw(batch, "HIGHEST SCORE: " + highestScore.getScore(), (Gdx.graphics.getWidth() - gameFont.getBounds("SCORE: 50").width)/2,
+//    	        Gdx.graphics.getHeight()/2 - gameFont.getBounds("SCORE: 50").height/2);
     	gameFont2.draw(batch, "MAIN MENU", (Gdx.graphics.getWidth() - gameFont2.getBounds("MAIN MENU").width)/4,
     	        (float)2.5*gameFont2.getBounds("MAIN MENU").height);
     	gameFont2.draw(batch, "RETRY", (Gdx.graphics.getWidth() - gameFont2.getBounds("RETRY").width)*3/4,
