@@ -38,10 +38,11 @@ public class GameStateFailFB implements GameState {
     	        Gdx.graphics.getHeight()/2 + (float)2.5*gameFont.getBounds("FAIL").height);
 //    	gameFont.draw(batch, "BEST: " + String.format("%.3f", score), (Gdx.graphics.getWidth() - gameFont.getBounds("BEST:    ").width)/2,
 //    	        Gdx.graphics.getHeight()/2 + gameFont.getBounds("BEST:    ").height/2);
-    	gameFont2.draw(batch, "MAIN MENU", (Gdx.graphics.getWidth() - gameFont2.getBounds("MAIN MENU").width)/4,
-    	        (float)2.5*gameFont2.getBounds("MAIN MENU").height);
-    	gameFont2.draw(batch, "RETRY", (Gdx.graphics.getWidth() - gameFont2.getBounds("RETRY").width)*3/4,
-    	        (float)2.5*gameFont2.getBounds("RETRY").height);
+    	gameFont.setColor(1, 1, 1, 1);
+    	gameFont.draw(batch, "MAIN MENU", (Gdx.graphics.getWidth() - gameFont.getBounds("MAIN MENU").width)/4,
+    	        (float)2.5*gameFont.getBounds("MAIN MENU").height);
+    	gameFont.draw(batch, "RETRY", (Gdx.graphics.getWidth() - gameFont.getBounds("RETRY").width)*3/4,
+    	        (float)2.5*gameFont.getBounds("RETRY").height);
     	batch.end();
     }
 

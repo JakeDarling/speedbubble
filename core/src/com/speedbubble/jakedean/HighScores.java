@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.utils.Array;
 
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -25,6 +26,46 @@ public class HighScores {
                 return 1;
             else return 0;
         }
+    }
+    
+    public static void createLocalFiles(){
+    	if(!Gdx.files.local(ARCADE).exists()){
+    		try {
+//    			Gdx.files.local(ARCADE).file().getParentFile().mkdirs();
+				Gdx.files.local(ARCADE).file().createNewFile();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+    	}
+    	if(!Gdx.files.local(FIFTY).exists()){
+    		try {
+//    			Gdx.files.local(ARCADE).file().getParentFile().mkdirs();
+				Gdx.files.local(FIFTY).file().createNewFile();
+				Gdx.files.local(FIFTY).writeString("fake 99.999\n", false);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+    	}
+    	if(!Gdx.files.local(PACER).exists()){
+    		try {
+//    			Gdx.files.local(ARCADE).file().getParentFile().mkdirs();
+				Gdx.files.local(PACER).file().createNewFile();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+    	}
+    	if(!Gdx.files.local(TIMED).exists()){
+    		try {
+//    			Gdx.files.local(ARCADE).file().getParentFile().mkdirs();
+				Gdx.files.local(TIMED).file().createNewFile();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+    	}
     }
 
     /**

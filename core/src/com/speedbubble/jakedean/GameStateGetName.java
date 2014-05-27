@@ -17,25 +17,25 @@ public class GameStateGetName implements GameState{
 		switch(screen.selector){
 		case TIMED:
 			if(score >= HighScores.fetchHighScores(HighScores.TIMED, true).first().getScore()){
-				Gdx.input.getTextInput(listener, "PLEASE ENTER YOUR NAME", "Name");
+				Gdx.input.getTextInput(listener, "PLEASE ENTER YOUR NAME", "");
 			}
 			else{listener.enteredData = true;}
 			break;
 		case FIFTY_BUBBLE:
 			if(score <= HighScores.fetchHighScores(HighScores.FIFTY, true).first().getScore()){
-				Gdx.input.getTextInput(listener, "PLEASE ENTER YOUR NAME", "Name");
+				Gdx.input.getTextInput(listener, "PLEASE ENTER YOUR NAME", "");
 			}
 			else{listener.enteredData = true;}
 			break;
 		case ARCADE:
 			if(score >= HighScores.fetchHighScores(HighScores.ARCADE, true).first().getScore()){
-				Gdx.input.getTextInput(listener, "PLEASE ENTER YOUR NAME", "Name");
+				Gdx.input.getTextInput(listener, "PLEASE ENTER YOUR NAME", "");
 			}
 			else{listener.enteredData = true;}
 			break;
 		case PACER:
 			if(score >= HighScores.fetchHighScores(HighScores.PACER, true).first().getScore()){
-				Gdx.input.getTextInput(listener, "PLEASE ENTER YOUR NAME", "Name");
+				Gdx.input.getTextInput(listener, "PLEASE ENTER YOUR NAME", "");
 			}
 			else{listener.enteredData = true;}
 			break;

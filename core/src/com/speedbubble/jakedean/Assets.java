@@ -37,9 +37,9 @@ public class Assets {
 
         bubble = new Sprite(bubbleAtlas.findRegion("bubble0"));
         relocateBubble();
-        bubble.setSize(150, 150);
+        bubble.setSize(Gdx.graphics.getWidth()/5, Gdx.graphics.getWidth()/5);
         previousBubble = new Sprite(bubbleAtlas.findRegion("bubble0"));
-        previousBubble.setSize(150,150);
+        previousBubble.setSize(Gdx.graphics.getWidth()/5, Gdx.graphics.getWidth()/5);
     }
 
     public static void relocateBubble(){

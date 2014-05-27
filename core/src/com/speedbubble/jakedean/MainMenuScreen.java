@@ -25,7 +25,7 @@ public class MainMenuScreen implements Screen{
 	
 	private GameModeEnum selection;
 	
-	private int width=800, height=480;
+	private int width=1160, height=660;
 	private boolean landscape = false;
 	
 	/** STUFF FOR TABLE */
@@ -168,7 +168,7 @@ public class MainMenuScreen implements Screen{
                 return true;
             }
             public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
-            	game.dispose();
+            	dispose();
             	Gdx.app.exit();
             }
 		});

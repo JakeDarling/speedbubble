@@ -52,8 +52,6 @@ public class CreditScreen implements Screen {
 
 	@Override
 	public void hide() {
-		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
@@ -70,8 +68,8 @@ public class CreditScreen implements Screen {
 
 	@Override
 	public void dispose() {
-		// TODO Auto-generated method stub
-		
+		batch.dispose();
+		Gdx.app.exit();
 	}
 
 }

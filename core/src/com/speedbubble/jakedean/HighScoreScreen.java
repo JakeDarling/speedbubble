@@ -120,7 +120,7 @@ public class HighScoreScreen implements Screen {
 			}
 			
 			one.setText("FIFTY BUBBLE");
-			one.getLabel().setFontScale(.65f);
+			one.getLabel().setFontScale(.9f);
 			one.addListener(new InputListener(){
 	            public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
 	            	Assets.playSound(Assets.bubbleSound);
@@ -267,7 +267,7 @@ public class HighScoreScreen implements Screen {
 			});
 			
 			two.setText("FIFTY BUBBLE");
-			two.getLabel().setFontScale(.65f);
+			two.getLabel().setFontScale(.9f);
 			two.addListener(new InputListener(){
 	            public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
 	            	Assets.playSound(Assets.bubbleSound);
@@ -334,7 +334,7 @@ public class HighScoreScreen implements Screen {
 			});
 			
 			two.setText("FIFTY BUBBLE");
-			two.getLabel().setFontScale(.65f);
+			two.getLabel().setFontScale(.9f);
 			two.addListener(new InputListener(){
 	            public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
 	            	Assets.playSound(Assets.bubbleSound);
@@ -396,7 +396,7 @@ public class HighScoreScreen implements Screen {
 		t.add(two).width(two.getWidth()).height(two.getHeight()).space(20);
 		t.add(three).width(three.getWidth()).height(three.getHeight()).space(20);
 		
-		stage.getRoot().clear();
+		stage.getRoot().remove();
 		stage.addActor(back);
 		stage.addActor(t);
 	}
@@ -437,7 +437,6 @@ public class HighScoreScreen implements Screen {
 
     @Override
     public void hide() {
-
     }
 
     @Override
@@ -452,6 +451,7 @@ public class HighScoreScreen implements Screen {
 
     @Override
     public void dispose() {
-
+    	batch.dispose();
+    	Gdx.app.exit();
     }
 }

@@ -7,7 +7,7 @@ public class SpeedBubble extends Game {
 	@Override
 	public void create () {
         Assets.load();
-
+        HighScores.createLocalFiles();
 		setScreen(new MainMenuScreen(this));
 	}
 

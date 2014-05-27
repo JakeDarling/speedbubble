@@ -48,10 +48,11 @@ public class GameStateOverPacer implements GameState {
     	        Gdx.graphics.getHeight()/2 - 3*gameFont.getBounds("HIGHEST SCORE: 50").height/2);
     	gameFont.draw(batch, "SET BY: " + highestScore.getName(), (Gdx.graphics.getWidth() - gameFont.getBounds("SET BY: AAAAA").width)/2,
     	        Gdx.graphics.getHeight()/2 - 3*gameFont.getBounds("SET BY: AAAAA").height);
-    	gameFont2.draw(batch, "MAIN MENU", (Gdx.graphics.getWidth() - gameFont2.getBounds("MAIN MENU").width)/4,
-    	        (float)2.5*gameFont2.getBounds("MAIN MENU").height);
-    	gameFont2.draw(batch, "RETRY", (Gdx.graphics.getWidth() - gameFont2.getBounds("RETRY").width)*3/4,
-    	        (float)2.5*gameFont2.getBounds("RETRY").height);
+    	gameFont.setColor(1, 1, 1, 1);
+    	gameFont.draw(batch, "MAIN MENU", (Gdx.graphics.getWidth() - gameFont.getBounds("MAIN MENU").width)/4,
+    	        (float)2.5*gameFont.getBounds("MAIN MENU").height);
+    	gameFont.draw(batch, "RETRY", (Gdx.graphics.getWidth() - gameFont.getBounds("RETRY").width)*3/4,
+    	        (float)2.5*gameFont.getBounds("RETRY").height);
     	batch.end();
     }
 
