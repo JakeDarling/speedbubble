@@ -12,10 +12,12 @@ import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
@@ -44,7 +46,8 @@ public class MainMenuScreen implements Screen{
 	private Group optionsMenu;
 	private Skin skin;
 	private TextureAtlas skinAtlas;
-	private Texture background;
+	private Texture background, tint;
+	private Image tintImage;
 	
 	public MainMenuScreen(final SpeedBubble game){
 				
@@ -207,10 +210,13 @@ public class MainMenuScreen implements Screen{
 		});
 		
 		sounds = new Label("SOUND EFFECTS", skin, "defaultWhite");
+		sounds.getColor().set(0, 0, 0, 1);
 		
 		optionsMenu = new Group();
 		
 		background = new Texture(Gdx.files.internal("mainMenuBackground.png"));
+		tintImage = new Image (new Texture(Gdx.files.internal("tint.png")));
+		
 		
 		camera = new OrthographicCamera();
 		v = new ScreenViewport(camera);
@@ -246,8 +252,8 @@ public class MainMenuScreen implements Screen{
 			playSounds.setPosition(camera.position.x - playSounds.getWidth()/2, camera.position.y - playSounds.getHeight()/2);
 			stopSounds.setSize(playSounds.getWidth(), playSounds.getHeight());
 			stopSounds.setPosition(playSounds.getX(), playSounds.getY());
-			back.setSize(playSounds.getWidth(), playSounds.getHeight()/2);
-			back.setPosition(playSounds.getX(), playSounds.getY() - 3*back.getHeight()/2);
+			back.setSize(100, 50);
+			back.setPosition(camera.position.x - Gdx.graphics.getWidth()*camera.zoom/2, camera.position.y+Gdx.graphics.getHeight()*camera.zoom/2 - 50);
 			
 		}
 		else{
@@ -255,11 +261,16 @@ public class MainMenuScreen implements Screen{
 			playSounds.setPosition(camera.position.x - playSounds.getWidth()/2, camera.position.y - playSounds.getHeight()/2);
 			stopSounds.setSize(playSounds.getWidth(), playSounds.getHeight());
 			stopSounds.setPosition(playSounds.getX(), playSounds.getY());
-			back.setSize(playSounds.getWidth(), playSounds.getHeight()/2);
-			back.setPosition(playSounds.getX(), playSounds.getY() - 3*back.getHeight()/2);
+			back.setSize(100, 50);
+			back.setPosition(camera.position.x - Gdx.graphics.getWidth()/2, camera.position.y+Gdx.graphics.getHeight() - 50);
 		}
 		sounds.setFontScale(1.5f);
 		sounds.setPosition(camera.position.x - sounds.getPrefWidth()/2, playSounds.getY() + playSounds.getHeight() + sounds.getPrefHeight());
+		
+		tintImage.setSize(Gdx.graphics.getWidth()*camera.zoom, Gdx.graphics.getHeight()*camera.zoom);
+		tintImage.setPosition(camera.position.x - Gdx.graphics.getWidth()*camera.zoom/2, camera.position.y - Gdx.graphics.getHeight()*camera.zoom/2);
+		
+		optionsMenu.addActor(tintImage);
 		optionsMenu.addActor(playSounds);
 		optionsMenu.addActor(stopSounds);
 		optionsMenu.addActor(sounds);

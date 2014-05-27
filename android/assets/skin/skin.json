@@ -1,5 +1,11 @@
 {
-com.badlogic.gdx.graphics.g2d.BitmapFont: {cooper: {file: cooper.fnt}, cooper5: {file: cooper5.fnt}, cooper10: {file: cooper10.fnt}, cooper15: {file: cooper15.fnt} },
+com.badlogic.gdx.graphics.g2d.BitmapFont: {
+	cooper: {file: cooper.fnt},
+	cooper5: {file: cooper5.fnt},
+	cooper10: {file: cooper10.fnt}, 
+	cooper15: {file: cooper15.fnt},
+	gameFont: {file: gameFont.fnt} 
+},
 com.badlogic.gdx.graphics.Color: {
 	blue: {a:1, b:1, g:0, r:0 },
 	green: {a:1, b:0, g:1, r:0 },
@@ -41,7 +47,7 @@ com.badlogic.gdx.scenes.scene2d.ui.TextButton$TextButtonStyle: {
 },
 com.badlogic.gdx.scenes.scene2d.ui.Label$LabelStyle: {
 	default: {font: cooper, fontColor: black},
-	defaultWhite: {font: cooper, fontColor: white},
+	defaultWhite: {font: gameFont, fontColor: white},
 	cooper5: {font: cooper5, fontColor: black},
 	cooper10: {font: cooper10, fontColor:black},
 	cooper15: {font: cooper15, fontColor:black}
