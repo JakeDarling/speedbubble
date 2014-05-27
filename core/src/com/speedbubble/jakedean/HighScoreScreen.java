@@ -122,8 +122,8 @@ public class HighScoreScreen implements Screen {
 		
 		
 		back = new TextButton("BACK", skin, "red");
-		back.setSize(100, 50);
-		back.setPosition(0, Gdx.graphics.getHeight() - 50);
+		back.setSize(175, 90);
+		back.setPosition(0, Gdx.graphics.getHeight() - 90);
 		back.addListener(new InputListener(){
             public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
             	Assets.playSound(Assets.bubbleSound);

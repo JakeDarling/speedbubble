@@ -58,16 +58,16 @@ public class GameStateOverArcade implements GameState {
 
 	@Override
 	public void update(GameScreen screen, float deltaTime) {
-		if (Gdx.input.justTouched() && Gdx.input.getX() > (Gdx.graphics.getWidth() - gameFont.getBounds("MAIN MENU").width)/4 - 5 &&
-				Gdx.input.getX() < (Gdx.graphics.getWidth() - gameFont.getBounds("MAIN MENU").width)/4 + gameFont.getBounds("MAIN MENU").width + 5 &&
-				((Gdx.input.getY() - Gdx.graphics.getHeight()) * -1) > (float)2.5*gameFont.getBounds("MAIN MENU").height - gameFont.getBounds("MAIN MENU").height - 5 &&
-				((Gdx.input.getY() - Gdx.graphics.getHeight()) * -1) < (float)2.5*gameFont.getBounds("MAIN MENU").height + 5){
+		if (Gdx.input.justTouched() && Gdx.input.getX() > (Gdx.graphics.getWidth() - gameFont.getBounds("MAIN MENU").width)/4 - 15 &&
+				Gdx.input.getX() < (Gdx.graphics.getWidth() - gameFont.getBounds("MAIN MENU").width)/4 + gameFont.getBounds("MAIN MENU").width + 15 &&
+				((Gdx.input.getY() - Gdx.graphics.getHeight()) * -1) > (float)2.5*gameFont.getBounds("MAIN MENU").height - gameFont.getBounds("MAIN MENU").height - 15 &&
+				((Gdx.input.getY() - Gdx.graphics.getHeight()) * -1) < (float)2.5*gameFont.getBounds("MAIN MENU").height + 15){
     		screen.getGame().setScreen(new MainMenuScreen(screen.getGame()));
     	}
-		if (Gdx.input.justTouched() && Gdx.input.getX() > (Gdx.graphics.getWidth() - gameFont.getBounds("RETRY").width)*3/4 -5 &&
-				Gdx.input.getX() < (Gdx.graphics.getWidth() - gameFont.getBounds("RETRY").width)*3/4 + gameFont.getBounds("RETRY").width +5 &&
-				((Gdx.input.getY() - Gdx.graphics.getHeight()) * -1) > (float)2.5*gameFont.getBounds("RETRY").height - gameFont.getBounds("RETRY").height -5 &&
-				((Gdx.input.getY() - Gdx.graphics.getHeight()) * -1) < (float)2.5*gameFont.getBounds("RETRY").height +5){
+		if (Gdx.input.justTouched() && Gdx.input.getX() > (Gdx.graphics.getWidth() - gameFont.getBounds("RETRY").width)*3/4 - 15 &&
+				Gdx.input.getX() < (Gdx.graphics.getWidth() - gameFont.getBounds("RETRY").width)*3/4 + gameFont.getBounds("RETRY").width + 15 &&
+				((Gdx.input.getY() - Gdx.graphics.getHeight()) * -1) > (float)2.5*gameFont.getBounds("RETRY").height - gameFont.getBounds("RETRY").height - 15 &&
+				((Gdx.input.getY() - Gdx.graphics.getHeight()) * -1) < (float)2.5*gameFont.getBounds("RETRY").height + 15){
 			screen.reset();
     	}
 	} 

@@ -60,7 +60,7 @@ public class MainMenuScreen implements Screen{
 		loopingBubbleSound = Gdx.audio.newSound(Gdx.files.internal("bubbles.mp3"));
 		
 		timed = new TextButton("TIMED", skin, "blue");
-		timed.getLabel().setFontScale(1.3f);
+		timed.getLabel().setFontScale(1.5f);
 		timed.addListener(new InputListener(){
             public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
             	Assets.playSound(Assets.bubbleSound);
@@ -75,8 +75,7 @@ public class MainMenuScreen implements Screen{
 		});
 		
 		fiftyBubble = new TextButton("50\nBUBBLE\n", skin, "blue");
-		fiftyBubble.getLabel().setFontScaleX(1.1f);
-		fiftyBubble.getLabel().setFontScaleY(1.3f);
+		fiftyBubble.getLabel().setFontScale(1.5f);
 		fiftyBubble.getLabel();
 		fiftyBubble.addListener(new InputListener(){
             public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
@@ -92,7 +91,7 @@ public class MainMenuScreen implements Screen{
 		});
 		
 		arcade = new TextButton("ARCADE", skin, "blue");
-		arcade.getLabel().setFontScaleY(1.5f);
+		arcade.getLabel().setFontScale(1.3f);
 		arcade.addListener(new InputListener(){
             public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
             	Assets.playSound(Assets.bubbleSound);
@@ -107,6 +106,7 @@ public class MainMenuScreen implements Screen{
 		});
 		
 		highScores = new TextButton("HIGH\nSCORES", skin, "green");
+		highScores.getLabel().setFontScale(1.3f);
 		highScores.addListener(new InputListener(){
             public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
             	Assets.playSound(Assets.bubbleSound);
@@ -120,7 +120,7 @@ public class MainMenuScreen implements Screen{
 		});
 		
 		pacer = new TextButton("PACER", skin, "blue");
-		pacer.getLabel().setFontScale(1.25f);
+		pacer.getLabel().setFontScale(1.5f);
 		pacer.addListener(new InputListener(){
             public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
             	Assets.playSound(Assets.bubbleSound);
@@ -135,7 +135,7 @@ public class MainMenuScreen implements Screen{
 		});
 		
 		credits = new TextButton("CREDITS", skin, "green");
-		credits.getLabel().setFontScaleY(1.5f);
+		credits.getLabel().setFontScale(1.3f);
 		credits.addListener(new InputListener(){
             public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
             	Assets.playSound(Assets.bubbleSound);
@@ -149,7 +149,7 @@ public class MainMenuScreen implements Screen{
 		});
 		
 		options = new TextButton("OPTIONS", skin, "green");
-		options.getLabel().setFontScaleY(1.5f);
+		options.getLabel().setFontScale(1.3f);
 		options.addListener(new InputListener(){
             public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
             	Assets.playSound(Assets.bubbleSound);
@@ -163,6 +163,7 @@ public class MainMenuScreen implements Screen{
 		});
 		
 		quit = new TextButton("EXIT\nGAME", skin, "red");
+		quit.getLabel().setFontScale(1.5f);
 		quit.addListener(new InputListener(){
             public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
             	Assets.playSound(Assets.bubbleSound);
@@ -253,8 +254,8 @@ public class MainMenuScreen implements Screen{
 			playSounds.setPosition(camera.position.x - playSounds.getWidth()/2, camera.position.y - playSounds.getHeight()/2);
 			stopSounds.setSize(playSounds.getWidth(), playSounds.getHeight());
 			stopSounds.setPosition(playSounds.getX(), playSounds.getY());
-			back.setSize(100, 50);
-			back.setPosition(camera.position.x - Gdx.graphics.getWidth()*camera.zoom/2, camera.position.y+Gdx.graphics.getHeight()*camera.zoom/2 - 50);
+			back.setSize(175, 90);
+			back.setPosition(camera.position.x - Gdx.graphics.getWidth()*camera.zoom/2, camera.position.y+Gdx.graphics.getHeight()*camera.zoom/2 - 90);
 			
 		}
 		else{
@@ -262,8 +263,8 @@ public class MainMenuScreen implements Screen{
 			playSounds.setPosition(camera.position.x - playSounds.getWidth()/2, camera.position.y - playSounds.getHeight()/2);
 			stopSounds.setSize(playSounds.getWidth(), playSounds.getHeight());
 			stopSounds.setPosition(playSounds.getX(), playSounds.getY());
-			back.setSize(100, 50);
-			back.setPosition(camera.position.x - Gdx.graphics.getWidth()/2, camera.position.y+Gdx.graphics.getHeight() - 50);
+			back.setSize(175, 90);
+			back.setPosition(camera.position.x - Gdx.graphics.getWidth()/2, camera.position.y+Gdx.graphics.getHeight() - 90);
 		}
 		sounds.setFontScale(1.5f);
 		sounds.setPosition(camera.position.x - sounds.getPrefWidth()/2, playSounds.getY() + playSounds.getHeight() + sounds.getPrefHeight());
