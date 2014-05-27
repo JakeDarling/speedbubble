@@ -17,7 +17,11 @@ public class HighScores {
     
     private static final int MAXHIGHSCORES = 5;
     private static FileHandle hsHandle;
-
+    
+    
+    /**
+     * Function to compare the value of high scores
+     */
     private static class ScoreComparator implements Comparator<Score> {
         public int compare(Score a, Score b) {
             if (a.getScore() < b.getScore())
@@ -28,6 +32,11 @@ public class HighScores {
         }
     }
     
+    
+    /**
+     * Function to create local high score files
+     * if they don't already exist
+     */
     public static void createLocalFiles(){
     	if(!Gdx.files.local(ARCADE).exists()){
     		try {
@@ -72,8 +81,10 @@ public class HighScores {
      * Function to write highscores to gdx local files
      * Sorting is done here along with brute attempt at insertion
      *
-     * @param name - nape to display
+     * @param file - file name dependent upon the score.txt file you wish to access
+     * @param name - name to display
      * @param score - score value (time(s), bubbles popped, etc)
+     * @param desc - used along with the file name to determine what order to write the scores
      */
     public static void writeHighScore(String file, String name, float score, boolean desc) {
         hsHandle = Gdx.files.local(file);
@@ -108,6 +119,9 @@ public class HighScores {
 
     /**
      * Read high scores from high score file
+     * 
+     * @param file - the score.txt you wish to access
+     * 
      * @return high score list in ascending or descending order
      */
     public static Array<Score> fetchHighScores(String file, boolean desc) {

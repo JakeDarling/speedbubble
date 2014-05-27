@@ -18,7 +18,11 @@ public class Assets {
     public static Sound bubbleSound, failSound;
 
     public static Sprite bubble, previousBubble;
-
+    
+    /**
+     * called at the creation of the game to load these assets
+     * these are only the universal assets used by every screen/mode
+     */
     public static void load() {    	
     	
         bubbleSound = Gdx.audio.newSound(Gdx.files.internal("bubble.mp3"));
@@ -36,7 +40,6 @@ public class Assets {
         poppingBubble = new Animation(.02f, bubbleFrames);
 
         bubble = new Sprite(bubbleAtlas.findRegion("bubble0"));
-        relocateBubble();
         bubble.setSize(Gdx.graphics.getWidth()/5, Gdx.graphics.getWidth()/5);
         previousBubble = new Sprite(bubbleAtlas.findRegion("bubble0"));
         previousBubble.setSize(Gdx.graphics.getWidth()/5, Gdx.graphics.getWidth()/5);

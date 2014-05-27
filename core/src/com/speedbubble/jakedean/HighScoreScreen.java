@@ -29,9 +29,10 @@ public class HighScoreScreen implements Screen {
 	private TextureAtlas skinAtlas;
 	private Label title, first, firstName, firstScore, second, secondName, secondScore,
 		third, thirdName, thirdScore, fourth, fourthName, fourthScore, fifth, fifthName, fifthScore;
-	private TextButton one, two, three, back;
+	private Table table;
+	private TextButton back, arcade, fifty, pacer, timed;
 	
-	private int i;
+	private int i, spacing, buttonWidth;
 	
 	public HighScoreScreen (final SpeedBubble s){
 		mode = Mode.ARCADE;
@@ -60,12 +61,65 @@ public class HighScoreScreen implements Screen {
 		fifthName = new Label("", skin, "defaultWhite");
 		fifthScore = new Label("", skin, "defaultWhite");
 		
-		one = new TextButton("", skin, "blue");
-		one.setSize(2*Gdx.graphics.getWidth()/7, 75);
-		two = new TextButton("", skin, "green");
-		two.setSize(2*Gdx.graphics.getWidth()/7, 75);
-		three = new TextButton("", skin, "red");
-		three.setSize(2*Gdx.graphics.getWidth()/7, 75);
+		spacing = Gdx.graphics.getWidth()/25;
+		buttonWidth = Gdx.graphics.getWidth()/5;
+		
+		arcade = new TextButton("ARCADE", skin, "green");
+		arcade.setSize(buttonWidth, 75);
+		arcade.setPosition(spacing, 10);
+		arcade.addListener(new InputListener(){
+            public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
+            	Assets.playSound(Assets.bubbleSound);
+            	mode = Mode.ARCADE;
+                return true;
+            }
+            public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
+            	setTable(table);
+            }
+		});
+		
+		fifty = new TextButton("50 BUBBLE", skin, "green");
+		fifty.setSize(buttonWidth, 75);
+		fifty.setPosition(2*spacing+buttonWidth, 10);
+		fifty.addListener(new InputListener(){
+            public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
+            	Assets.playSound(Assets.bubbleSound);
+            	mode = Mode.FIFTY;
+                return true;
+            }
+            public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
+            	setTable(table);
+            }
+		});
+		
+		pacer = new TextButton("PACER", skin, "green");
+		pacer.setSize(buttonWidth, 75);
+		pacer.setPosition(3*spacing+2*buttonWidth, 10);
+		pacer.addListener(new InputListener(){
+            public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
+            	Assets.playSound(Assets.bubbleSound);
+            	mode = Mode.PACER;
+                return true;
+            }
+            public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
+            	setTable(table);
+            }
+		});
+		
+		timed = new TextButton("TIMED", skin, "green");
+		timed.setSize(buttonWidth, 75);
+		timed.setPosition(4*spacing+3*buttonWidth, 10);
+		timed.addListener(new InputListener(){
+            public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
+            	Assets.playSound(Assets.bubbleSound);
+            	mode = Mode.TIMED;
+                return true;
+            }
+            public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
+            	setTable(table);
+            }
+		});
+		
 		
 		back = new TextButton("BACK", skin, "red");
 		back.setSize(100, 50);
@@ -83,8 +137,16 @@ public class HighScoreScreen implements Screen {
 		
 		i = 0;
 		
+		table = new Table();
+		setTable(table);
+		
 		stage = new Stage();
-		setStage();
+		stage.addActor(table);
+		stage.addActor(back);
+		stage.addActor(arcade);
+		stage.addActor(fifty);
+		stage.addActor(pacer);
+		stage.addActor(timed);
 		
 		Gdx.input.setInputProcessor(stage);
 		
@@ -118,46 +180,25 @@ public class HighScoreScreen implements Screen {
 				}
 				i++;
 			}
-			
-			one.setText("FIFTY BUBBLE");
-			one.getLabel().setFontScale(.9f);
-			one.addListener(new InputListener(){
-	            public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
-	            	Assets.playSound(Assets.bubbleSound);
-	            	mode = Mode.FIFTY;
-	                return true;
-	            }
-	            public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
-	            	setStage();
-	            }
-			});
-			
-			two.setText("PACER");
-			two.getLabel().setFontScale(1);
-			two.addListener(new InputListener(){
-	            public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
-	            	Assets.playSound(Assets.bubbleSound);
-	            	mode = Mode.PACER;
-	                return true;
-	            }
-	            public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
-	            	setStage();
-	            }
-			});
-			
-			three.setText("TIMED");
-			three.getLabel().setFontScale(1);
-			three.addListener(new InputListener(){
-	            public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
-	            	Assets.playSound(Assets.bubbleSound);
-	            	mode = Mode.TIMED;
-	                return true;
-	            }
-	            public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
-	            	setStage();
-	            }
-			});
-			
+			for (int j = i; j<5; j++){
+				if (j == 1){
+					secondName.setText("");
+					secondScore.setText("");
+				}
+				else if (j == 2){
+					thirdName.setText("");
+					thirdScore.setText("");
+				}
+				else if (j == 3){
+					fourthName.setText("");
+					fourthScore.setText("");
+				}
+				else if (j == 4){
+					fifthName.setText("");
+					fifthScore.setText("");
+				}
+			}
+						
 			break;
 		case FIFTY:
 			title.setText("FIFTY BUBBLE");
@@ -185,45 +226,24 @@ public class HighScoreScreen implements Screen {
 				}
 				i++;
 			}
-			
-			one.setText("ARCADE");
-			one.getLabel().setFontScale(1);
-			one.addListener(new InputListener(){
-	            public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
-	            	Assets.playSound(Assets.bubbleSound);
-	            	mode = Mode.ARCADE;
-	                return true;
-	            }
-	            public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
-	            	setStage();
-	            }
-			});
-			
-			two.setText("PACER");
-			two.getLabel().setFontScale(1);
-			two.addListener(new InputListener(){
-	            public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
-	            	Assets.playSound(Assets.bubbleSound);
-	            	mode = Mode.PACER;
-	                return true;
-	            }
-	            public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
-	            	setStage();
-	            }
-			});
-			
-			three.setText("TIMED");
-			three.getLabel().setFontScale(1);
-			three.addListener(new InputListener(){
-	            public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
-	            	Assets.playSound(Assets.bubbleSound);
-	            	mode = Mode.TIMED;
-	                return true;
-	            }
-	            public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
-	            	setStage();
-	            }
-			});
+			for (int j = i; j<5; j++){
+				if (j == 1){
+					secondName.setText("");
+					secondScore.setText("");
+				}
+				else if (j == 2){
+					thirdName.setText("");
+					thirdScore.setText("");
+				}
+				else if (j == 3){
+					fourthName.setText("");
+					fourthScore.setText("");
+				}
+				else if (j == 4){
+					fifthName.setText("");
+					fifthScore.setText("");
+				}
+			}
 			
 			break;
 		case PACER:
@@ -252,45 +272,24 @@ public class HighScoreScreen implements Screen {
 				}
 				i++;
 			}
-			
-			one.setText("ARCADE");
-			one.getLabel().setFontScale(1);
-			one.addListener(new InputListener(){
-	            public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
-	            	Assets.playSound(Assets.bubbleSound);
-	            	mode = Mode.ARCADE;
-	                return true;
-	            }
-	            public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
-	            	setStage();
-	            }
-			});
-			
-			two.setText("FIFTY BUBBLE");
-			two.getLabel().setFontScale(.9f);
-			two.addListener(new InputListener(){
-	            public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
-	            	Assets.playSound(Assets.bubbleSound);
-	            	mode = Mode.FIFTY;
-	                return true;
-	            }
-	            public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
-	            	setStage();
-	            }
-			});
-			
-			three.setText("TIMED");
-			three.getLabel().setFontScale(1);
-			three.addListener(new InputListener(){
-	            public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
-	            	Assets.playSound(Assets.bubbleSound);
-	            	mode = Mode.TIMED;
-	                return true;
-	            }
-	            public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
-	            	setStage();
-	            }
-			});
+			for (int j = i; j<5; j++){
+				if (j == 1){
+					secondName.setText("");
+					secondScore.setText("");
+				}
+				else if (j == 2){
+					thirdName.setText("");
+					thirdScore.setText("");
+				}
+				else if (j == 3){
+					fourthName.setText("");
+					fourthScore.setText("");
+				}
+				else if (j == 4){
+					fifthName.setText("");
+					fifthScore.setText("");
+				}
+			}
 			
 			break;
 		case TIMED:
@@ -319,52 +318,31 @@ public class HighScoreScreen implements Screen {
 				}
 				i++;
 			}
-			
-			one.setText("ARCADE");
-			one.getLabel().setFontScale(1);
-			one.addListener(new InputListener(){
-	            public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
-	            	Assets.playSound(Assets.bubbleSound);
-	            	mode = Mode.ARCADE;
-	                return true;
-	            }
-	            public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
-	            	setStage();
-	            }
-			});
-			
-			two.setText("FIFTY BUBBLE");
-			two.getLabel().setFontScale(.9f);
-			two.addListener(new InputListener(){
-	            public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
-	            	Assets.playSound(Assets.bubbleSound);
-	            	mode = Mode.FIFTY;
-	                return true;
-	            }
-	            public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
-	            	setStage();
-	            }
-			});
-			
-			three.setText("PACER");
-			three.getLabel().setFontScale(1);
-			three.addListener(new InputListener(){
-	            public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
-	            	Assets.playSound(Assets.bubbleSound);
-	            	mode = Mode.PACER;
-	                return true;
-	            }
-	            public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
-	            	setStage();
-	            }
-			});
+			for (int j = i; j<5; j++){
+				if (j == 1){
+					secondName.setText("");
+					secondScore.setText("");
+				}
+				else if (j == 2){
+					thirdName.setText("");
+					thirdScore.setText("");
+				}
+				else if (j == 3){
+					fourthName.setText("");
+					fourthScore.setText("");
+				}
+				else if (j == 4){
+					fifthName.setText("");
+					fifthScore.setText("");
+				}
+			}
 			
 			break;
 		}
 	}
 	
-	private void setStage(){
-		Table t = new Table();
+	private void setTable(Table t){
+		t.reset();
 		prepareTable();
 		
 		t.setSize(3*Gdx.graphics.getWidth()/4, Gdx.graphics.getHeight());
@@ -392,13 +370,6 @@ public class HighScoreScreen implements Screen {
 		t.add(fifthName).right().padTop(Gdx.graphics.getHeight()/24).padLeft(Gdx.graphics.getWidth()/12);
 		t.add(fifthScore).left().padTop(Gdx.graphics.getHeight()/24).padLeft(Gdx.graphics.getWidth()/12);
 		t.row();
-		t.add(one).width(one.getWidth()).height(one.getHeight()).space(20);
-		t.add(two).width(two.getWidth()).height(two.getHeight()).space(20);
-		t.add(three).width(three.getWidth()).height(three.getHeight()).space(20);
-		
-		stage.getRoot().remove();
-		stage.addActor(back);
-		stage.addActor(t);
 	}
 	
 	private String toText(float f){
@@ -418,7 +389,7 @@ public class HighScoreScreen implements Screen {
     	Gdx.gl.glClearColor(0, 0, 0, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		batch.begin();
-		batch.draw(background, (Gdx.graphics.getWidth() - 1024)/2, (Gdx.graphics.getHeight() - 512)/2);
+		batch.draw(background, (Gdx.graphics.getWidth() - 2048)/2, (Gdx.graphics.getHeight() - 1024)/2);
 		batch.draw(tint, 0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 		batch.end();
 		

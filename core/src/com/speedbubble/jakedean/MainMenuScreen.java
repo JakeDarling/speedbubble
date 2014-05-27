@@ -6,6 +6,7 @@ import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.Group;
@@ -359,6 +360,9 @@ public class MainMenuScreen implements Screen{
 		if(Gdx.graphics.getWidth()>Gdx.graphics.getHeight()){landscape=true; v.setWorldSize(800,480);}
 		else{landscape=false; v.setWorldSize(480, 800);}
 		updateWindow();
+		
+		Assets.bubble.setSize(Gdx.graphics.getWidth()/5, Gdx.graphics.getWidth()/5);
+        Assets.previousBubble.setSize(Gdx.graphics.getWidth()/5, Gdx.graphics.getWidth()/5);
 		
 		v.update(width, height, false);
 		setTable(table);

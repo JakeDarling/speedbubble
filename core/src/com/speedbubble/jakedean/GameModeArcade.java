@@ -79,8 +79,10 @@ public class GameModeArcade implements GameMode{
 			spawnBubble();
 		}
 		
+		/**
+		 * this makes it so you can only pop the upper most bubble on the screen or else you fail
+		 */
 		topBubble = bubbles.first();
-        
         if (Gdx.input.justTouched()){
         	if(Gdx.input.getX()>=topBubble.getX() && Gdx.input.getX() <= topBubble.getX()+topBubble.getWidth()
     			&& ((Gdx.input.getY() - Gdx.graphics.getHeight()) * -1) >= topBubble.getY() 
@@ -97,7 +99,10 @@ public class GameModeArcade implements GameMode{
         		missedBubble = true;
         	}
         }
-		
+        
+		/**
+		 * This is here solely to remove any "popped" bubble from the screen
+		 */
 		Iterator<Sprite> iter = bubbles.iterator();
         while (iter.hasNext()) {
         	Sprite bubble = iter.next();
@@ -111,12 +116,18 @@ public class GameModeArcade implements GameMode{
     	        	iter.remove();
             	}
             }
+        /**
+         * If the bubble makes it off the screen you missed it, therefore you fail
+         */
             if (bubble.getY() > height){
                 iter.remove();
                 missedBubble = true;
             }
         }
         
+        /**
+         * only fail the game if a bubble has been missed
+         */
         if (missedBubble){
         	Assets.playSound(Assets.failSound);
         	screen.setState(new GameStateGetName(screen, bubblesPopped));
