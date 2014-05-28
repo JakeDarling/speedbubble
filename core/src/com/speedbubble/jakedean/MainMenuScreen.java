@@ -51,6 +51,8 @@ public class MainMenuScreen implements Screen{
 	private Image tintImage;
 	
 	public MainMenuScreen(final SpeedBubble game){
+		
+		Assets.load();
 				
 		if(width>height){landscape=true;}
 		else{landscape=false;}
@@ -305,9 +307,9 @@ public class MainMenuScreen implements Screen{
 			table.setSize(width, height);
 			table.setPosition(Gdx.graphics.getWidth() - table.getWidth()/2, Gdx.graphics.getHeight() - table.getHeight()/2 );
 			table.setColor(1,1,1,1);
-			table.add(timed).width(buttonWidth).height(buttonHeight).padTop(0).padLeft(0);
+			table.add(arcade).width(buttonWidth).height(buttonHeight).padTop(0).padLeft(0);
 			table.add(fiftyBubble).width(buttonWidth).height(buttonHeight).padTop(0).padLeft(spacingW);
-			table.add(arcade).width(buttonWidth).height(buttonHeight).padTop(0).padLeft(spacingW);
+			table.add(timed).width(buttonWidth).height(buttonHeight).padTop(0).padLeft(spacingW);
 			table.add(pacer).width(buttonWidth).height(buttonHeight).padTop(0).padLeft(spacingW);
 			table.row();
 			table.add(highScores).width(buttonWidth).height(buttonHeight).padTop(spacingH).padLeft(0);

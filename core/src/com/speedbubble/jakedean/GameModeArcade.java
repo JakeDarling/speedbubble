@@ -49,7 +49,7 @@ public class GameModeArcade implements GameMode{
 		
 		spawnBubble();
 		
-		speed = 200;
+		speed = Gdx.graphics.getHeight()/2;
 		yPos = 0;
 		
 	}
@@ -133,7 +133,7 @@ public class GameModeArcade implements GameMode{
         	screen.setState(new GameStateGetName(screen, bubblesPopped));
         }
 
-        speed += 5 * deltaTime;
+        speed += (Gdx.graphics.getHeight()/100) * deltaTime;
 	}
 
 	@Override
