@@ -62,7 +62,6 @@ public class MainMenuScreen implements Screen{
 		loopingBubbleSound = Gdx.audio.newSound(Gdx.files.internal("bubbles.mp3"));
 		
 		timed = new TextButton("TIMED", skin, "blue");
-		timed.getLabel().setFontScale(1.5f);
 		timed.addListener(new InputListener(){
             public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
             	Assets.playSound(Assets.bubbleSound);
@@ -77,7 +76,6 @@ public class MainMenuScreen implements Screen{
 		});
 		
 		fiftyBubble = new TextButton("50\nBUBBLE\n", skin, "blue");
-		fiftyBubble.getLabel().setFontScale(1.5f);
 		fiftyBubble.getLabel();
 		fiftyBubble.addListener(new InputListener(){
             public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
@@ -93,7 +91,6 @@ public class MainMenuScreen implements Screen{
 		});
 		
 		arcade = new TextButton("ARCADE", skin, "blue");
-		arcade.getLabel().setFontScale(1.3f);
 		arcade.addListener(new InputListener(){
             public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
             	Assets.playSound(Assets.bubbleSound);
@@ -108,7 +105,6 @@ public class MainMenuScreen implements Screen{
 		});
 		
 		highScores = new TextButton("HIGH\nSCORES", skin, "green");
-		highScores.getLabel().setFontScale(1.3f);
 		highScores.addListener(new InputListener(){
             public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
             	Assets.playSound(Assets.bubbleSound);
@@ -122,7 +118,6 @@ public class MainMenuScreen implements Screen{
 		});
 		
 		pacer = new TextButton("PACER", skin, "blue");
-		pacer.getLabel().setFontScale(1.5f);
 		pacer.addListener(new InputListener(){
             public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
             	Assets.playSound(Assets.bubbleSound);
@@ -137,7 +132,6 @@ public class MainMenuScreen implements Screen{
 		});
 		
 		credits = new TextButton("CREDITS", skin, "green");
-		credits.getLabel().setFontScale(1.3f);
 		credits.addListener(new InputListener(){
             public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
             	Assets.playSound(Assets.bubbleSound);
@@ -151,7 +145,6 @@ public class MainMenuScreen implements Screen{
 		});
 		
 		options = new TextButton("OPTIONS", skin, "green");
-		options.getLabel().setFontScale(1.3f);
 		options.addListener(new InputListener(){
             public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
             	Assets.playSound(Assets.bubbleSound);
@@ -165,7 +158,6 @@ public class MainMenuScreen implements Screen{
 		});
 		
 		quit = new TextButton("EXIT\nGAME", skin, "red");
-		quit.getLabel().setFontScale(1.5f);
 		quit.addListener(new InputListener(){
             public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
             	Assets.playSound(Assets.bubbleSound);
@@ -308,14 +300,22 @@ public class MainMenuScreen implements Screen{
 			table.setPosition(Gdx.graphics.getWidth() - table.getWidth()/2, Gdx.graphics.getHeight() - table.getHeight()/2 );
 			table.setColor(1,1,1,1);
 			table.add(arcade).width(buttonWidth).height(buttonHeight).padTop(0).padLeft(0);
+				arcade.getLabel().setFontScale(buttonWidth / arcade.getLabel().getStyle().font.getBounds("ARCADE").width - .3f);
 			table.add(fiftyBubble).width(buttonWidth).height(buttonHeight).padTop(0).padLeft(spacingW);
+				fiftyBubble.getLabel().setFontScale(buttonWidth / fiftyBubble.getLabel().getStyle().font.getBounds("BUBBLE").width - .3f);
 			table.add(timed).width(buttonWidth).height(buttonHeight).padTop(0).padLeft(spacingW);
+				timed.getLabel().setFontScale(buttonWidth / timed.getLabel().getStyle().font.getBounds("TIMED").width - .5f);
 			table.add(pacer).width(buttonWidth).height(buttonHeight).padTop(0).padLeft(spacingW);
+				pacer.getLabel().setFontScale(buttonWidth / pacer.getLabel().getStyle().font.getBounds("PACER").width - .4f);
 			table.row();
 			table.add(highScores).width(buttonWidth).height(buttonHeight).padTop(spacingH).padLeft(0);
+				highScores.getLabel().setFontScale(buttonWidth / highScores.getLabel().getStyle().font.getBounds("SCORES").width - .3f);
 			table.add(options).width(buttonWidth).height(buttonHeight).padTop(spacingH).padLeft(spacingW);
+				options.getLabel().setFontScale(buttonWidth / options.getLabel().getStyle().font.getBounds("OPTIONS").width - .2f);
 			table.add(credits).width(buttonWidth).height(buttonHeight).padTop(spacingH).padLeft(spacingW);
+				credits.getLabel().setFontScale(buttonWidth / credits.getLabel().getStyle().font.getBounds("CREDITS").width - .2f);
 			table.add(quit).width(buttonWidth).height(buttonHeight).padTop(spacingH).padLeft(spacingW);
+				quit.getLabel().setFontScale(buttonWidth / quit.getLabel().getStyle().font.getBounds("GAME").width - .7f);
 		}
 		else{
 			rows = 4;
@@ -328,18 +328,27 @@ public class MainMenuScreen implements Screen{
 			table.setSize(height, width);
 			table.setPosition(Gdx.graphics.getWidth() - table.getWidth()/2, Gdx.graphics.getHeight() - table.getHeight()/2 );
 			table.setColor(1,1,1,1);
-			table.add(timed).width(buttonWidth).height(buttonHeight).padTop(0).padLeft(0);
+			table.add(arcade).width(buttonWidth).height(buttonHeight).padTop(0).padLeft(0);
+				arcade.getLabel().setFontScale(arcade.getLabel().getPrefWidth()/buttonWidth - .1f);
 			table.add(fiftyBubble).width(buttonWidth).height(buttonHeight).padTop(0).padLeft(spacingW);
+				fiftyBubble.getLabel().setFontScale(fiftyBubble.getLabel().getPrefWidth()/buttonWidth - .1f);
 			table.row();
-			table.add(arcade).width(buttonWidth).height(buttonHeight).padTop(spacingH).padLeft(0);
-			table.add(pacer).width(buttonWidth).height(buttonHeight).padTop(spacingH).padLeft(spacingW);
+			table.add(timed).width(buttonWidth).height(buttonHeight).padTop(0).padLeft(spacingW);
+				timed.getLabel().setFontScale(timed.getLabel().getPrefWidth()/buttonWidth - .1f);
+			table.add(pacer).width(buttonWidth).height(buttonHeight).padTop(0).padLeft(spacingW);
+				pacer.getLabel().setFontScale(pacer.getLabel().getPrefWidth()/buttonWidth - .1f);
 			table.row();
 			table.add(highScores).width(buttonWidth).height(buttonHeight).padTop(spacingH).padLeft(0);
+				highScores.getLabel().setFontScale(highScores.getLabel().getPrefWidth()/buttonWidth - .1f);
 			table.add(options).width(buttonWidth).height(buttonHeight).padTop(spacingH).padLeft(spacingW);
+				options.getLabel().setFontScale(options.getLabel().getPrefWidth()/buttonWidth - .1f);
 			table.row();
-			table.add(credits).width(buttonWidth).height(buttonHeight).padTop(spacingH).padLeft(0);
+			table.add(credits).width(buttonWidth).height(buttonHeight).padTop(spacingH).padLeft(spacingW);
+				credits.getLabel().setFontScale(credits.getLabel().getPrefWidth()/buttonWidth - .1f);
 			table.add(quit).width(buttonWidth).height(buttonHeight).padTop(spacingH).padLeft(spacingW);
+				quit.getLabel().setFontScale(quit.getLabel().getPrefWidth()/buttonWidth - .1f);
 		}
+		
 	}
 	
 	@Override
