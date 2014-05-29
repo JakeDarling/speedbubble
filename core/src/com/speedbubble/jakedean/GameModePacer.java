@@ -82,6 +82,7 @@ public class GameModePacer implements GameMode{
     	batch.begin();
     	batch.draw(background, Gdx.graphics.getWidth()/2 - 1024, Gdx.graphics.getHeight()/2 - 512);
         if(popStarted) drawAnimation();
+        Assets.phantom.draw(batch);
         Assets.bubble.draw(batch);
         gameFont.draw(batch, "BUBBLES POPPED: " + bubbles, (Gdx.graphics.getWidth() - gameFont.getBounds("BUBBLES REMAINING: 50").width)/2,
         		Gdx.graphics.getHeight());

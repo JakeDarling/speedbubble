@@ -42,6 +42,7 @@ public class HighScores {
     		try {
 //    			Gdx.files.local(ARCADE).file().getParentFile().mkdirs();
 				Gdx.files.local(ARCADE).file().createNewFile();
+				Gdx.files.local(ARCADE).writeString("empty 0\nempty 0\nempty 0\nempty 0\nempty 0\n", false);
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -51,7 +52,7 @@ public class HighScores {
     		try {
 //    			Gdx.files.local(ARCADE).file().getParentFile().mkdirs();
 				Gdx.files.local(FIFTY).file().createNewFile();
-				Gdx.files.local(FIFTY).writeString("fake 99.999\n", false);
+				Gdx.files.local(FIFTY).writeString("empty 99.999\nempty 99.999\nempty 99.999\nempty 99.999\nempty 99.999\n", false);
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -61,6 +62,7 @@ public class HighScores {
     		try {
 //    			Gdx.files.local(ARCADE).file().getParentFile().mkdirs();
 				Gdx.files.local(PACER).file().createNewFile();
+				Gdx.files.local(PACER).writeString("empty 0\nempty 0\nempty 0\nempty 0\nempty 0\n", false);
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -70,6 +72,7 @@ public class HighScores {
     		try {
 //    			Gdx.files.local(ARCADE).file().getParentFile().mkdirs();
 				Gdx.files.local(TIMED).file().createNewFile();
+				Gdx.files.local(TIMED).writeString("empty 0\nempty 0\nempty 0\nempty 0\nempty 0\n", false);
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

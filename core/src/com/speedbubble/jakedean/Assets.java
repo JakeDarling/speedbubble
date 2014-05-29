@@ -20,7 +20,7 @@ public class Assets {
 
     public static Sound bubbleSound, failSound;
 
-    public static Sprite bubble, previousBubble;
+    public static Sprite bubble, previousBubble, phantom;
     
     /**
      * called at the creation of the game to load these assets
@@ -53,7 +53,11 @@ public class Assets {
         }
 
         poppingBubble = new Animation(.02f, bubbleFrames);
-
+        
+        phantom = new Sprite(bubbleAtlas.findRegion("bubblePhantom"));
+        phantom.setSize(Gdx.graphics.getWidth()/5, Gdx.graphics.getWidth()/5);
+        phantom.setPosition((Gdx.graphics.getWidth() - phantom.getWidth())/2, (Gdx.graphics.getHeight() - phantom.getHeight())/2);
+        phantom.setColor(1, 1, 1, .2f);
         bubble = new Sprite(bubbleAtlas.findRegion("bubble0"));
         bubble.setSize(Gdx.graphics.getWidth()/5, Gdx.graphics.getWidth()/5);
         previousBubble = new Sprite(bubbleAtlas.findRegion("bubble0"));
@@ -61,7 +65,10 @@ public class Assets {
     }
 
     public static void relocateBubble(){
-        bubble.setPosition(MathUtils.random(0, Gdx.graphics.getWidth() - bubble.getWidth()), MathUtils.random(0,
+    	
+    	bubble.setPosition(phantom.getX(), phantom.getY());
+    	
+        phantom.setPosition(MathUtils.random(0, Gdx.graphics.getWidth() - bubble.getWidth()), MathUtils.random(0,
                 Gdx.graphics.getHeight()-bubble.getHeight()- 2*gameFont.getBounds("HI").height));
     }
     

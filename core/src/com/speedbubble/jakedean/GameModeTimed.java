@@ -71,6 +71,7 @@ public class GameModeTimed implements GameMode {
     	batch.begin();
     	batch.draw(background, Gdx.graphics.getWidth()/2 - 1024, Gdx.graphics.getHeight()/2 - 512);
         if(popStarted) drawAnimation();
+        Assets.phantom.draw(batch);
         Assets.bubble.draw(batch);
         gameFont.draw(batch, "BUBBLES POPPED: " + score, (Gdx.graphics.getWidth() - gameFont.getBounds("BUBBLES POPPED: 10").width)/2,
         		Gdx.graphics.getHeight() - 3 * gameFont.getBounds("BUBBLES POPPED: 10").height/2);
