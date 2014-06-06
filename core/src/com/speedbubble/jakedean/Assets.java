@@ -13,7 +13,10 @@ public class Assets {
     public static TextureRegion currentBubble;
     public static BitmapFont gameFont;
     
-    public static String name;
+    public static String name, text;
+    public static String[] lines;
+    
+    public static boolean firstPlayArcade, firstPlayFifty, firstPlayPacer, firstPlayTimed;
 
     public static Sound bubbleSound, failSound;
 
@@ -23,7 +26,19 @@ public class Assets {
      * called at the creation of the game to load these assets
      * these are only the universal assets used by every screen/mode
      */
-    public static void load() {    	
+    public static void load() {   
+    	text = Gdx.files.local("firstPlay.txt").readString();
+        lines = text.split("\n");
+        
+    	name = lines[0];
+    	if (lines[1].equals("true")) firstPlayArcade = true;
+    	else firstPlayArcade = false;
+    	if (lines[2].equals("true")) firstPlayFifty = true;
+    	else firstPlayFifty = false;
+    	if (lines[3].equals("true")) firstPlayPacer = true;
+    	else firstPlayPacer = false;
+    	if (lines[4].equals("true")) firstPlayTimed = true;
+    	else firstPlayPacer = false;
     	
         bubbleSound = Gdx.audio.newSound(Gdx.files.internal("bubble.mp3"));
         failSound = Gdx.audio.newSound(Gdx.files.internal("largeBubble.mp3"));

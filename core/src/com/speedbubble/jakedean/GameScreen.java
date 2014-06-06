@@ -14,13 +14,13 @@ public class GameScreen implements Screen {
     	game = sb;
     	selector = selection;
         setMode(selector);
-        setState(new GameStateStart());
+        setState(new GameStateStart(this));
         
     }
     
     public void reset(){
     	setMode(selector);
-        setState(new GameStateStart());
+        setState(new GameStateStart(this));
     }
     
     public SpeedBubble getGame(){

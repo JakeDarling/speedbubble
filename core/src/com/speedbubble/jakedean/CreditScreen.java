@@ -30,7 +30,7 @@ public class CreditScreen implements Screen {
 		batch.begin();
 		batch.draw(background, Gdx.graphics.getWidth()/2 - 1024, Gdx.graphics.getHeight()/2 - 512);
 		batch.draw(tint, 0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-		batch.draw(credits, Gdx.graphics.getWidth()/2 - 530/2, Gdx.graphics.getHeight()/2 - 480/2);
+		batch.draw(credits, Gdx.graphics.getWidth()/2 - 530*Gdx.graphics.getHeight()/480/2, 0, 530*Gdx.graphics.getHeight()/480, Gdx.graphics.getHeight());
 		batch.end();
 		
 		if(Gdx.input.justTouched()){
