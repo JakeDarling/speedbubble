@@ -20,7 +20,6 @@ public class SpeedBubble extends Game {
     		setScreen(new BlackScreen(this));
     	}
         else{
-//        	Gdx.files.local("firstPlay.txt").delete(); // TODO DELETE THIS LINE
         	setScreen(new MainMenuScreen(this));
         }
 	}

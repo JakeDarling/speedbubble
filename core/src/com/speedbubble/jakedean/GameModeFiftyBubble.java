@@ -70,6 +70,7 @@ public class GameModeFiftyBubble implements GameMode{
     	batch.draw(background, Gdx.graphics.getWidth()/2 - 1024, Gdx.graphics.getHeight()/2 - 512);
         if(popStarted) drawAnimation();
         Assets.bubble.draw(batch);
+        Assets.phantom.draw(batch);
         gameFont.draw(batch, "BUBBLES REMAINING: " + bubbles, (Gdx.graphics.getWidth() - gameFont.getBounds("BUBBLES REMAINING: 50").width)/2,
         		Gdx.graphics.getHeight());
         gameFont.draw(batch, "TIME: " + String.format("%.3f", time), 

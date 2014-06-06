@@ -2,5 +2,15 @@
 <resources>
 
     <string name="app_name">SpeedBubble</string>
+	<string name="app_id">419518969607</string>
+	<string name="achievement_achievment_1">CgkIh-6d6poMEAIQBQ</string>
+	<string name="achievement_achievement_2">CgkIh-6d6poMEAIQBg</string>
+	<string name="achievement_achievement_3">CgkIh-6d6poMEAIQBw</string>
+	<string name="achievement_achievement_4">CgkIh-6d6poMEAIQCA</string>
+	<string name="achievement_achievement_5">CgkIh-6d6poMEAIQCQ</string>
+	<string name="leaderboard_arcade_world_leaders">CgkIh-6d6poMEAIQAQ</string>
+	<string name="leaderboard_50_bubble_world_leaders">CgkIh-6d6poMEAIQAg</string>
+	<string name="leaderboard_pacer_world_leaders">CgkIh-6d6poMEAIQAw</string>
+	<string name="leaderboard_timed_world_leaders">CgkIh-6d6poMEAIQBA</string>
 
 </resources>
