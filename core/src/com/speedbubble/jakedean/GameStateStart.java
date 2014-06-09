@@ -18,40 +18,32 @@ public class GameStateStart implements GameState {
 		background = new Texture(Gdx.files.internal("inGameBackground.png"));
 		
 		gameFont = new BitmapFont(Gdx.files.internal("gameFont.fnt"));
-    	gameFont.setColor(0, 0, 0, 1);
+    	gameFont.setColor(1, 1, 1, 1);
     	
     	switch (screen.selector){
 		case ARCADE:
 			if (Assets.lines[1].equals("true")){
-				if (Gdx.graphics.getWidth() < gameFont.getBounds("HOW LONG CAN YOU LAST? JUST TOUCH THE BUBBLES TO POP THEM!").width){
-					gameFont.setScale(Gdx.graphics.getWidth()/gameFont.getBounds("HOW LONG CAN YOU LAST? JUST TOUCH THE BUBBLES TO POP THEM!").width);
-				}
+					gameFont.setScale(Gdx.graphics.getWidth()/gameFont.getBounds("HOW LONG CAN YOU LAST? JUST TOUCH THE BUBBLES TO POP THEM!").width-.1f);
 			}
-			else gameFont.setScale(2);
+			else gameFont.setScale(Gdx.graphics.getWidth()/gameFont.getBounds("TAP ANYWHERE TO BEGIN").width -.1f);
 			break;
 		case FIFTY_BUBBLE:
 			if (Assets.lines[2].equals("true")){
-				if (Gdx.graphics.getWidth() < gameFont.getBounds("THE TIME WILL INCREASE UNTIL ALL BUBBLES ARE POPPED!").width){
-					gameFont.setScale(Gdx.graphics.getWidth()/gameFont.getBounds("THE TIME WILL INCREASE UNTIL ALL BUBBLES ARE POPPED!").width);
-				}
+					gameFont.setScale(Gdx.graphics.getWidth()/gameFont.getBounds("THE TIME WILL INCREASE UNTIL ALL BUBBLES ARE POPPED!").width-.1f);
 			}
-			else gameFont.setScale(2);
+			else gameFont.setScale(Gdx.graphics.getWidth()/gameFont.getBounds("TAP ANYWHERE TO BEGIN").width -.1f);
 			break;
 		case PACER:
 			if (Assets.lines[3].equals("true")){
-				if (Gdx.graphics.getWidth() < gameFont.getBounds("POP 25 BUBBLES IN THE GIVEN TIME TO ADVANCE!").width){
-					gameFont.setScale(Gdx.graphics.getWidth()/gameFont.getBounds("POP 25 BUBBLES IN THE GIVEN TIME TO ADVANCE!").width);
-				}
+					gameFont.setScale(Gdx.graphics.getWidth()/gameFont.getBounds("POP 25 BUBBLES IN THE GIVEN TIME TO ADVANCE!").width-.1f);
 			}
-			else gameFont.setScale(2);
+			else gameFont.setScale(Gdx.graphics.getWidth()/gameFont.getBounds("TAP ANYWHERE TO BEGIN").width -.1f);
 			break;
 		case TIMED:
 			if (Assets.lines[4].equals("true")){
-				if (Gdx.graphics.getWidth() < gameFont.getBounds("YOU HAVE 15 SECONDS TO SEE HOW MANY BUBBLES YOU CAN POP!").width){
-					gameFont.setScale(Gdx.graphics.getWidth()/gameFont.getBounds("YOU HAVE 15 SECONDS TO SEE HOW MANY BUBBLES YOU CAN POP!").width);
-				}
+					gameFont.setScale(Gdx.graphics.getWidth()/gameFont.getBounds("YOU HAVE 15 SECONDS TO SEE HOW MANY BUBBLES YOU CAN POP!").width-.1f);
 			}
-			else gameFont.setScale(2);
+			else gameFont.setScale(Gdx.graphics.getWidth()/gameFont.getBounds("TAP ANYWHERE TO BEGIN").width -.1f);
 			break;
 		}
 	}

@@ -329,24 +329,24 @@ public class MainMenuScreen implements Screen{
 			table.setPosition(Gdx.graphics.getWidth() - table.getWidth()/2, Gdx.graphics.getHeight() - table.getHeight()/2 );
 			table.setColor(1,1,1,1);
 			table.add(arcade).width(buttonWidth).height(buttonHeight).padTop(0).padLeft(0);
-				arcade.getLabel().setFontScale(arcade.getLabel().getPrefWidth()/buttonWidth - .1f);
+				arcade.getLabel().setFontScale(buttonWidth / arcade.getLabel().getStyle().font.getBounds("ARCADE").width - .3f);
 			table.add(fiftyBubble).width(buttonWidth).height(buttonHeight).padTop(0).padLeft(spacingW);
-				fiftyBubble.getLabel().setFontScale(fiftyBubble.getLabel().getPrefWidth()/buttonWidth - .1f);
+				fiftyBubble.getLabel().setFontScale(buttonWidth / fiftyBubble.getLabel().getStyle().font.getBounds("BUBBLE").width - .3f);
 			table.row();
-			table.add(timed).width(buttonWidth).height(buttonHeight).padTop(0).padLeft(spacingW);
-				timed.getLabel().setFontScale(timed.getLabel().getPrefWidth()/buttonWidth - .1f);
-			table.add(pacer).width(buttonWidth).height(buttonHeight).padTop(0).padLeft(spacingW);
-				pacer.getLabel().setFontScale(pacer.getLabel().getPrefWidth()/buttonWidth - .1f);
+			table.add(timed).width(buttonWidth).height(buttonHeight).padTop(spacingH).padLeft(0);
+				timed.getLabel().setFontScale(buttonWidth / timed.getLabel().getStyle().font.getBounds("TIMED").width - .5f);
+			table.add(pacer).width(buttonWidth).height(buttonHeight).padTop(spacingH).padLeft(spacingW);
+				pacer.getLabel().setFontScale(buttonWidth / pacer.getLabel().getStyle().font.getBounds("PACER").width - .4f);
 			table.row();
 			table.add(highScores).width(buttonWidth).height(buttonHeight).padTop(spacingH).padLeft(0);
-				highScores.getLabel().setFontScale(highScores.getLabel().getPrefWidth()/buttonWidth - .1f);
+				highScores.getLabel().setFontScale(buttonWidth / highScores.getLabel().getStyle().font.getBounds("SCORES").width - .3f);
 			table.add(options).width(buttonWidth).height(buttonHeight).padTop(spacingH).padLeft(spacingW);
-				options.getLabel().setFontScale(options.getLabel().getPrefWidth()/buttonWidth - .1f);
+				options.getLabel().setFontScale(buttonWidth / options.getLabel().getStyle().font.getBounds("OPTIONS").width - .2f);
 			table.row();
-			table.add(credits).width(buttonWidth).height(buttonHeight).padTop(spacingH).padLeft(spacingW);
-				credits.getLabel().setFontScale(credits.getLabel().getPrefWidth()/buttonWidth - .1f);
+			table.add(credits).width(buttonWidth).height(buttonHeight).padTop(spacingH).padLeft(0);
+				credits.getLabel().setFontScale(buttonWidth / credits.getLabel().getStyle().font.getBounds("CREDITS").width - .2f);
 			table.add(quit).width(buttonWidth).height(buttonHeight).padTop(spacingH).padLeft(spacingW);
-				quit.getLabel().setFontScale(quit.getLabel().getPrefWidth()/buttonWidth - .1f);
+				quit.getLabel().setFontScale(buttonWidth / quit.getLabel().getStyle().font.getBounds("GAME").width - .7f);
 		}
 		
 	}
