@@ -18,8 +18,6 @@ public class GameModeTimed implements GameMode {
     private SpriteBatch batch;
     private Texture background;
     
-    private String name;
-    
     public GameModeTimed (){
     	batch = new SpriteBatch();
     	background = new Texture(Gdx.files.internal("inGameBackground.png"));

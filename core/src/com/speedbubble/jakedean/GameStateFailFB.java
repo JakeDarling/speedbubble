@@ -7,13 +7,13 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class GameStateFailFB implements GameState {
 	
-    private float score;
     private SpriteBatch batch;
+    
+    private Score highestScore;
     
     private BitmapFont gameFont, gameFont2;
 
     public GameStateFailFB(float score) {
-        this.score = score;
         batch = new SpriteBatch();
         
         gameFont = new BitmapFont(Gdx.files.internal("gameFont.fnt"));
@@ -22,6 +22,8 @@ public class GameStateFailFB implements GameState {
     	gameFont2 = new BitmapFont(Gdx.files.internal("gameFont.fnt"));
     	gameFont2.setColor(1, 1, 1, 1);
     	gameFont2.setScale(.75f);
+    	
+    	highestScore = HighScores.fetchHighScores(HighScores.FIFTY, false).first();
     }
 
     @Override
@@ -36,8 +38,11 @@ public class GameStateFailFB implements GameState {
     	gameFont.setColor(0, 0, 0, 1);
     	gameFont.draw(batch, "FAIL", (Gdx.graphics.getWidth() - gameFont.getBounds("FAIL").width)/2,
     	        Gdx.graphics.getHeight()/2 + (float)2.5*gameFont.getBounds("FAIL").height);
-//    	gameFont.draw(batch, "BEST: " + String.format("%.3f", score), (Gdx.graphics.getWidth() - gameFont.getBounds("BEST:    ").width)/2,
-//    	        Gdx.graphics.getHeight()/2 + gameFont.getBounds("BEST:    ").height/2);
+    	gameFont.setColor(0,1,0,1);
+    	gameFont.draw(batch, "HIGHEST SCORE: " + String.format("%.3f", highestScore.getScore()), (Gdx.graphics.getWidth() - gameFont.getBounds("HIGHEST SCORE: 00.00").width)/2,
+    	        Gdx.graphics.getHeight()/2 - 3*gameFont.getBounds("HIGHEST SCORE: 00.00").height/2);
+    	gameFont.draw(batch, "SET BY: " + highestScore.getName(), (Gdx.graphics.getWidth() - gameFont.getBounds("SET BY: AAAAA").width)/2,
+    	        Gdx.graphics.getHeight()/2 - 3*gameFont.getBounds("SET BY: AAAAA").height);
     	gameFont.setColor(1, 1, 1, 1);
     	gameFont.draw(batch, "MAIN MENU", (Gdx.graphics.getWidth() - gameFont.getBounds("MAIN MENU").width)/4,
     	        (float)2.5*gameFont.getBounds("MAIN MENU").height);
