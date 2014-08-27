@@ -2,6 +2,7 @@ package com.speedbubble.jakedean;
 
 import java.io.Serializable;
 
+@SuppressWarnings("serial")
 public class Score implements Serializable {
 
     private String name;

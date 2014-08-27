@@ -9,12 +9,11 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 public class CreditScreen implements Screen {
 	
 	private SpeedBubble game;
-	private Texture background, credits, tint;
+	private Texture credits, tint;
 	private SpriteBatch batch;
 	
 	public CreditScreen (SpeedBubble s){
 		game = s;
-		background = new Texture(Gdx.files.internal("mainMenuBackground.png"));
 		credits = new Texture(Gdx.files.internal("credits.png"));
 		tint = new Texture(Gdx.files.internal("tint.png"));
 		
@@ -27,7 +26,6 @@ public class CreditScreen implements Screen {
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		
 		batch.begin();
-		batch.draw(background, Gdx.graphics.getWidth()/2 - 1024, Gdx.graphics.getHeight()/2 - 512);
 		batch.draw(tint, 0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 		batch.draw(credits, Gdx.graphics.getWidth()/2 - 530*Gdx.graphics.getHeight()/480/2, 0, 530*Gdx.graphics.getHeight()/480, Gdx.graphics.getHeight());
 		batch.end();

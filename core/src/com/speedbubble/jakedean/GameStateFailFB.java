@@ -39,9 +39,9 @@ public class GameStateFailFB implements GameState {
     	gameFont.draw(batch, "FAIL", (Gdx.graphics.getWidth() - gameFont.getBounds("FAIL").width)/2,
     	        Gdx.graphics.getHeight()/2 + (float)2.5*gameFont.getBounds("FAIL").height);
     	gameFont.setColor(0,1,0,1);
-    	gameFont.draw(batch, "HIGHEST SCORE: " + String.format("%.3f", highestScore.getScore()), (Gdx.graphics.getWidth() - gameFont.getBounds("HIGHEST SCORE: 00.00").width)/2,
+    	gameFont.draw(batch, "HIGHEST SCORE: " + String.format("%.3f", highestScore.getScore()), (Gdx.graphics.getWidth() - gameFont.getBounds("HIGHEST SCORE: " + String.format("%.3f", highestScore.getScore())).width)/2,
     	        Gdx.graphics.getHeight()/2 - 3*gameFont.getBounds("HIGHEST SCORE: 00.00").height/2);
-    	gameFont.draw(batch, "SET BY: " + highestScore.getName(), (Gdx.graphics.getWidth() - gameFont.getBounds("SET BY: AAAAA").width)/2,
+    	gameFont.draw(batch, "SET BY: " + highestScore.getName(), (Gdx.graphics.getWidth() - gameFont.getBounds("SET BY: " + highestScore.getName()).width)/2,
     	        Gdx.graphics.getHeight()/2 - 3*gameFont.getBounds("SET BY: AAAAA").height);
     	gameFont.setColor(1, 1, 1, 1);
     	gameFont.draw(batch, "MAIN MENU", (Gdx.graphics.getWidth() - gameFont.getBounds("MAIN MENU").width)/4,

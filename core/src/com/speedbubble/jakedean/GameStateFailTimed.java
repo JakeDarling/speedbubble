@@ -7,13 +7,13 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class GameStateFailTimed implements GameState {
 	
-    private int score;
     private SpriteBatch batch;
     
     private BitmapFont gameFont, gameFont2;
+    
+    private Score highestScore;
 
     public GameStateFailTimed(int score) {
-        this.score = score;
         batch = new SpriteBatch();
         
         gameFont = new BitmapFont(Gdx.files.internal("gameFont.fnt"));
@@ -22,6 +22,7 @@ public class GameStateFailTimed implements GameState {
     	gameFont2 = new BitmapFont(Gdx.files.internal("gameFont.fnt"));
     	gameFont2.setColor(1, 1, 1, 1);
     	gameFont2.setScale(.75f);
+    	highestScore = HighScores.fetchHighScores(HighScores.TIMED, false).first();
     }
 
     @Override
@@ -31,14 +32,17 @@ public class GameStateFailTimed implements GameState {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         batch.begin();
         gameFont.setColor(1, 1, 1, 1);
-    	gameFont.draw(batch, "TIMED", (Gdx.graphics.getWidth() - gameFont.getBounds("TIMED").width)/2,
-    	        Gdx.graphics.getHeight() - 2*gameFont.getBounds("TIMED").height);
+    	gameFont.draw(batch, "FIFTY BUBBLE", (Gdx.graphics.getWidth() - gameFont.getBounds("FIFTY BUBBLE").width)/2,
+    	        Gdx.graphics.getHeight() - 2*gameFont.getBounds("FIFTY BUBBLE").height);
     	gameFont.setColor(0, 0, 0, 1);
-        gameFont.draw(batch, "FAIL", (Gdx.graphics.getWidth() - gameFont.getBounds("FAIL").width)/2,
-                Gdx.graphics.getHeight()/2 + (float)2.5*gameFont.getBounds("FAIL").height);
-        gameFont.draw(batch, "FINAL SCORE: " + score, (Gdx.graphics.getWidth() - gameFont.getBounds("FINAL SCORE: 0").width)/2,
-                Gdx.graphics.getHeight()/2 + gameFont.getBounds("FINAL SCORE: 0").height/2);
-        gameFont.setColor(1, 1, 1, 1);
+    	gameFont.draw(batch, "FAIL", (Gdx.graphics.getWidth() - gameFont.getBounds("FAIL").width)/2,
+    	        Gdx.graphics.getHeight()/2 + (float)2.5*gameFont.getBounds("FAIL").height);
+    	gameFont.setColor(0,1,0,1);
+    	gameFont.draw(batch, "HIGHEST SCORE: " + String.format("%.0f", highestScore.getScore()), (Gdx.graphics.getWidth() - gameFont.getBounds("HIGHEST SCORE: " + String.format("%.0f", highestScore.getScore())).width)/2,
+    	        Gdx.graphics.getHeight()/2 - 3*gameFont.getBounds("HIGHEST SCORE: 00").height/2);
+    	gameFont.draw(batch, "SET BY: " + highestScore.getName(), (Gdx.graphics.getWidth() - gameFont.getBounds("SET BY: " + highestScore.getName()).width)/2,
+    	        Gdx.graphics.getHeight()/2 - 3*gameFont.getBounds("SET BY: AAAAA").height);
+    	gameFont.setColor(1, 1, 1, 1);
     	gameFont.draw(batch, "MAIN MENU", (Gdx.graphics.getWidth() - gameFont.getBounds("MAIN MENU").width)/4,
     	        (float)2.5*gameFont.getBounds("MAIN MENU").height);
     	gameFont.draw(batch, "RETRY", (Gdx.graphics.getWidth() - gameFont.getBounds("RETRY").width)*3/4,

@@ -1,5 +1,5 @@
 dean 50.0
-empty 0.0
-empty 0.0
-empty 0.0
+deanmondy 42.0
+dean 42.0
+dean 1.0
 empty 0.0

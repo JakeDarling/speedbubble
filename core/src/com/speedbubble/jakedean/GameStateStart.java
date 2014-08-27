@@ -2,20 +2,17 @@ package com.speedbubble.jakedean;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class GameStateStart implements GameState {
 	
 	private SpriteBatch batch;
-	private Texture background;
 	
 	private BitmapFont gameFont;
 	
 	public GameStateStart(GameScreen screen){
 		batch = new SpriteBatch();
-		background = new Texture(Gdx.files.internal("inGameBackground.png"));
 		
 		gameFont = new BitmapFont(Gdx.files.internal("gameFont.fnt"));
     	gameFont.setColor(1, 1, 1, 1);
@@ -83,11 +80,10 @@ public class GameStateStart implements GameState {
 	}
 	
 	public void draw(GameScreen screen, float deltaTime){
-		Gdx.gl.glClearColor(1,1,1,1);
+		Gdx.gl.glClearColor(0,0,0,1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         
         batch.begin();
-        batch.draw(background, Gdx.graphics.getWidth()/2 - 1024, Gdx.graphics.getHeight()/2 - 512);
         
 		switch (screen.selector){
 		case ARCADE:

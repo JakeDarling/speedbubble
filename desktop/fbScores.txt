@@ -1,5 +1,5 @@
 dean 17.53549
-empty 99.999
+dean 17.93643
 empty 99.999
 empty 99.999
 empty 99.999

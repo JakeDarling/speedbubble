@@ -43,9 +43,9 @@ public class GameStateOverFB implements GameState {
     	gameFont.draw(batch, "SCORE: " + String.format("%.3f", score), (Gdx.graphics.getWidth() - gameFont.getBounds("SCORE: 18.578").width)/2,
     	        Gdx.graphics.getHeight()/2 + gameFont.getBounds("SCORE: 18.578").height/2);
     	gameFont.setColor(0,0,1,1);
-    	gameFont.draw(batch, "HIGHEST SCORE: " + String.format("%.3f", highestScore.getScore()), (Gdx.graphics.getWidth() - gameFont.getBounds("HIGHEST SCORE: 00.00").width)/2,
+    	gameFont.draw(batch, "HIGHEST SCORE: " + String.format("%.3f", highestScore.getScore()), (Gdx.graphics.getWidth() - gameFont.getBounds("HIGHEST SCORE: " + String.format("%.3f", highestScore.getScore())).width)/2,
     	        Gdx.graphics.getHeight()/2 - 3*gameFont.getBounds("HIGHEST SCORE: 00.00").height/2);
-    	gameFont.draw(batch, "SET BY: " + highestScore.getName(), (Gdx.graphics.getWidth() - gameFont.getBounds("SET BY: AAAAA").width)/2,
+    	gameFont.draw(batch, "SET BY: " + highestScore.getName(), (Gdx.graphics.getWidth() - gameFont.getBounds("SET BY: " + highestScore.getName()).width)/2,
     	        Gdx.graphics.getHeight()/2 - 3*gameFont.getBounds("SET BY: AAAAA").height);
     	gameFont.setColor(1, 1, 1, 1);
     	gameFont.draw(batch, "MAIN MENU", (Gdx.graphics.getWidth() - gameFont.getBounds("MAIN MENU").width)/4,
