@@ -1,5 +1,5 @@
-dean 41.0
-dean 24.0
-dean 19.0
-dean_slk_alkg_g 7.0
-dean_mondy_negrodamus 7.0
+dean_mondy 11.0
+not_set 0.0
+not_set 0.0
+not_set 0.0
+not_set 0.0

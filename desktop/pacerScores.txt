@@ -1,5 +1,5 @@
-dean 12.0
-empty 0.0
-empty 0.0
-empty 0.0
-empty 0.0
+not_set 0
+not_set 0
+not_set 0
+not_set 0
+not_set 0

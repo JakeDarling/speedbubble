@@ -38,9 +38,8 @@ public class HighScores {
     public static void createLocalFiles(){
     	if(!Gdx.files.local(ARCADE).exists()){
     		try {
-//    			Gdx.files.local(ARCADE).file().getParentFile().mkdirs();
 				Gdx.files.local(ARCADE).file().createNewFile();
-				Gdx.files.local(ARCADE).writeString("empty 0\nempty 0\nempty 0\nempty 0\nempty 0\n", false);
+				Gdx.files.local(ARCADE).writeString("not_set 0\nnot_set 0\nnot_set 0\nnot_set 0\nnot_set 0\n", false);
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -48,9 +47,8 @@ public class HighScores {
     	}
     	if(!Gdx.files.local(FIFTY).exists()){
     		try {
-//    			Gdx.files.local(ARCADE).file().getParentFile().mkdirs();
 				Gdx.files.local(FIFTY).file().createNewFile();
-				Gdx.files.local(FIFTY).writeString("empty 99.999\nempty 99.999\nempty 99.999\nempty 99.999\nempty 99.999\n", false);
+				Gdx.files.local(FIFTY).writeString("not_set 99.999\nnot_set 99.999\nnot_set 99.999\nnot_set 99.999\nnot_set 99.999\n", false);
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -58,9 +56,8 @@ public class HighScores {
     	}
     	if(!Gdx.files.local(PACER).exists()){
     		try {
-//    			Gdx.files.local(ARCADE).file().getParentFile().mkdirs();
 				Gdx.files.local(PACER).file().createNewFile();
-				Gdx.files.local(PACER).writeString("empty 0\nempty 0\nempty 0\nempty 0\nempty 0\n", false);
+				Gdx.files.local(PACER).writeString("not_set 0\nnot_set 0\nnot_set 0\nnot_set 0\nnot_set 0\n", false);
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -68,9 +65,8 @@ public class HighScores {
     	}
     	if(!Gdx.files.local(TIMED).exists()){
     		try {
-//    			Gdx.files.local(ARCADE).file().getParentFile().mkdirs();
 				Gdx.files.local(TIMED).file().createNewFile();
-				Gdx.files.local(TIMED).writeString("empty 0\nempty 0\nempty 0\nempty 0\nempty 0\n", false);
+				Gdx.files.local(TIMED).writeString("not_set 0\nnot_set 0\nnot_set 0\nnot_set 0\nnot_set 0\n", false);
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

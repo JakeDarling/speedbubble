@@ -88,7 +88,7 @@ public class GameStateStart implements GameState {
 		switch (screen.selector){
 		case ARCADE:
 			if (Assets.lines[1].equals("true")){
-				gameFont.draw(batch, "POP THE BUBBLES WHEN THEY REACH THE SURFACE!", (Gdx.graphics.getWidth() - gameFont.getBounds("POP THE BUBBLES WHEN THEY REACH THE SURFACE!").width) / 2,
+				gameFont.draw(batch, "POP THE BUBBLES WHEN THEY REACH THE RED LINE!", (Gdx.graphics.getWidth() - gameFont.getBounds("POP THE BUBBLES WHEN THEY REACH THE SURFACE!").width) / 2,
 		        		Gdx.graphics.getHeight()/2 + 7*gameFont.getBounds("TAP ANYWHERE TO BEGIN").height);
 				gameFont.draw(batch, "CAREFUL, THE LONGER YOU LAST THE FASTER THEY RISE!", (Gdx.graphics.getWidth() - gameFont.getBounds("CAREFUL, THE LONGER YOU LAST THE FASTER THEY RISE!").width) / 2,
 		        		Gdx.graphics.getHeight()/2 + 5*gameFont.getBounds("TAP ANYWHERE TO BEGIN").height);
