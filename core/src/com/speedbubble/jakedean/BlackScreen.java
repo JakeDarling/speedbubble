@@ -21,9 +21,13 @@ public class BlackScreen implements Screen{
 		Gdx.gl.glClearColor(0,0,0,1);
     	Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
     	
-    	if(listener.enteredData){
+    	if(listener.enteredData && listener.isValid){
 
 			Gdx.files.local("firstPlay.txt").writeString(Assets.name + "\ntrue\ntrue\ntrue\ntrue\n", false);
+    		game.setScreen(new MainMenuScreen(game));
+    	}
+    	else if(listener.enteredData && !listener.isValid){
+    		Gdx.files.local("firstPlay.txt").writeString("name\ntrue\ntrue\ntrue\ntrue\n", false);
     		game.setScreen(new MainMenuScreen(game));
     	}
 	}

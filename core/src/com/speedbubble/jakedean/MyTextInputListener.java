@@ -5,6 +5,7 @@ import com.badlogic.gdx.Input.TextInputListener;
 public class MyTextInputListener implements TextInputListener {
 	
 	public boolean enteredData = false;
+	public boolean isValid = true;
 	
 	@Override
 	public void input (String text) {
@@ -19,7 +20,7 @@ public class MyTextInputListener implements TextInputListener {
 
 	@Override
 	public void canceled () {
-		Assets.name = "name";
+		isValid = false;
 		enteredData = true;
 	}
 	

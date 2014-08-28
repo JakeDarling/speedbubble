@@ -1,5 +1,5 @@
-dean_mondy 11.0
-not_set 0.0
+ 2.0
+ 1.0
 not_set 0.0
 not_set 0.0
 not_set 0.0
