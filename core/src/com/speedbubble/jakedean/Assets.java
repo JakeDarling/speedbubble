@@ -52,7 +52,7 @@ public class Assets {
             bubbleFrames[i] = bubbleAtlas.findRegion("bubble"+i);
         }
 
-        poppingBubble = new Animation(.05f, bubbleFrames);
+        poppingBubble = new Animation(.03f, bubbleFrames);
         
         phantom = new Sprite(bubbleAtlas.findRegion("bubblePhantom"));
         phantom.setSize(Gdx.graphics.getWidth()/5, Gdx.graphics.getWidth()/5);

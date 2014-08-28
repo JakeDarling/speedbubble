@@ -1,5 +1,5 @@
-not_set 0
-not_set 0
-not_set 0
-not_set 0
-not_set 0
+ 5.0
+not_set 0.0
+not_set 0.0
+not_set 0.0
+not_set 0.0
