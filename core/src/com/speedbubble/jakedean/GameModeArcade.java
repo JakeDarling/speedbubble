@@ -15,19 +15,20 @@ import com.badlogic.gdx.utils.Array;
 public class GameModeArcade implements GameMode{
 	
 	private SpriteBatch batch;
-	private Texture background, arcadeLine;
+	private Texture backgroundTexture, arcadeLine;
 	private BitmapFont gameFont;
 	private boolean popStarted, missedBubble;
 
 	private Array<Sprite> bubbles;
-	private Sprite topBubble;
-	private int bubblesPopped, cols, sideLength, width, height;
-	private float stateTime, speed, yPos;
+	private Sprite topBubble, background;
+	private int bubblesPopped, cols, sideLength;
+	private float stateTime, speed, yPos, width, height;
 	
 	public GameModeArcade(){
 		
 		batch = new SpriteBatch();
-		background = new Texture(Gdx.files.internal("inGameBackground.png"));
+		backgroundTexture = new Texture(Gdx.files.internal("inGameBackground.png"));
+		background = new Sprite(backgroundTexture);
 		arcadeLine = new Texture(Gdx.files.internal("arcadeLine.png"));
     	
         gameFont = new BitmapFont(Gdx.files.internal("gameFont.fnt"));
@@ -42,10 +43,24 @@ public class GameModeArcade implements GameMode{
 		width = Gdx.graphics.getWidth();
 		height = Gdx.graphics.getHeight();
 		
+		if(height/width > .5f){
+			float ratio = height/1024;
+			background.setSize(2048*ratio, height);
+			background.setPosition((Gdx.graphics.getWidth()/2 - background.getWidth()/2), 0);
+		}
+		else if (height/width < .5f){
+			float ratio = width/2048;
+			background.setSize(width, 1024*ratio);
+			background.setPosition(0, (Gdx.graphics.getHeight()/2 - background.getHeight()/2));
+		}
+		else if (height/width == .5f){
+			background.setSize(width, height);
+		}
+		
 		bubbles = new Array<Sprite>();
 		
 		cols = 5;
-		sideLength = width/cols;
+		sideLength = ((int)width/cols);
 		
 		spawnBubble();
 		
@@ -55,7 +70,7 @@ public class GameModeArcade implements GameMode{
 	}
 	
 	private void spawnBubble(){
-		int xPos = MathUtils.random(0,width-sideLength);
+		int xPos = MathUtils.random(0,(int)width);
 		
 		for(int i = 0; i<cols; i++){
 			if(i*sideLength <= xPos && xPos < (i+1)*sideLength){
@@ -142,7 +157,7 @@ public class GameModeArcade implements GameMode{
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		
 		batch.begin();
-		batch.draw(background, Gdx.graphics.getWidth()/2 - 1024, Gdx.graphics.getHeight()/2 - 512);
+		background.draw(batch);
 		batch.draw(arcadeLine, 0, height - 3*sideLength/4, width, 3*sideLength/4);
 		for (Sprite bubble : bubbles){
 			bubble.draw(batch);

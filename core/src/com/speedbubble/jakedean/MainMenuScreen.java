@@ -371,6 +371,7 @@ public class MainMenuScreen implements Screen{
 		else{landscape=false; v.setWorldSize(480, 800);}
 		updateWindow();
 		
+		Assets.phantom.setSize(Gdx.graphics.getWidth()/5, Gdx.graphics.getWidth()/5);
 		Assets.bubble.setSize(Gdx.graphics.getWidth()/5, Gdx.graphics.getWidth()/5);
         Assets.previousBubble.setSize(Gdx.graphics.getWidth()/5, Gdx.graphics.getWidth()/5);
 		

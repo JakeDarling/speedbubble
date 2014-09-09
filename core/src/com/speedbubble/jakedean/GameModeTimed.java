@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class GameModeTimed implements GameMode {
@@ -16,11 +17,31 @@ public class GameModeTimed implements GameMode {
     private BitmapFont gameFont;
     
     private SpriteBatch batch;
-    private Texture background;
+    private Texture backgroundTexture;
+    private Sprite background;
+    private float width, height;
     
     public GameModeTimed (){
     	batch = new SpriteBatch();
-    	background = new Texture(Gdx.files.internal("inGameBackground.png"));
+    	backgroundTexture = new Texture(Gdx.files.internal("inGameBackground.png"));
+    	background = new Sprite(backgroundTexture);
+    	width = Gdx.graphics.getWidth();
+    	height = Gdx.graphics.getHeight();
+    	
+    	if(height/width > .5f){
+			float ratio = height/1024;
+			background.setSize(2048*ratio, height);
+			background.setPosition((Gdx.graphics.getWidth()/2 - background.getWidth()/2), 0);
+		}
+		else if (height/width < .5f){
+			float ratio = width/2048;
+			background.setSize(width, 1024*ratio);
+			background.setPosition(0, (Gdx.graphics.getHeight()/2 - background.getHeight()/2));
+		}
+		else if (height/width == .5f){
+			background.setSize(width, height);
+			background.setPosition(0,0);
+		}
     	
     	gameFont = new BitmapFont(Gdx.files.internal("gameFont.fnt"));
     	gameFont.setColor(0, 0, 0, 1);
@@ -67,7 +88,7 @@ public class GameModeTimed implements GameMode {
          
          
     	batch.begin();
-    	batch.draw(background, Gdx.graphics.getWidth()/2 - 1024, Gdx.graphics.getHeight()/2 - 512);
+    	background.draw(batch);
         if(popStarted) drawAnimation();
         Assets.phantom.draw(batch);
         Assets.bubble.draw(batch);
