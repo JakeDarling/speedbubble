@@ -47,16 +47,16 @@ public class GameStateGetName implements GameState{
 		if(listener.enteredData){
 			switch(screen.selector){
 			case TIMED:
-				screen.setState(new GameStateOverTimed((int) score));
+				screen.setState(new GameStateOverTimed(screen, (int) score));
 				break;
 			case FIFTY_BUBBLE:
-				screen.setState(new GameStateOverFB(score));
+				screen.setState(new GameStateOverFB(screen, score));
 				break;
 			case ARCADE:
-				screen.setState(new GameStateOverArcade((int) score));
+				screen.setState(new GameStateOverArcade(screen, (int) score));
 				break;
 			case PACER:
-				screen.setState(new GameStateOverPacer((int) score));
+				screen.setState(new GameStateOverPacer(screen, (int) score));
 				break;
 			}
 		}

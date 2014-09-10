@@ -13,7 +13,7 @@ public class GameStateOverFB implements GameState {
     
     private BitmapFont gameFont, gameFont2;
 
-    public GameStateOverFB(float score) {
+    public GameStateOverFB(GameScreen screen , float score) {
         this.score = score;
         batch = new SpriteBatch();
         
@@ -23,6 +23,10 @@ public class GameStateOverFB implements GameState {
     	gameFont2 = new BitmapFont(Gdx.files.internal("gameFont.fnt"));
     	gameFont2.setColor(1, 1, 1, 1);
     	gameFont2.setScale(.75f);
+    	
+    	if (screen.getGame().actionResolver.getSignedInGPGS()) {
+    		screen.getGame().actionResolver.submitScoreGPGS((long)(score*1000), "CgkIh-6d6poMEAIQCw");
+    	}
     	
     	HighScores.writeHighScore(HighScores.FIFTY, Assets.name, score, false);
     	highestScore = HighScores.fetchHighScores(HighScores.FIFTY, false).first();

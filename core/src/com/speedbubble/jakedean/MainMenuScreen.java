@@ -40,7 +40,8 @@ public class MainMenuScreen implements Screen{
 	
 /** all menu stuff */
 	private Table table;
-	private TextButton timed, fiftyBubble, arcade, pacer, highScores, credits, options, quit, playSounds, stopSounds, back;
+	private TextButton timed, fiftyBubble, arcade, pacer, highScoresOn, highScoresOff, credits, options, leadersOn, leadersOff, 
+							playSounds, stopSounds, back;
 	private Label sounds;
 	private Group optionsMenu;
 	private Skin skin;
@@ -73,7 +74,7 @@ public class MainMenuScreen implements Screen{
             }
 		});
 		
-		fiftyBubble = new TextButton("50\nBUBBLE\n", skin, "blue");
+		fiftyBubble = new TextButton("SPEED\nBUBBLE\n", skin, "blue");
 		fiftyBubble.getLabel();
 		fiftyBubble.addListener(new InputListener(){
             public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
@@ -102,8 +103,20 @@ public class MainMenuScreen implements Screen{
             }
 		});
 		
-		highScores = new TextButton("HIGH\nSCORES", skin, "green");
-		highScores.addListener(new InputListener(){
+		highScoresOn = new TextButton("GLOBAL\nHIGH\nSCORES", skin, "green");
+		highScoresOn.addListener(new InputListener(){
+            public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
+            	Assets.playSound(Assets.bubbleSound);
+                return true;
+            }
+            public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
+            	loopingBubbleSound.stop();
+            	game.getScreen().dispose();
+            	game.setScreen(new HighScoreScreen(game));
+            }
+		});
+		highScoresOff = new TextButton("LOCAL\nHIGH\nSCORES", skin, "red");
+		highScoresOff.addListener(new InputListener(){
             public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
             	Assets.playSound(Assets.bubbleSound);
                 return true;
@@ -155,15 +168,27 @@ public class MainMenuScreen implements Screen{
             }
 		});
 		
-		quit = new TextButton("EXIT\nGAME", skin, "red");
-		quit.addListener(new InputListener(){
+		leadersOn = new TextButton("ONLINE\nLEADERS\nENABLED", skin, "green");
+		leadersOn.addListener(new InputListener(){
             public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
             	Assets.playSound(Assets.bubbleSound);
                 return true;
             }
             public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
-            	dispose();
-            	Gdx.app.exit();
+            	Settings.leaderboardsEnabled = false;
+            	setTable(table);
+            }
+		});
+		
+		leadersOff = new TextButton("ONLINE\nLEADERS\nDISABLED", skin, "red");
+		leadersOff.addListener(new InputListener(){
+            public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
+            	Assets.playSound(Assets.bubbleSound);
+                return true;
+            }
+            public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
+            	Settings.leaderboardsEnabled = true;
+            	setTable(table);
             }
 		});
 		
@@ -297,23 +322,35 @@ public class MainMenuScreen implements Screen{
 			table.setSize(width, height);
 			table.setPosition(Gdx.graphics.getWidth() - table.getWidth()/2, Gdx.graphics.getHeight() - table.getHeight()/2 );
 			table.setColor(1,1,1,1);
-			table.add(arcade).width(buttonWidth).height(buttonHeight).padTop(0).padLeft(0);
+			table.add(fiftyBubble).width(buttonWidth).height(buttonHeight).padTop(0).padLeft(0);
 				arcade.getLabel().setFontScale(buttonWidth / arcade.getLabel().getStyle().font.getBounds("ARCADE").width - .3f);
-			table.add(fiftyBubble).width(buttonWidth).height(buttonHeight).padTop(0).padLeft(spacingW);
+			table.add(arcade).width(buttonWidth).height(buttonHeight).padTop(0).padLeft(spacingW);
 				fiftyBubble.getLabel().setFontScale(buttonWidth / fiftyBubble.getLabel().getStyle().font.getBounds("BUBBLE").width - .3f);
 			table.add(timed).width(buttonWidth).height(buttonHeight).padTop(0).padLeft(spacingW);
 				timed.getLabel().setFontScale(buttonWidth / timed.getLabel().getStyle().font.getBounds("TIMED").width - .5f);
 			table.add(pacer).width(buttonWidth).height(buttonHeight).padTop(0).padLeft(spacingW);
 				pacer.getLabel().setFontScale(buttonWidth / pacer.getLabel().getStyle().font.getBounds("PACER").width - .4f);
 			table.row();
-			table.add(highScores).width(buttonWidth).height(buttonHeight).padTop(spacingH).padLeft(0);
-				highScores.getLabel().setFontScale(buttonWidth / highScores.getLabel().getStyle().font.getBounds("SCORES").width - .3f);
+		if(Settings.leaderboardsEnabled){
+			table.add(highScoresOn).width(buttonWidth).height(buttonHeight).padTop(spacingH).padLeft(0);
+				highScoresOn.getLabel().setFontScale(buttonWidth / highScoresOn.getLabel().getStyle().font.getBounds("SCORES").width - .3f);
+			}
+		if(!Settings.leaderboardsEnabled){
+			table.add(highScoresOff).width(buttonWidth).height(buttonHeight).padTop(spacingH).padLeft(0);
+			highScoresOff.getLabel().setFontScale(buttonWidth / highScoresOff.getLabel().getStyle().font.getBounds("SCORES").width - .3f);
+			}
 			table.add(options).width(buttonWidth).height(buttonHeight).padTop(spacingH).padLeft(spacingW);
 				options.getLabel().setFontScale(buttonWidth / options.getLabel().getStyle().font.getBounds("OPTIONS").width - .2f);
 			table.add(credits).width(buttonWidth).height(buttonHeight).padTop(spacingH).padLeft(spacingW);
 				credits.getLabel().setFontScale(buttonWidth / credits.getLabel().getStyle().font.getBounds("CREDITS").width - .2f);
-			table.add(quit).width(buttonWidth).height(buttonHeight).padTop(spacingH).padLeft(spacingW);
-				quit.getLabel().setFontScale(buttonWidth / quit.getLabel().getStyle().font.getBounds("GAME").width - .7f);
+		if(Settings.leaderboardsEnabled){
+			table.add(leadersOn).width(buttonWidth).height(buttonHeight).padTop(spacingH).padLeft(spacingW);
+				leadersOn.getLabel().setFontScale(buttonWidth / leadersOn.getLabel().getStyle().font.getBounds("ENABLED").width - .2f);
+			}
+		if(!Settings.leaderboardsEnabled)	{
+			table.add(leadersOff).width(buttonWidth).height(buttonHeight).padTop(spacingH).padLeft(spacingW);
+			leadersOff.getLabel().setFontScale(buttonWidth / leadersOff.getLabel().getStyle().font.getBounds("DISABLED").width - .1f);
+			}
 		}
 		else{
 			rows = 4;
@@ -336,15 +373,27 @@ public class MainMenuScreen implements Screen{
 			table.add(pacer).width(buttonWidth).height(buttonHeight).padTop(spacingH).padLeft(spacingW);
 				pacer.getLabel().setFontScale(buttonWidth / pacer.getLabel().getStyle().font.getBounds("PACER").width - .4f);
 			table.row();
-			table.add(highScores).width(buttonWidth).height(buttonHeight).padTop(spacingH).padLeft(0);
-				highScores.getLabel().setFontScale(buttonWidth / highScores.getLabel().getStyle().font.getBounds("SCORES").width - .3f);
+		if(Settings.leaderboardsEnabled){
+			table.add(highScoresOn).width(buttonWidth).height(buttonHeight).padTop(spacingH).padLeft(0);
+				highScoresOn.getLabel().setFontScale(buttonWidth / highScoresOn.getLabel().getStyle().font.getBounds("SCORES").width - .3f);
+			}
+		if(!Settings.leaderboardsEnabled){
+			table.add(highScoresOff).width(buttonWidth).height(buttonHeight).padTop(spacingH).padLeft(0);
+			highScoresOff.getLabel().setFontScale(buttonWidth / highScoresOff.getLabel().getStyle().font.getBounds("SCORES").width - .3f);
+			}
 			table.add(options).width(buttonWidth).height(buttonHeight).padTop(spacingH).padLeft(spacingW);
 				options.getLabel().setFontScale(buttonWidth / options.getLabel().getStyle().font.getBounds("OPTIONS").width - .2f);
 			table.row();
 			table.add(credits).width(buttonWidth).height(buttonHeight).padTop(spacingH).padLeft(0);
 				credits.getLabel().setFontScale(buttonWidth / credits.getLabel().getStyle().font.getBounds("CREDITS").width - .2f);
-			table.add(quit).width(buttonWidth).height(buttonHeight).padTop(spacingH).padLeft(spacingW);
-				quit.getLabel().setFontScale(buttonWidth / quit.getLabel().getStyle().font.getBounds("GAME").width - .7f);
+		if(Settings.leaderboardsEnabled){
+			table.add(leadersOn).width(buttonWidth).height(buttonHeight).padTop(spacingH).padLeft(spacingW);
+				leadersOn.getLabel().setFontScale(buttonWidth / leadersOn.getLabel().getStyle().font.getBounds("ENABLED").width - .7f);
+			}
+		if(!Settings.leaderboardsEnabled)	{
+			table.add(leadersOff).width(buttonWidth).height(buttonHeight).padTop(spacingH).padLeft(spacingW);
+			leadersOff.getLabel().setFontScale(buttonWidth / leadersOff.getLabel().getStyle().font.getBounds("DISABLED").width - .7f);
+			}
 		}
 		
 	}

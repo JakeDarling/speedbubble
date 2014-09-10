@@ -14,7 +14,7 @@ public class GameStateOverTimed implements GameState {
     
     private Score highestScore;
 
-    public GameStateOverTimed(int score) {
+    public GameStateOverTimed(GameScreen screen, int score) {
         this.score = score;
         batch = new SpriteBatch();
         
@@ -24,6 +24,10 @@ public class GameStateOverTimed implements GameState {
     	gameFont2 = new BitmapFont(Gdx.files.internal("gameFont.fnt"));
     	gameFont2.setColor(1, 1, 1, 1);
     	gameFont2.setScale(.75f);
+    	
+    	if (screen.getGame().actionResolver.getSignedInGPGS()) {
+    		screen.getGame().actionResolver.submitScoreGPGS((int)(score), "CgkIh-6d6poMEAIQBA");
+    	}
     	
     	HighScores.writeHighScore(HighScores.TIMED, Assets.name, score, true);
     	highestScore = HighScores.fetchHighScores(HighScores.TIMED, false).first();

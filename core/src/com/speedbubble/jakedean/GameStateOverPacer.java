@@ -14,7 +14,7 @@ public class GameStateOverPacer implements GameState {
     
     private BitmapFont gameFont, gameFont2;
 
-    public GameStateOverPacer(int score) {
+    public GameStateOverPacer(GameScreen screen, int score) {
         this.score = score;
         batch = new SpriteBatch();
         
@@ -24,6 +24,10 @@ public class GameStateOverPacer implements GameState {
     	gameFont2 = new BitmapFont(Gdx.files.internal("gameFont.fnt"));
     	gameFont2.setColor(1, 1, 1, 1);
     	gameFont2.setScale(.75f);
+    	
+    	if (screen.getGame().actionResolver.getSignedInGPGS()) {
+    		screen.getGame().actionResolver.submitScoreGPGS((int)(score), "CgkIh-6d6poMEAIQAw");
+    	}
     	
     	HighScores.writeHighScore(HighScores.PACER, Assets.name, score, true);
     	highestScore = HighScores.fetchHighScores(HighScores.PACER, false).first();

@@ -34,8 +34,8 @@ public class HighScoreScreen implements Screen {
 	
 	private int i, spacing, buttonWidth;
 	
-	public HighScoreScreen (final SpeedBubble s){
-		mode = Mode.ARCADE;
+	public HighScoreScreen (final SpeedBubble game){
+		mode = Mode.FIFTY;
 		
 		batch = new SpriteBatch();
 		background = new Texture(Gdx.files.internal("mainMenuBackground.png"));
@@ -66,7 +66,7 @@ public class HighScoreScreen implements Screen {
 		
 		arcade = new TextButton("ARCADE", skin, "green");
 		arcade.setSize(buttonWidth, 75);
-		arcade.setPosition(spacing, 10);
+		arcade.setPosition(2*spacing+buttonWidth, 10 );
 		arcade.addListener(new InputListener(){
             public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
             	Assets.playSound(Assets.bubbleSound);
@@ -75,12 +75,15 @@ public class HighScoreScreen implements Screen {
             }
             public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
             	setTable(table);
+            	if (Settings.leaderboardsEnabled){
+            		game.actionResolver.getLeaderboardGPGS("CgkIh-6d6poMEAIQAQ");
+            	}
             }
 		});
 		
-		fifty = new TextButton("50 BUBBLE", skin, "green");
+		fifty = new TextButton("SPEED", skin, "green");
 		fifty.setSize(buttonWidth, 75);
-		fifty.setPosition(2*spacing+buttonWidth, 10);
+		fifty.setPosition(spacing, 10);
 		fifty.addListener(new InputListener(){
             public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
             	Assets.playSound(Assets.bubbleSound);
@@ -89,6 +92,9 @@ public class HighScoreScreen implements Screen {
             }
             public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
             	setTable(table);
+            	if (Settings.leaderboardsEnabled){
+            		game.actionResolver.getLeaderboardGPGS("CgkIh-6d6poMEAIQCw");
+            	}
             }
 		});
 		
@@ -103,6 +109,9 @@ public class HighScoreScreen implements Screen {
             }
             public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
             	setTable(table);
+            	if (Settings.leaderboardsEnabled){
+            		game.actionResolver.getLeaderboardGPGS("CgkIh-6d6poMEAIQAw");
+            	}
             }
 		});
 		
@@ -117,6 +126,9 @@ public class HighScoreScreen implements Screen {
             }
             public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
             	setTable(table);
+            	if (Settings.leaderboardsEnabled){
+            		game.actionResolver.getLeaderboardGPGS("CgkIh-6d6poMEAIQBA");
+            	}
             }
 		});
 		
@@ -131,7 +143,7 @@ public class HighScoreScreen implements Screen {
             }
             public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
             	stage.getRoot().clear();
-            	s.setScreen(new MainMenuScreen(s));
+            		game.setScreen(new MainMenuScreen(game));
             }
 		});
 		
@@ -155,7 +167,7 @@ public class HighScoreScreen implements Screen {
 	private void prepareTable(){
 		switch(mode){
 		case ARCADE:
-			title.setText("ARCADE");
+			title.setText("ARCADE - PERSONAL TOP 5");
 			i = 0;
 			while(i < HighScores.fetchHighScores(HighScores.ARCADE, false).size){
 				if (i == 0){
@@ -201,7 +213,7 @@ public class HighScoreScreen implements Screen {
 						
 			break;
 		case FIFTY:
-			title.setText("FIFTY BUBBLE");
+			title.setText("SPEED BUBBLE - PERSONAL TOP 5");
 			i = 0;
 			while(i < HighScores.fetchHighScores(HighScores.FIFTY, false).size){
 				if (i == 0){
@@ -247,7 +259,7 @@ public class HighScoreScreen implements Screen {
 			
 			break;
 		case PACER:
-			title.setText("PACER");
+			title.setText("PACER - PERSONAL TOP 5");
 			i = 0;
 			while(i < HighScores.fetchHighScores(HighScores.PACER, false).size){
 				if (i == 0){
@@ -293,7 +305,7 @@ public class HighScoreScreen implements Screen {
 			
 			break;
 		case TIMED:
-			title.setText("TIMED");
+			title.setText("TIMED - PERSONAL TOP 5");
 			i = 0;
 			while(i < HighScores.fetchHighScores(HighScores.TIMED, false).size){
 				if (i == 0){

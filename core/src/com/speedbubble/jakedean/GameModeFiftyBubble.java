@@ -50,7 +50,7 @@ public class GameModeFiftyBubble implements GameMode{
     	gameStarted = false;
     	time = 0;
     	stateTime = 0;
-    	bubbles = 50;
+    	bubbles = 25;
     }
 	
 	@Override

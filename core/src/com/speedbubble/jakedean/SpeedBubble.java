@@ -7,6 +7,12 @@ import com.badlogic.gdx.Gdx;
 
 
 public class SpeedBubble extends Game {
+	
+	ActionResolver actionResolver;
+	
+	public SpeedBubble(ActionResolver ar){
+		this.actionResolver = ar;
+	}
 
 	@Override
 	public void create () {
@@ -18,9 +24,11 @@ public class SpeedBubble extends Game {
 				e.printStackTrace();
 			}
     		setScreen(new BlackScreen(this));
+//    		actionResolver.loginGPGS();
     	}
         else{
         	setScreen(new MainMenuScreen(this));
+//        	actionResolver.loginGPGS();
         }
 	}
 
