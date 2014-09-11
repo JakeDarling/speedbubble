@@ -41,7 +41,7 @@ public class HighScoreScreen implements Screen {
 		background = new Texture(Gdx.files.internal("mainMenuBackground.png"));
 		tint = new Texture(Gdx.files.internal("tint.png"));
 		
-		skinAtlas = new TextureAtlas(Gdx.files.internal("skin/skinAtlas.pack"));
+		skinAtlas = new TextureAtlas(Gdx.files.internal("skin/newButtons.pack"));
 		skin = new Skin(Gdx.files.internal("skin/skin.json"), skinAtlas);
 		
 		title = new Label("", skin, "defaultWhite");
