@@ -78,7 +78,9 @@ public class GameModeFiftyBubble implements GameMode{
              }
          }
     	 
+    	 if (bubbles == 1) Assets.setBubbleColor(Assets.RED);
     	 if (bubbles <= 0){
+    		 Assets.setBubbleColor(Assets.BLUE);
     		 screen.setState(new GameStateGetName(screen, time)); 
     	 }
     }

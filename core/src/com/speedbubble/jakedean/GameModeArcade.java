@@ -21,7 +21,7 @@ public class GameModeArcade implements GameMode{
 
 	private Array<Sprite> bubbles;
 	private Sprite topBubble, background;
-	private int bubblesPopped, cols, sideLength;
+	private int bubblesPopped, cols, sideLength, bubbleColor, colorInterval;
 	private float stateTime, speed, yPos, width, height;
 	
 	public GameModeArcade(){
@@ -68,6 +68,9 @@ public class GameModeArcade implements GameMode{
 		speed = Gdx.graphics.getHeight()/2;
 		yPos = 0;
 		
+		bubbleColor=0;
+		colorInterval=0;
+		
 	}
 	
 	private void spawnBubble(){
@@ -83,10 +86,18 @@ public class GameModeArcade implements GameMode{
 		bubble.setPosition(xPos, height);
 		bubble.setSize(sideLength, sideLength);
 		bubbles.add(bubble);
+		
+		if(bubblesPopped + bubbles.lastIndexOf(bubble, true) - colorInterval == 24){
+			colorInterval = bubblesPopped + bubbles.lastIndexOf(bubble, true) + 1;
+			bubbleColor++;
+			if(bubbleColor > 5) bubbleColor=0;
+			Assets.setBubbleColor(bubbleColor);
+		}
 	}
 	
 	@Override
 	public void update(GameScreen screen, float deltaTime) {
+		
 		stateTime += deltaTime;
 		
 		yPos += speed*deltaTime;
@@ -146,6 +157,7 @@ public class GameModeArcade implements GameMode{
          */
         if (missedBubble){
         	Assets.playSound(Assets.failSound);
+        	Assets.setBubbleColor(0);
         	screen.setState(new GameStateGetName(screen, bubblesPopped));
         }
 

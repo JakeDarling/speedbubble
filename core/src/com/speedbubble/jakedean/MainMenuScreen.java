@@ -56,7 +56,7 @@ public class MainMenuScreen implements Screen{
 		if(width>height){landscape=true;}
 		else{landscape=false;}
 		
-		skinAtlas = new TextureAtlas(Gdx.files.internal("skin/skinAtlas.pack"));
+		skinAtlas = new TextureAtlas(Gdx.files.internal("skin/newButtons.pack"));
 		skin = new Skin(Gdx.files.internal("skin/skin.json"), skinAtlas);
 		loopingBubbleSound = Gdx.audio.newSound(Gdx.files.internal("bubbles.mp3"));
 		

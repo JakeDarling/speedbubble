@@ -1,0 +1,47 @@
+
+bubbleAnimationYellow.png
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+bubble0
+  rotate: false
+  xy: 1, 275
+  size: 200, 200
+  orig: 200, 200
+  offset: 0, 0
+  index: -1
+bubble1
+  rotate: false
+  xy: 1, 73
+  size: 200, 200
+  orig: 200, 200
+  offset: 0, 0
+  index: -1
+bubble2
+  rotate: false
+  xy: 203, 275
+  size: 200, 200
+  orig: 200, 200
+  offset: 0, 0
+  index: -1
+bubble3
+  rotate: false
+  xy: 203, 73
+  size: 200, 200
+  orig: 200, 200
+  offset: 0, 0
+  index: -1
+bubblePhantom
+  rotate: false
+  xy: 405, 275
+  size: 200, 200
+  orig: 200, 200
+  offset: 0, 0
+  index: -1
+bubble4
+  rotate: false
+  xy: 1, 1
+  size: 70, 70
+  orig: 70, 70
+  offset: 0, 0
+  index: -1

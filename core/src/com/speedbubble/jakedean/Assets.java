@@ -8,7 +8,7 @@ import com.badlogic.gdx.math.MathUtils;
 public class Assets {
 
     public static Animation poppingBubble;
-    public static TextureAtlas bubbleAtlas;
+    public static TextureAtlas bubbleAtlas, greenAtlas;
     public static TextureRegion[] bubbleFrames;
     public static TextureRegion currentBubble;
     public static BitmapFont gameFont;
@@ -21,6 +21,8 @@ public class Assets {
     public static Sound bubbleSound, failSound;
 
     public static Sprite bubble, previousBubble, phantom;
+    
+    public static final int BLUE=0, YELLOW=1, ORANGE=2, RED=3, PINK=4, PURPLE=5;
     
     /**
      * called at the creation of the game to load these assets
@@ -44,24 +46,55 @@ public class Assets {
         failSound = Gdx.audio.newSound(Gdx.files.internal("largeBubble.mp3"));
         
         gameFont = new BitmapFont(Gdx.files.internal("gameFont.fnt"));
-
-        bubbleAtlas = new TextureAtlas("bubbleAnimation.pack");
-        bubbleFrames = new TextureRegion[5];
-
-        for (int i = 0; i<5; i++){
-            bubbleFrames[i] = bubbleAtlas.findRegion("bubble"+i);
-        }
-
-        poppingBubble = new Animation(.03f, bubbleFrames);
         
-        phantom = new Sprite(bubbleAtlas.findRegion("bubblePhantom"));
+        
+        greenAtlas = new TextureAtlas("bubbleAnimation/bubbleAnimationGreen.pack");
+        bubbleFrames = new TextureRegion[5];
+        for (int i = 0; i<5; i++){
+            bubbleFrames[i] = greenAtlas.findRegion("bubble"+i);
+        }
+        poppingBubble = new Animation(.025f, bubbleFrames);
+        
+        
+        phantom = new Sprite();
+        bubble = new Sprite();
+        previousBubble = new Sprite();
+        
+        setBubbleColor(BLUE);
+        
         phantom.setSize(Gdx.graphics.getWidth()/5, Gdx.graphics.getWidth()/5);
         phantom.setPosition((Gdx.graphics.getWidth() - phantom.getWidth())/2, (Gdx.graphics.getHeight() - phantom.getHeight())/2);
         phantom.setColor(1, 1, 1, .2f);
-        bubble = new Sprite(bubbleAtlas.findRegion("bubble0"));
         bubble.setSize(Gdx.graphics.getWidth()/5, Gdx.graphics.getWidth()/5);
-        previousBubble = new Sprite(bubbleAtlas.findRegion("bubble0"));
         previousBubble.setSize(Gdx.graphics.getWidth()/5, Gdx.graphics.getWidth()/5);
+    }
+    
+    public static void setBubbleColor(int color){
+    	
+    	switch(color){
+    	case BLUE:
+    		bubbleAtlas = new TextureAtlas("bubbleAnimation/bubbleAnimationBlue.pack");
+            break;
+    	case YELLOW:
+    		bubbleAtlas = new TextureAtlas("bubbleAnimation/bubbleAnimationYellow.pack");
+            break;
+    	case ORANGE:
+    		bubbleAtlas = new TextureAtlas("bubbleAnimation/bubbleAnimationOrange.pack");
+            break;
+    	case RED:
+    		bubbleAtlas = new TextureAtlas("bubbleAnimation/bubbleAnimationRed.pack");
+            break;
+    	case PINK:
+    		bubbleAtlas = new TextureAtlas("bubbleAnimation/bubbleAnimationPink.pack");
+            break;
+    	case PURPLE:
+    		bubbleAtlas = new TextureAtlas("bubbleAnimation/bubbleAnimationPurple.pack");
+            break;
+    	}
+        
+        phantom.setRegion(bubbleAtlas.findRegion("bubblePhantom"));
+        bubble.setRegion(bubbleAtlas.findRegion("bubble0"));
+        previousBubble.setRegion(bubbleAtlas.findRegion("bubble0"));
     }
 
     public static void relocateBubble(){
