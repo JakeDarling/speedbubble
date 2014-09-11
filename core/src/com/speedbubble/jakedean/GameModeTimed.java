@@ -44,6 +44,7 @@ public class GameModeTimed implements GameMode {
 		}
     	
     	gameFont = new BitmapFont(Gdx.files.internal("gameFont.fnt"));
+    	gameFont.setScale(1.5f);
     	gameFont.setColor(0, 0, 0, 1);
     	
     	popStarted = false;
@@ -92,10 +93,10 @@ public class GameModeTimed implements GameMode {
         if(popStarted) drawAnimation();
         Assets.phantom.draw(batch);
         Assets.bubble.draw(batch);
-        gameFont.draw(batch, "BUBBLES POPPED: " + score, (Gdx.graphics.getWidth() - gameFont.getBounds("BUBBLES POPPED: 10").width)/2,
+        gameFont.draw(batch, "BUBBLES: " + score, (Gdx.graphics.getWidth() - gameFont.getBounds("BUBBLES: " + score).width)/2,
         		Gdx.graphics.getHeight() - 3 * gameFont.getBounds("BUBBLES POPPED: 10").height/2);
-        gameFont.draw(batch, "TIME REMAINING: " + String.format("%.2f", timeLeft), 
-        		(Gdx.graphics.getWidth() - gameFont.getBounds("TIME REMAINING: 15.00").width)/2,   Gdx.graphics.getHeight());
+        gameFont.draw(batch, "TIME: " + String.format("%.2f", timeLeft), 
+        		(Gdx.graphics.getWidth() - gameFont.getBounds("TIME: "+String.format("%.2f", timeLeft)).width)/2,   Gdx.graphics.getHeight());
         batch.end();
 	}
 	

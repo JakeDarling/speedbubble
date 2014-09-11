@@ -90,7 +90,7 @@ public class GameStateStart implements GameState {
 			if (Assets.lines[1].equals("true")){
 				gameFont.draw(batch, "POP THE BUBBLES WHEN THEY REACH THE RED LINE!", (Gdx.graphics.getWidth() - gameFont.getBounds("POP THE BUBBLES WHEN THEY REACH THE SURFACE!").width) / 2,
 		        		Gdx.graphics.getHeight()/2 + 7*gameFont.getBounds("TAP ANYWHERE TO BEGIN").height);
-				gameFont.draw(batch, "CAREFUL, THE LONGER YOU LAST THE FASTER THEY RISE!", (Gdx.graphics.getWidth() - gameFont.getBounds("CAREFUL, THE LONGER YOU LAST THE FASTER THEY RISE!").width) / 2,
+				gameFont.draw(batch, "CAREFUL, THE LONGER YOU LAST THE FASTER THEY DROP!", (Gdx.graphics.getWidth() - gameFont.getBounds("CAREFUL, THE LONGER YOU LAST THE FASTER THEY RISE!").width) / 2,
 		        		Gdx.graphics.getHeight()/2 + 5*gameFont.getBounds("TAP ANYWHERE TO BEGIN").height);
 				gameFont.draw(batch, "HOW LONG CAN YOU LAST? JUST TOUCH THE BUBBLES TO POP THEM!", (Gdx.graphics.getWidth() - gameFont.getBounds("HOW LONG CAN YOU LAST? JUST TOUCH THE BUBBLES TO POP THEM!").width) / 2,
 		        		Gdx.graphics.getHeight()/2 + 3*gameFont.getBounds("TAP ANYWHERE TO BEGIN").height);
@@ -98,7 +98,7 @@ public class GameStateStart implements GameState {
 			break;
 		case FIFTY_BUBBLE:
 			if (Assets.lines[2].equals("true")){
-				gameFont.draw(batch, "HOW FAST CAN YOU POP 50 BUBBLES?", (Gdx.graphics.getWidth() - gameFont.getBounds("HOW FAST CAN YOU POP 50 BUBBLES?").width) / 2,
+				gameFont.draw(batch, "HOW FAST CAN YOU POP 25 BUBBLES?", (Gdx.graphics.getWidth() - gameFont.getBounds("HOW FAST CAN YOU POP 50 BUBBLES?").width) / 2,
 		        		Gdx.graphics.getHeight()/2 + 7*gameFont.getBounds("TAP ANYWHERE TO BEGIN").height);
 				gameFont.draw(batch, "THE TIME WILL INCREASE UNTIL ALL BUBBLES ARE POPPED!", (Gdx.graphics.getWidth() - gameFont.getBounds("THE TIME WILL INCREASE UNTIL ALL BUBBLES ARE POPPED!").width) / 2,
 		        		Gdx.graphics.getHeight()/2 + 5*gameFont.getBounds("TAP ANYWHERE TO BEGIN").height);

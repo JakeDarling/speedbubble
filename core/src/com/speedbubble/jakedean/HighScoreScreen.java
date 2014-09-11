@@ -100,7 +100,7 @@ public class HighScoreScreen implements Screen {
 		
 		pacer = new TextButton("PACER", skin, "green");
 		pacer.setSize(buttonWidth, 75);
-		pacer.setPosition(3*spacing+2*buttonWidth, 10);
+		pacer.setPosition(4*spacing+3*buttonWidth, 10);
 		pacer.addListener(new InputListener(){
             public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
             	Assets.playSound(Assets.bubbleSound);
@@ -117,7 +117,7 @@ public class HighScoreScreen implements Screen {
 		
 		timed = new TextButton("TIMED", skin, "green");
 		timed.setSize(buttonWidth, 75);
-		timed.setPosition(4*spacing+3*buttonWidth, 10);
+		timed.setPosition(3*spacing+2*buttonWidth, 10);
 		timed.addListener(new InputListener(){
             public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
             	Assets.playSound(Assets.bubbleSound);

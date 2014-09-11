@@ -44,6 +44,7 @@ public class GameModeFiftyBubble implements GameMode{
 		}
     	
         gameFont = new BitmapFont(Gdx.files.internal("gameFont.fnt"));
+        gameFont.setScale(1.5f);
     	gameFont.setColor(0, 0, 0, 1);
     	
     	popStarted = false;
@@ -90,12 +91,12 @@ public class GameModeFiftyBubble implements GameMode{
     	batch.begin();
     	background.draw(batch);
         if(popStarted) drawAnimation();
-        Assets.bubble.draw(batch);
-        Assets.phantom.draw(batch);
-        gameFont.draw(batch, "BUBBLES REMAINING: " + bubbles, (Gdx.graphics.getWidth() - gameFont.getBounds("BUBBLES REMAINING: 50").width)/2,
+        if(bubbles>0) Assets.bubble.draw(batch);
+        if(bubbles>1) Assets.phantom.draw(batch);
+        gameFont.draw(batch, "BUBBLES: " + bubbles, (Gdx.graphics.getWidth() - gameFont.getBounds("BUBBLES: " + bubbles).width)/2,
         		Gdx.graphics.getHeight());
         gameFont.draw(batch, "TIME: " + String.format("%.3f", time), 
-        		(Gdx.graphics.getWidth() - gameFont.getBounds("TIME: 10.000").width)/2,   Gdx.graphics.getHeight() - 3 * gameFont.getBounds("TIME: 10.000").height/2);
+        		(Gdx.graphics.getWidth() - gameFont.getBounds("TIME: " + String.format("%.3f", time)).width)/2,   Gdx.graphics.getHeight() - 3 * gameFont.getBounds("TIME: 10.000").height/2);
         batch.end();
 	}
 	

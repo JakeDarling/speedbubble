@@ -32,7 +32,8 @@ public class GameModeArcade implements GameMode{
 		arcadeLine = new Texture(Gdx.files.internal("arcadeLine.png"));
     	
         gameFont = new BitmapFont(Gdx.files.internal("gameFont.fnt"));
-    	gameFont.setColor(0, 0, 0, 1);
+        gameFont.setScale(1.5f);
+    	gameFont.setColor(1, 1, 1, 1);
     	
     	popStarted = false;
     	missedBubble = false;
@@ -60,7 +61,7 @@ public class GameModeArcade implements GameMode{
 		bubbles = new Array<Sprite>();
 		
 		cols = 5;
-		sideLength = ((int)width/cols);
+		sideLength = (int)(width/cols);
 		
 		spawnBubble();
 		
@@ -70,7 +71,7 @@ public class GameModeArcade implements GameMode{
 	}
 	
 	private void spawnBubble(){
-		int xPos = MathUtils.random(0,(int)width);
+		int xPos = MathUtils.random(0,(int)(width)-cols);
 		
 		for(int i = 0; i<cols; i++){
 			if(i*sideLength <= xPos && xPos < (i+1)*sideLength){
@@ -79,7 +80,7 @@ public class GameModeArcade implements GameMode{
 		}
 		
 		Sprite bubble = new Sprite(Assets.bubbleAtlas.findRegion("bubble0"));
-		bubble.setPosition(xPos, 0-sideLength);
+		bubble.setPosition(xPos, height);
 		bubble.setSize(sideLength, sideLength);
 		bubbles.add(bubble);
 	}
@@ -102,7 +103,7 @@ public class GameModeArcade implements GameMode{
         	if(Gdx.input.getX()>=topBubble.getX() && Gdx.input.getX() <= topBubble.getX()+topBubble.getWidth()
     			&& ((Gdx.input.getY() - Gdx.graphics.getHeight()) * -1) >= topBubble.getY() 
     			&& ((Gdx.input.getY() - Gdx.graphics.getHeight()) * -1) <= topBubble.getY()+topBubble.getHeight()
-    			&& topBubble.getY() > Gdx.graphics.getHeight() - 3*sideLength/2)
+    			&& topBubble.getY() < 3*sideLength/2)
         	{
 	    		stateTime=0;
 	    		Assets.previousBubble.setPosition(topBubble.getX(), topBubble.getY());
@@ -121,20 +122,20 @@ public class GameModeArcade implements GameMode{
 		Iterator<Sprite> iter = bubbles.iterator();
         while (iter.hasNext()) {
         	Sprite bubble = iter.next();
-            bubble.setY(bubble.getY() + speed * deltaTime);
+            bubble.setY(bubble.getY() - speed * deltaTime);
             if (Gdx.input.justTouched()){
             	if(Gdx.input.getX()>=bubble.getX() && Gdx.input.getX() <= bubble.getX()+bubble.getWidth()
         			&& ((Gdx.input.getY() - Gdx.graphics.getHeight()) * -1) >= bubble.getY() 
         			&& ((Gdx.input.getY() - Gdx.graphics.getHeight()) * -1) <= bubble.getY()+bubble.getHeight()
-        			&& Gdx.input.getY() < sideLength)
+        			&& Gdx.input.getY() > height - sideLength)
             	{
     	        	iter.remove();
             	}
             }
         /**
-         * If the bubble makes it off the screen you missed it, therefore you fail
+         * If the bubble makes it off the bottom of the screen you missed it, therefore you fail
          */
-            if (bubble.getY() > height){
+            if (bubble.getY() < -sideLength){
                 iter.remove();
                 missedBubble = true;
             }
@@ -158,7 +159,9 @@ public class GameModeArcade implements GameMode{
 		
 		batch.begin();
 		background.draw(batch);
-		batch.draw(arcadeLine, 0, height - 3*sideLength/4, width, 3*sideLength/4);
+		batch.draw(arcadeLine, 0, 0, width, 3*sideLength/5);
+		gameFont.draw(batch, ""+bubblesPopped, (Gdx.graphics.getWidth() - gameFont.getBounds(""+bubblesPopped).width)/2,
+				gameFont.getBounds(""+bubblesPopped).height*3/2);
 		for (Sprite bubble : bubbles){
 			bubble.draw(batch);
 		}
