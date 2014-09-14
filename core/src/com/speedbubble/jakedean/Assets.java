@@ -60,7 +60,7 @@ public class Assets {
         bubble = new Sprite();
         previousBubble = new Sprite();
         
-        setBubbleColor(BLUE);
+        setBubbleColor(Settings.favoriteColor);
         
         phantom.setSize(Gdx.graphics.getWidth()/5, Gdx.graphics.getWidth()/5);
         phantom.setPosition((Gdx.graphics.getWidth() - phantom.getWidth())/2, (Gdx.graphics.getHeight() - phantom.getHeight())/2);
@@ -89,6 +89,9 @@ public class Assets {
             break;
     	case PURPLE:
     		bubbleAtlas = new TextureAtlas("bubbleAnimation/bubbleAnimationPurple.pack");
+            break;
+    	default:
+    		bubbleAtlas = new TextureAtlas("bubbleAnimation/bubbleAnimationBlue.pack");
             break;
     	}
         

@@ -12,7 +12,7 @@ public class GameStateOverPacer implements GameState {
     
     private Score highestScore;
     
-    private BitmapFont gameFont, gameFont2;
+    private BitmapFont gameFont;
 
     public GameStateOverPacer(GameScreen screen, int score) {
         this.score = score;
@@ -20,10 +20,7 @@ public class GameStateOverPacer implements GameState {
         
         gameFont = new BitmapFont(Gdx.files.internal("gameFont.fnt"));
     	gameFont.setColor(0, 0, 0, 1);
-    	
-    	gameFont2 = new BitmapFont(Gdx.files.internal("gameFont.fnt"));
-    	gameFont2.setColor(1, 1, 1, 1);
-    	gameFont2.setScale(.75f);
+    	gameFont.setScale(Gdx.graphics.getHeight()/ (gameFont.getBounds("ARCADE").height * 13) );
     	
     	if (screen.getGame().actionResolver.getSignedInGPGS()) {
     		screen.getGame().actionResolver.submitScoreGPGS((int)(score), "CgkIh-6d6poMEAIQAw");
@@ -41,38 +38,32 @@ public class GameStateOverPacer implements GameState {
     	batch.begin();
     	gameFont.setColor(1, 1, 1, 1);
     	gameFont.draw(batch, "PACER", (Gdx.graphics.getWidth() - gameFont.getBounds("PACER").width)/2,
-    	        Gdx.graphics.getHeight() - 2*gameFont.getBounds("PACER").height);
+    			Gdx.graphics.getHeight()/2 + 11*gameFont.getBounds("PACER").height/2);
     	gameFont.setColor(0, 0, 0, 1);
     	gameFont.draw(batch, "GAME OVER", (Gdx.graphics.getWidth() - gameFont.getBounds("GAME OVER").width)/2,
-    	        Gdx.graphics.getHeight()/2 + (float)2.5*gameFont.getBounds("GAME OVER").height);
+    			Gdx.graphics.getHeight()/2 + 7*gameFont.getBounds("GAME OVER").height/2);
     	gameFont.draw(batch, "SCORE: " + score, (Gdx.graphics.getWidth() - gameFont.getBounds("SCORE: 50").width)/2,
-    	        Gdx.graphics.getHeight()/2 + gameFont.getBounds("SCORE: 50").height/2);
+    			Gdx.graphics.getHeight()/2 + 4*gameFont.getBounds("SCORE: 50").height/2);
     	gameFont.setColor(0,0,1,1);
     	gameFont.draw(batch, "HIGHEST SCORE: " + String.format("%.0f", highestScore.getScore()), (Gdx.graphics.getWidth() - gameFont.getBounds("HIGHEST SCORE: " + String.format("%.0f", highestScore.getScore())).width)/2,
-    	        Gdx.graphics.getHeight()/2 - 3*gameFont.getBounds("HIGHEST SCORE: 00").height/2);
+    	        Gdx.graphics.getHeight()/2 - 1*gameFont.getBounds("HIGHEST SCORE: 00").height/2);
     	gameFont.draw(batch, "SET BY: " + highestScore.getName(), (Gdx.graphics.getWidth() - gameFont.getBounds("SET BY: " + highestScore.getName()).width)/2,
-    	        Gdx.graphics.getHeight()/2 - 3*gameFont.getBounds("SET BY: AAAAA").height);
+    	        Gdx.graphics.getHeight()/2 - 2*gameFont.getBounds("SET BY: AAAAA").height);
     	gameFont.setColor(1, 1, 1, 1);
-    	gameFont.draw(batch, "MAIN MENU", (Gdx.graphics.getWidth() - gameFont.getBounds("MAIN MENU").width)/4,
-    	        (float)2.5*gameFont.getBounds("MAIN MENU").height);
-    	gameFont.draw(batch, "RETRY", (Gdx.graphics.getWidth() - gameFont.getBounds("RETRY").width)*3/4,
-    	        (float)2.5*gameFont.getBounds("RETRY").height);
+    	gameFont.draw(batch, "MAIN MENU", (Gdx.graphics.getWidth()/2 - gameFont.getBounds("MAIN MENU").width)/2,
+    			Gdx.graphics.getHeight()/2 - 9*gameFont.getBounds("MAIN MENU").height/2);
+    	gameFont.draw(batch, "RETRY", Gdx.graphics.getWidth()*3/4 - gameFont.getBounds("RETRY").width/2,
+    			Gdx.graphics.getHeight()/2 - 9*gameFont.getBounds("RETRY").height/2);
     	batch.end();
     }
 
-	@Override
+    @Override
 	public void update(GameScreen screen, float deltaTime) {
-		if (Gdx.input.justTouched() && Gdx.input.getX() > (Gdx.graphics.getWidth() - gameFont.getBounds("MAIN MENU").width)/4 - 15 &&
-				Gdx.input.getX() < (Gdx.graphics.getWidth() - gameFont.getBounds("MAIN MENU").width)/4 + gameFont.getBounds("MAIN MENU").width + 15 &&
-				((Gdx.input.getY() - Gdx.graphics.getHeight()) * -1) > (float)2.5*gameFont.getBounds("MAIN MENU").height - gameFont.getBounds("MAIN MENU").height - 15 &&
-				((Gdx.input.getY() - Gdx.graphics.getHeight()) * -1) < (float)2.5*gameFont.getBounds("MAIN MENU").height + 15){
+		if (Gdx.input.justTouched() && Gdx.input.getX() < Gdx.graphics.getWidth()/2 && -1*(Gdx.input.getY() - Gdx.graphics.getHeight()) < Gdx.graphics.getHeight()/2){
     		screen.getGame().setScreen(new MainMenuScreen(screen.getGame()));
     	}
-		if (Gdx.input.justTouched() && Gdx.input.getX() > (Gdx.graphics.getWidth() - gameFont.getBounds("RETRY").width)*3/4 - 15 &&
-				Gdx.input.getX() < (Gdx.graphics.getWidth() - gameFont.getBounds("RETRY").width)*3/4 + gameFont.getBounds("RETRY").width + 15 &&
-				((Gdx.input.getY() - Gdx.graphics.getHeight()) * -1) > (float)2.5*gameFont.getBounds("RETRY").height - gameFont.getBounds("RETRY").height - 15 &&
-				((Gdx.input.getY() - Gdx.graphics.getHeight()) * -1) < (float)2.5*gameFont.getBounds("RETRY").height + 15){
+		if (Gdx.input.justTouched() && Gdx.input.getX() > Gdx.graphics.getWidth()/2 && -1*(Gdx.input.getY() - Gdx.graphics.getHeight()) < Gdx.graphics.getHeight()/2){
 			screen.reset();
     	}
-	} 
+	}
 }

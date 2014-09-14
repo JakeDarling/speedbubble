@@ -65,7 +65,7 @@ public class GameModeArcade implements GameMode{
 		
 		spawnBubble();
 		
-		speed = Gdx.graphics.getHeight()/2;
+		speed = height/2;
 		yPos = 0;
 		
 		bubbleColor=0;
@@ -157,11 +157,11 @@ public class GameModeArcade implements GameMode{
          */
         if (missedBubble){
         	Assets.playSound(Assets.failSound);
-        	Assets.setBubbleColor(0);
+        	Assets.setBubbleColor(Settings.favoriteColor);
         	screen.setState(new GameStateGetName(screen, bubblesPopped));
         }
 
-        speed += (Gdx.graphics.getHeight()/100) * deltaTime;
+        speed += (Gdx.graphics.getHeight()/25) * deltaTime;
 	}
 
 	@Override

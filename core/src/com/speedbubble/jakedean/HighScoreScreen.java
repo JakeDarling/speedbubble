@@ -76,7 +76,7 @@ public class HighScoreScreen implements Screen {
             public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
             	setTable(table);
             	if (Settings.leaderboardsEnabled){
-            		game.actionResolver.getLeaderboardGPGS("CgkIh-6d6poMEAIQAQ");
+            		game.actionResolver.getLeaderboardGPGS("CgkIh-6d6poMEAIQDA");
             	}
             }
 		});

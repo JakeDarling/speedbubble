@@ -12,7 +12,7 @@ public class GameModePacer implements GameMode{
 	private boolean popStarted, gameStarted;
     private float time;
     private float stateTime;
-    private int bubbles, tracker, level;
+    private int bubbles, tracker, level, newColor;
     
     private BitmapFont gameFont;
     
@@ -54,6 +54,7 @@ public class GameModePacer implements GameMode{
     	bubbles = 0;
     	tracker = 0;
     	level = 0;
+    	newColor = Settings.favoriteColor;
     }
 	
 	@Override
@@ -77,13 +78,21 @@ public class GameModePacer implements GameMode{
              }
              else{
             	 Assets.playSound(Assets.failSound);
+            	 Assets.setBubbleColor(Settings.favoriteColor);
             	 screen.setState(new GameStateGetName(screen, bubbles));
              }
          }
     	 
+    	 if(tracker==24){
+    		 newColor++;
+    		 if (newColor>5) newColor=0;
+    		 Assets.setBubbleColor(newColor);
+    	 }
+    	 
     	 if (tracker >= 25){
     		 tracker = 0;
     		 level++;
+    		 
     		 if(level>5){
     			 level = 5;
     		 }
@@ -92,6 +101,7 @@ public class GameModePacer implements GameMode{
     	 
     	 if (time <= 0){
     		 Assets.playSound(Assets.failSound);
+    		 Assets.setBubbleColor(Settings.favoriteColor);
     		 screen.setState(new GameStateGetName(screen, bubbles)); 
     	 }
     }

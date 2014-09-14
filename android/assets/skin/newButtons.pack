@@ -5,91 +5,175 @@ filter: Nearest,Nearest
 repeat: none
 button_BlueChecked
   rotate: false
-  xy: 1, 305
+  xy: 1, 809
   size: 200, 200
   orig: 200, 200
   offset: 0, 0
   index: -1
 button_BlueDown
   rotate: false
-  xy: 1, 305
+  xy: 1, 809
   size: 200, 200
   orig: 200, 200
   offset: 0, 0
   index: -1
 button_BlueUp
   rotate: false
-  xy: 1, 103
+  xy: 1, 607
   size: 200, 200
   orig: 200, 200
   offset: 0, 0
   index: -1
 button_GreenChecked
   rotate: false
-  xy: 203, 305
+  xy: 203, 809
   size: 200, 200
   orig: 200, 200
   offset: 0, 0
   index: -1
 button_GreenDown
   rotate: false
-  xy: 203, 305
+  xy: 203, 809
   size: 200, 200
   orig: 200, 200
   offset: 0, 0
   index: -1
 button_GreenUp
   rotate: false
-  xy: 203, 103
+  xy: 1, 405
+  size: 200, 200
+  orig: 200, 200
+  offset: 0, 0
+  index: -1
+button_OrangeChecked
+  rotate: false
+  xy: 203, 607
+  size: 200, 200
+  orig: 200, 200
+  offset: 0, 0
+  index: -1
+button_OrangeDown
+  rotate: false
+  xy: 203, 607
+  size: 200, 200
+  orig: 200, 200
+  offset: 0, 0
+  index: -1
+button_OrangeUp
+  rotate: false
+  xy: 405, 809
+  size: 200, 200
+  orig: 200, 200
+  offset: 0, 0
+  index: -1
+button_PinkChecked
+  rotate: false
+  xy: 1, 203
+  size: 200, 200
+  orig: 200, 200
+  offset: 0, 0
+  index: -1
+button_PinkDown
+  rotate: false
+  xy: 1, 203
+  size: 200, 200
+  orig: 200, 200
+  offset: 0, 0
+  index: -1
+button_PinkUp
+  rotate: false
+  xy: 203, 405
+  size: 200, 200
+  orig: 200, 200
+  offset: 0, 0
+  index: -1
+button_PurpleChecked
+  rotate: false
+  xy: 405, 607
+  size: 200, 200
+  orig: 200, 200
+  offset: 0, 0
+  index: -1
+button_PurpleDown
+  rotate: false
+  xy: 405, 607
+  size: 200, 200
+  orig: 200, 200
+  offset: 0, 0
+  index: -1
+button_PurpleUp
+  rotate: false
+  xy: 607, 809
   size: 200, 200
   orig: 200, 200
   offset: 0, 0
   index: -1
 button_RedChecked
   rotate: false
-  xy: 405, 305
+  xy: 1, 1
   size: 200, 200
   orig: 200, 200
   offset: 0, 0
   index: -1
 button_RedDown
   rotate: false
-  xy: 405, 305
+  xy: 1, 1
   size: 200, 200
   orig: 200, 200
   offset: 0, 0
   index: -1
 button_RedUp
   rotate: false
-  xy: 405, 103
+  xy: 203, 203
+  size: 200, 200
+  orig: 200, 200
+  offset: 0, 0
+  index: -1
+button_YellowChecked
+  rotate: false
+  xy: 405, 405
+  size: 200, 200
+  orig: 200, 200
+  offset: 0, 0
+  index: -1
+button_YellowDown
+  rotate: false
+  xy: 405, 405
+  size: 200, 200
+  orig: 200, 200
+  offset: 0, 0
+  index: -1
+button_YellowUp
+  rotate: false
+  xy: 607, 607
   size: 200, 200
   orig: 200, 200
   offset: 0, 0
   index: -1
 button_PlayDown
   rotate: false
-  xy: 1, 1
+  xy: 809, 909
   size: 100, 100
   orig: 100, 100
   offset: 0, 0
   index: -1
 button_StopDown
   rotate: false
-  xy: 1, 1
+  xy: 809, 909
   size: 100, 100
   orig: 100, 100
   offset: 0, 0
   index: -1
 button_PlayUp
   rotate: false
-  xy: 607, 405
+  xy: 203, 101
   size: 100, 100
   orig: 100, 100
   offset: 0, 0
   index: -1
 button_StopUp
   rotate: false
-  xy: 103, 1
+  xy: 405, 303
   size: 100, 100
   orig: 100, 100
   offset: 0, 0

@@ -74,13 +74,15 @@ public class GameModeFiftyBubble implements GameMode{
              }
              else{
             	 Assets.playSound(Assets.failSound);
+            	 Assets.setBubbleColor(Settings.favoriteColor);
+            	 bubbles = 25;
             	 screen.setState(new GameStateFailFB(time)); 
              }
          }
     	 
-    	 if (bubbles == 1) Assets.setBubbleColor(Assets.RED);
+    	 if (bubbles == 1) Assets.setBubbleColor(Settings.favoriteColor + 1);
     	 if (bubbles <= 0){
-    		 Assets.setBubbleColor(Assets.BLUE);
+    		 Assets.setBubbleColor(Settings.favoriteColor);
     		 screen.setState(new GameStateGetName(screen, time)); 
     	 }
     }

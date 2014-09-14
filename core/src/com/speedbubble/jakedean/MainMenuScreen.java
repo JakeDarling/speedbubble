@@ -41,8 +41,9 @@ public class MainMenuScreen implements Screen{
 /** all menu stuff */
 	private Table table;
 	private TextButton timed, fiftyBubble, arcade, pacer, highScoresOn, highScoresOff, credits, options, leadersOn, leadersOff, 
-							playSounds, stopSounds, back;
-	private Label sounds;
+							playSounds, stopSounds, back, blue, yellow, orange, red, pink, purple;
+	private TextButton[] allColors;
+	private Label sounds, color;
 	private Group optionsMenu;
 	private Skin skin;
 	private TextureAtlas skinAtlas;
@@ -228,8 +229,109 @@ public class MainMenuScreen implements Screen{
             }
 		});
 		
+		allColors = new TextButton[6];
+		
+		blue = new TextButton("", skin, "blueToggle");
+		blue.addListener(new InputListener(){
+            public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
+            	Assets.playSound(Assets.bubbleSound);
+                return true;
+            }
+            public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
+            	for (int i = 0; i<6; i++){
+            		if(allColors[i].isChecked() && !(i==Assets.BLUE)) allColors[i].setChecked(false);
+            	}
+            	Settings.favoriteColor = Assets.BLUE;
+            	Assets.setBubbleColor(Settings.favoriteColor);
+            }
+		});
+		
+		yellow = new TextButton("", skin, "yellowToggle");
+		yellow.addListener(new InputListener(){
+            public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
+            	Assets.playSound(Assets.bubbleSound);
+                return true;
+            }
+            public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
+            	for (int i = 0; i<6; i++){
+            		if(allColors[i].isChecked() && !(i==Assets.YELLOW)) allColors[i].setChecked(false);
+            	}
+            	Settings.favoriteColor = Assets.YELLOW;
+            	Assets.setBubbleColor(Settings.favoriteColor);
+            }
+		});
+		
+		orange = new TextButton("", skin, "orangeToggle");
+		orange.addListener(new InputListener(){
+            public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
+            	Assets.playSound(Assets.bubbleSound);
+                return true;
+            }
+            public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
+            	for (int i = 0; i<6; i++){
+            		if(allColors[i].isChecked() && !(i==Assets.ORANGE)) allColors[i].setChecked(false);
+            	}
+            	Settings.favoriteColor = Assets.ORANGE;
+            	Assets.setBubbleColor(Settings.favoriteColor);
+            }
+		});
+		
+		red = new TextButton("", skin, "redToggle");
+		red.addListener(new InputListener(){
+            public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
+            	Assets.playSound(Assets.bubbleSound);
+                return true;
+            }
+            public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
+            	for (int i = 0; i<6; i++){
+            		if(allColors[i].isChecked() && !(i==Assets.RED)) allColors[i].setChecked(false);
+            	}
+            	Settings.favoriteColor = Assets.RED;
+            	Assets.setBubbleColor(Settings.favoriteColor);
+            }
+		});
+		
+		pink = new TextButton("", skin, "pinkToggle");
+		pink.addListener(new InputListener(){
+            public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
+            	Assets.playSound(Assets.bubbleSound);
+                return true;
+            }
+            public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
+            	for (int i = 0; i<6; i++){
+            		if(allColors[i].isChecked() && !(i==Assets.PINK)) allColors[i].setChecked(false);
+            	}
+            	Settings.favoriteColor = Assets.PINK;
+            	Assets.setBubbleColor(Settings.favoriteColor);
+            }
+		});
+		
+		purple = new TextButton("", skin, "purpleToggle");
+		purple.addListener(new InputListener(){
+            public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
+            	Assets.playSound(Assets.bubbleSound);
+                return true;
+            }
+            public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
+            	for (int i = 0; i<6; i++){
+            		if(allColors[i].isChecked() && !(i==Assets.PURPLE)) allColors[i].setChecked(false);
+            	}
+            	Settings.favoriteColor = Assets.PURPLE;
+            	Assets.setBubbleColor(Settings.favoriteColor);
+            }
+		});
+		
+		allColors[0] = blue;
+		allColors[1] = yellow;
+		allColors[2] = orange;
+		allColors[3] = red;
+		allColors[4] = pink;
+		allColors[5] = purple;
+		
 		sounds = new Label("SOUND EFFECTS", skin, "defaultWhite");
 		sounds.getColor().set(0, 0, 0, 1);
+		color = new Label("FAVORITE BUBBLE COLOR", skin, "defaultWhite");
+		color.getColor().set(0, 0, 0, 1);
 		
 		optionsMenu = new Group();
 		
@@ -267,13 +369,25 @@ public class MainMenuScreen implements Screen{
 	private void createOptionsMenu(){
 		updateOptionsMenu();
 		if(landscape){
-			playSounds.setSize(Gdx.graphics.getHeight()/2, Gdx.graphics.getHeight()/2);
-			playSounds.setPosition(camera.position.x - playSounds.getWidth()/2, camera.position.y - playSounds.getHeight()/2);
+			playSounds.setSize(Gdx.graphics.getHeight()/4, Gdx.graphics.getHeight()/4);
+			playSounds.setPosition(camera.position.x - playSounds.getWidth()/2, camera.position.y + playSounds.getHeight()*camera.zoom/2);
 			stopSounds.setSize(playSounds.getWidth(), playSounds.getHeight());
 			stopSounds.setPosition(playSounds.getX(), playSounds.getY());
 			back.setSize(175, 90);
 			back.setPosition(camera.position.x - Gdx.graphics.getWidth()*camera.zoom/2, camera.position.y+Gdx.graphics.getHeight()*camera.zoom/2 - 90);
-			
+			float xSpacing = Gdx.graphics.getWidth()/49;
+			blue.setSize(Gdx.graphics.getWidth()/7, Gdx.graphics.getWidth()/7);
+			blue.setPosition(camera.position.x - Gdx.graphics.getWidth()*camera.zoom/2 + xSpacing, camera.position.y - blue.getHeight()*camera.zoom);
+			yellow.setSize(Gdx.graphics.getWidth()/7, Gdx.graphics.getWidth()/7);
+			yellow.setPosition(camera.position.x - Gdx.graphics.getWidth()*camera.zoom/2 + 2*xSpacing + blue.getWidth(), camera.position.y - blue.getHeight()*camera.zoom);
+			orange.setSize(Gdx.graphics.getWidth()/7, Gdx.graphics.getWidth()/7);
+			orange.setPosition(camera.position.x - Gdx.graphics.getWidth()*camera.zoom/2 + 3*xSpacing + 2*blue.getWidth(), camera.position.y - blue.getHeight()*camera.zoom);
+			red.setSize(Gdx.graphics.getWidth()/7, Gdx.graphics.getWidth()/7);
+			red.setPosition(camera.position.x - Gdx.graphics.getWidth()*camera.zoom/2 + 4*xSpacing + 3*blue.getWidth(), camera.position.y - blue.getHeight()*camera.zoom);
+			pink.setSize(Gdx.graphics.getWidth()/7, Gdx.graphics.getWidth()/7);
+			pink.setPosition(camera.position.x - Gdx.graphics.getWidth()*camera.zoom/2 + 5*xSpacing + 4*blue.getWidth(), camera.position.y - blue.getHeight()*camera.zoom);
+			purple.setSize(Gdx.graphics.getWidth()/7, Gdx.graphics.getWidth()/7);
+			purple.setPosition(camera.position.x - Gdx.graphics.getWidth()*camera.zoom/2 + 6*xSpacing + 5*blue.getWidth(), camera.position.y - blue.getHeight()*camera.zoom);
 		}
 		else{
 			playSounds.setSize(Gdx.graphics.getWidth()/2, Gdx.graphics.getWidth()/2);
@@ -284,7 +398,9 @@ public class MainMenuScreen implements Screen{
 			back.setPosition(camera.position.x - Gdx.graphics.getWidth()/2, camera.position.y+Gdx.graphics.getHeight() - 90);
 		}
 		sounds.setFontScale(1.5f);
-		sounds.setPosition(camera.position.x - sounds.getPrefWidth()/2, playSounds.getY() + playSounds.getHeight() + sounds.getPrefHeight());
+		sounds.setPosition(camera.position.x - sounds.getPrefWidth()/2, (playSounds.getY() + playSounds.getHeight() + sounds.getPrefHeight()/2)*camera.zoom);
+		color.setFontScale(1.5f);
+		color.setPosition(camera.position.x - color.getPrefWidth()/2, (blue.getY() + blue.getHeight() + color.getPrefHeight()/2)*camera.zoom);
 		
 		tintImage.setSize(Gdx.graphics.getWidth()*camera.zoom, Gdx.graphics.getHeight()*camera.zoom);
 		tintImage.setPosition(camera.position.x - Gdx.graphics.getWidth()*camera.zoom/2, camera.position.y - Gdx.graphics.getHeight()*camera.zoom/2);
@@ -294,6 +410,13 @@ public class MainMenuScreen implements Screen{
 		optionsMenu.addActor(stopSounds);
 		optionsMenu.addActor(sounds);
 		optionsMenu.addActor(back);
+		optionsMenu.addActor(blue);
+		optionsMenu.addActor(yellow);
+		optionsMenu.addActor(orange);
+		optionsMenu.addActor(red);
+		optionsMenu.addActor(pink);
+		optionsMenu.addActor(purple);
+		optionsMenu.addActor(color);
 	}
 	
 	private void updateWindow(){
