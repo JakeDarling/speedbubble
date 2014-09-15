@@ -61,7 +61,7 @@ public class MainMenuScreen implements Screen{
 		skin = new Skin(Gdx.files.internal("skin/skin.json"), skinAtlas);
 		loopingBubbleSound = Gdx.audio.newSound(Gdx.files.internal("bubbles.mp3"));
 		
-		timed = new TextButton("TIMED", skin, "blue");
+		timed = new TextButton("15 SEC\nRUSH", skin, "blue");
 		timed.addListener(new InputListener(){
             public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
             	Assets.playSound(Assets.bubbleSound);
@@ -75,7 +75,7 @@ public class MainMenuScreen implements Screen{
             }
 		});
 		
-		fiftyBubble = new TextButton("SPEED\nBUBBLE\n", skin, "blue");
+		fiftyBubble = new TextButton("RAPID\n25", skin, "blue");
 		fiftyBubble.getLabel();
 		fiftyBubble.addListener(new InputListener(){
             public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
@@ -90,7 +90,7 @@ public class MainMenuScreen implements Screen{
             }
 		});
 		
-		arcade = new TextButton("ARCADE", skin, "blue");
+		arcade = new TextButton("SPEED\nBUBBLES", skin, "blue");
 		arcade.addListener(new InputListener(){
             public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
             	Assets.playSound(Assets.bubbleSound);
@@ -445,12 +445,12 @@ public class MainMenuScreen implements Screen{
 			table.setSize(width, height);
 			table.setPosition(Gdx.graphics.getWidth() - table.getWidth()/2, Gdx.graphics.getHeight() - table.getHeight()/2 );
 			table.setColor(1,1,1,1);
-			table.add(fiftyBubble).width(buttonWidth).height(buttonHeight).padTop(0).padLeft(0);
-				arcade.getLabel().setFontScale(buttonWidth / arcade.getLabel().getStyle().font.getBounds("ARCADE").width - .3f);
-			table.add(arcade).width(buttonWidth).height(buttonHeight).padTop(0).padLeft(spacingW);
-				fiftyBubble.getLabel().setFontScale(buttonWidth / fiftyBubble.getLabel().getStyle().font.getBounds("BUBBLE").width - .3f);
+			table.add(arcade).width(buttonWidth).height(buttonHeight).padTop(0).padLeft(0);
+				arcade.getLabel().setFontScale(buttonWidth / arcade.getLabel().getStyle().font.getBounds("BUBBLES").width - .3f);
+			table.add(fiftyBubble).width(buttonWidth).height(buttonHeight).padTop(0).padLeft(spacingW);
+				fiftyBubble.getLabel().setFontScale(buttonWidth / fiftyBubble.getLabel().getStyle().font.getBounds("RAPID").width - .5f);
 			table.add(timed).width(buttonWidth).height(buttonHeight).padTop(0).padLeft(spacingW);
-				timed.getLabel().setFontScale(buttonWidth / timed.getLabel().getStyle().font.getBounds("TIMED").width - .5f);
+				timed.getLabel().setFontScale(buttonWidth / timed.getLabel().getStyle().font.getBounds("15 SEC").width - .5f);
 			table.add(pacer).width(buttonWidth).height(buttonHeight).padTop(0).padLeft(spacingW);
 				pacer.getLabel().setFontScale(buttonWidth / pacer.getLabel().getStyle().font.getBounds("PACER").width - .4f);
 			table.row();
