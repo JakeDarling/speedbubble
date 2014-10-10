@@ -17,7 +17,7 @@ public class GameModeArcade implements GameMode{
 	private SpriteBatch batch;
 	private Texture backgroundTexture, arcadeLine;
 	private BitmapFont gameFont;
-	private boolean popStarted, missedBubble;
+	private boolean popStarted, missedBubble, removeBubble;
 
 	private Array<Sprite> bubbles;
 	private Sprite topBubble, background;
@@ -37,6 +37,7 @@ public class GameModeArcade implements GameMode{
     	
     	popStarted = false;
     	missedBubble = false;
+    	removeBubble = false;
     	
     	stateTime = 0;
     	bubblesPopped = 0;
@@ -114,11 +115,12 @@ public class GameModeArcade implements GameMode{
         	if(Gdx.input.getX()>=topBubble.getX() && Gdx.input.getX() <= topBubble.getX()+topBubble.getWidth()
     			&& ((Gdx.input.getY() - Gdx.graphics.getHeight()) * -1) >= topBubble.getY() 
     			&& ((Gdx.input.getY() - Gdx.graphics.getHeight()) * -1) <= topBubble.getY()+topBubble.getHeight()
-    			&& topBubble.getY() < 3*sideLength/2)
+    			&& ((Gdx.input.getY() - Gdx.graphics.getHeight()) * -1) <= sideLength)
         	{
 	    		stateTime=0;
 	    		Assets.previousBubble.setPosition(topBubble.getX(), topBubble.getY());
 	    		popStarted=true;
+	    		removeBubble = true;
 	    		Assets.playSound(Assets.bubbleSound);
 	    		bubblesPopped++;
         	}
@@ -134,14 +136,10 @@ public class GameModeArcade implements GameMode{
         while (iter.hasNext()) {
         	Sprite bubble = iter.next();
             bubble.setY(bubble.getY() - speed * deltaTime);
-            if (Gdx.input.justTouched()){
-            	if(Gdx.input.getX()>=bubble.getX() && Gdx.input.getX() <= bubble.getX()+bubble.getWidth()
-        			&& ((Gdx.input.getY() - Gdx.graphics.getHeight()) * -1) >= bubble.getY() 
-        			&& ((Gdx.input.getY() - Gdx.graphics.getHeight()) * -1) <= bubble.getY()+bubble.getHeight()
-        			&& Gdx.input.getY() > height - sideLength)
-            	{
-    	        	iter.remove();
-            	}
+            if(removeBubble)
+            {
+    	       	iter.remove();
+    	       	removeBubble = false;
             }
         /**
          * If the bubble makes it off the bottom of the screen you missed it, therefore you fail
@@ -158,6 +156,7 @@ public class GameModeArcade implements GameMode{
         if (missedBubble){
         	Assets.playSound(Assets.failSound);
         	Assets.setBubbleColor(Settings.favoriteColor);
+        	dispose();
         	screen.setState(new GameStateGetName(screen, bubblesPopped));
         }
 
@@ -171,7 +170,7 @@ public class GameModeArcade implements GameMode{
 		
 		batch.begin();
 		background.draw(batch);
-		batch.draw(arcadeLine, 0, 0, width, 3*sideLength/5);
+		batch.draw(arcadeLine, 0, 2*sideLength/5, width, 3*sideLength/5);
 		gameFont.draw(batch, ""+bubblesPopped, (Gdx.graphics.getWidth() - gameFont.getBounds(""+bubblesPopped).width)/2,
 				gameFont.getBounds(""+bubblesPopped).height*3/2);
 		for (Sprite bubble : bubbles){
@@ -185,5 +184,12 @@ public class GameModeArcade implements GameMode{
 		Assets.currentBubble = Assets.poppingBubble.getKeyFrame(stateTime, false);
         batch.draw(Assets.currentBubble, Assets.previousBubble.getX(), Assets.previousBubble.getY(), Assets.previousBubble.getWidth(), Assets.previousBubble.getHeight());
     }
+	
+	public void dispose(){
+		batch.dispose();
+		backgroundTexture.dispose();
+		arcadeLine.dispose();
+		gameFont.dispose();
+	}
 
 }

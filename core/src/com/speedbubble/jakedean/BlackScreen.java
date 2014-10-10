@@ -24,10 +24,12 @@ public class BlackScreen implements Screen{
     	if(listener.enteredData && listener.isValid){
 
 			Gdx.files.local("firstPlay.txt").writeString(Assets.name + "\ntrue\ntrue\ntrue\ntrue\n", false);
+			Assets.load();
     		game.setScreen(new MainMenuScreen(game));
     	}
     	else if(listener.enteredData && !listener.isValid){
     		Gdx.files.local("firstPlay.txt").writeString("name\ntrue\ntrue\ntrue\ntrue\n", false);
+    		System.out.println("overwrote file");
     		game.setScreen(new MainMenuScreen(game));
     	}
 	}

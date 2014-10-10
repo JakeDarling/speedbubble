@@ -1,6 +1,8 @@
 package com.speedbubble.jakedean;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.Input.Keys;
 
 public class GameScreen implements Screen {
 	
@@ -10,8 +12,12 @@ public class GameScreen implements Screen {
     private GameState state;
 
     public GameScreen(SpeedBubble sb, GameModeEnum selection) {
+    	
+    	Gdx.input.setCatchBackKey(true);
         
     	game = sb;
+    	sb.actionResolver.showAds(false);
+    	
     	selector = selection;
         setMode(selector);
         setState(new GameStateStart(this));
@@ -19,6 +25,7 @@ public class GameScreen implements Screen {
     }
     
     public void reset(){
+    	game.actionResolver.showAds(false);
     	setMode(selector);
         setState(new GameStateStart(this));
     }
@@ -62,11 +69,15 @@ public class GameScreen implements Screen {
     public void render(float delta) {
         state.update(this, delta);
         state.draw(this, delta);
+        
+        if (Gdx.input.isKeyPressed(Keys.BACK) && !Settings.MAIN_MENU){
+        	game.actionResolver.showAds(true);
+        	game.setScreen(new MainMenuScreen(game));
+		}
     }
     
     @Override
     public void dispose() {
-
     }
     
     @Override

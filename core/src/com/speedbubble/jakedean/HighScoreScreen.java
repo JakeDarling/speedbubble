@@ -2,6 +2,7 @@ package com.speedbubble.jakedean;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -20,6 +21,7 @@ public class HighScoreScreen implements Screen {
 		ARCADE, FIFTY, PACER, TIMED;
 	}
 	
+	private SpeedBubble game;
 	private Mode mode;
 	
 	private SpriteBatch batch;
@@ -34,8 +36,13 @@ public class HighScoreScreen implements Screen {
 	
 	private int i, spacing, buttonWidth;
 	
-	public HighScoreScreen (final SpeedBubble game){
-		mode = Mode.FIFTY;
+	public HighScoreScreen (SpeedBubble sb){
+		
+		this.game = sb;
+		
+		Gdx.input.setCatchBackKey(true);
+		
+		mode = Mode.ARCADE;
 		
 		batch = new SpriteBatch();
 		background = new Texture(Gdx.files.internal("mainMenuBackground.png"));
@@ -64,9 +71,9 @@ public class HighScoreScreen implements Screen {
 		spacing = Gdx.graphics.getWidth()/25;
 		buttonWidth = Gdx.graphics.getWidth()/5;
 		
-		arcade = new TextButton("ARCADE", skin, "green");
+		arcade = new TextButton("SPEED", skin, "green");
 		arcade.setSize(buttonWidth, 75);
-		arcade.setPosition(2*spacing+buttonWidth, 10 );
+		arcade.setPosition(spacing, 10);
 		arcade.addListener(new InputListener(){
             public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
             	Assets.playSound(Assets.bubbleSound);
@@ -81,9 +88,9 @@ public class HighScoreScreen implements Screen {
             }
 		});
 		
-		fifty = new TextButton("SPEED", skin, "green");
+		fifty = new TextButton("RAPID 25", skin, "green");
 		fifty.setSize(buttonWidth, 75);
-		fifty.setPosition(spacing, 10);
+		fifty.setPosition(2*spacing+buttonWidth, 10 );
 		fifty.addListener(new InputListener(){
             public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
             	Assets.playSound(Assets.bubbleSound);
@@ -115,7 +122,7 @@ public class HighScoreScreen implements Screen {
             }
 		});
 		
-		timed = new TextButton("TIMED", skin, "green");
+		timed = new TextButton("15 SEC", skin, "green");
 		timed.setSize(buttonWidth, 75);
 		timed.setPosition(3*spacing+2*buttonWidth, 10);
 		timed.addListener(new InputListener(){
@@ -134,8 +141,8 @@ public class HighScoreScreen implements Screen {
 		
 		
 		back = new TextButton("BACK", skin, "red");
-		back.setSize(175, 90);
-		back.setPosition(0, Gdx.graphics.getHeight() - 90);
+		back.setSize(Gdx.graphics.getWidth()/7, Gdx.graphics.getHeight()/10);
+		back.setPosition(0, Gdx.graphics.getHeight() - 2*back.getHeight());
 		back.addListener(new InputListener(){
             public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
             	Assets.playSound(Assets.bubbleSound);
@@ -143,6 +150,7 @@ public class HighScoreScreen implements Screen {
             }
             public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
             	stage.getRoot().clear();
+            	dispose();
             		game.setScreen(new MainMenuScreen(game));
             }
 		});
@@ -167,7 +175,7 @@ public class HighScoreScreen implements Screen {
 	private void prepareTable(){
 		switch(mode){
 		case ARCADE:
-			title.setText("ARCADE - PERSONAL TOP 5");
+			title.setText("SPEED BUBBLE - PERSONAL TOP 5");
 			i = 0;
 			while(i < HighScores.fetchHighScores(HighScores.ARCADE, false).size){
 				if (i == 0){
@@ -213,7 +221,7 @@ public class HighScoreScreen implements Screen {
 						
 			break;
 		case FIFTY:
-			title.setText("SPEED BUBBLE - PERSONAL TOP 5");
+			title.setText("RAPID 25 - PERSONAL TOP 5");
 			i = 0;
 			while(i < HighScores.fetchHighScores(HighScores.FIFTY, false).size){
 				if (i == 0){
@@ -305,7 +313,7 @@ public class HighScoreScreen implements Screen {
 			
 			break;
 		case TIMED:
-			title.setText("TIMED - PERSONAL TOP 5");
+			title.setText("15 SECOND RUSH - PERSONAL TOP 5");
 			i = 0;
 			while(i < HighScores.fetchHighScores(HighScores.TIMED, false).size){
 				if (i == 0){
@@ -406,6 +414,11 @@ public class HighScoreScreen implements Screen {
 		batch.end();
 		
 		stage.draw();
+		
+		if (Gdx.input.isKeyPressed(Keys.BACK) && !Settings.MAIN_MENU){
+			dispose();
+        	game.setScreen(new MainMenuScreen(game));
+		}
     }
 
     @Override
@@ -435,6 +448,11 @@ public class HighScoreScreen implements Screen {
     @Override
     public void dispose() {
     	batch.dispose();
-    	Gdx.app.exit();
+    	background.dispose();
+    	tint.dispose();
+    	stage.dispose();
+    	skin.dispose();
+    	skinAtlas.dispose();
+    	
     }
 }

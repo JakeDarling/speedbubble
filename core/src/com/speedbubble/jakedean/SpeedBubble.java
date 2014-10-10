@@ -27,6 +27,7 @@ public class SpeedBubble extends Game {
 //    		actionResolver.loginGPGS();
     	}
         else{
+        	Assets.load();
         	setScreen(new MainMenuScreen(this));
 //        	actionResolver.loginGPGS();
         }

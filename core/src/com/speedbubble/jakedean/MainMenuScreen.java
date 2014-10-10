@@ -1,6 +1,7 @@
 package com.speedbubble.jakedean;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.GL20;
@@ -22,14 +23,19 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 
 public class MainMenuScreen implements Screen{
 	
+	private final SpeedBubble game;
+	
+	/** TIMER FOR BACK BUTTON */
+	private float timer;
+	
 	private GameModeEnum selection;
 	
 	private int width=1160, height=660;
 	private boolean landscape = false;
 	
 	/** STUFF FOR TABLE */
-	int rows, cols, buttonWidth, buttonHeight; 
-	float spacingW, spacingH;
+	private int rows, cols, buttonWidth, buttonHeight; 
+	private float spacingW, spacingH;
 	
 	private Stage stage;
 	private Viewport v;
@@ -50,10 +56,15 @@ public class MainMenuScreen implements Screen{
 	private Texture background;
 	private Image tintImage;
 	
-	public MainMenuScreen(final SpeedBubble game){
+	public MainMenuScreen(SpeedBubble g){
 		
-		Assets.load();
-				
+		this.game = g;
+		
+		timer = 0;
+		
+		Settings.MAIN_MENU = true;
+		Gdx.input.setCatchBackKey(true);
+		
 		if(width>height){landscape=true;}
 		else{landscape=false;}
 		
@@ -70,6 +81,7 @@ public class MainMenuScreen implements Screen{
             }
             public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
             	loopingBubbleSound.stop();
+            	Settings.MAIN_MENU = false;
             	game.getScreen().dispose();
             	game.setScreen(new GameScreen(game, selection));
             }
@@ -85,6 +97,7 @@ public class MainMenuScreen implements Screen{
             }
             public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
             	loopingBubbleSound.stop();
+            	Settings.MAIN_MENU = false;
             	game.getScreen().dispose();
             	game.setScreen(new GameScreen(game, selection));
             }
@@ -99,6 +112,7 @@ public class MainMenuScreen implements Screen{
             }
             public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
             	loopingBubbleSound.stop();
+            	Settings.MAIN_MENU = false;
             	game.getScreen().dispose();
             	game.setScreen(new GameScreen(game, selection));
             }
@@ -112,6 +126,7 @@ public class MainMenuScreen implements Screen{
             }
             public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
             	loopingBubbleSound.stop();
+            	Settings.MAIN_MENU = false;
             	game.getScreen().dispose();
             	game.setScreen(new HighScoreScreen(game));
             }
@@ -124,6 +139,7 @@ public class MainMenuScreen implements Screen{
             }
             public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
             	loopingBubbleSound.stop();
+            	Settings.MAIN_MENU = false;
             	game.getScreen().dispose();
             	game.setScreen(new HighScoreScreen(game));
             }
@@ -138,12 +154,13 @@ public class MainMenuScreen implements Screen{
             }
             public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
             	loopingBubbleSound.stop();
+            	Settings.MAIN_MENU = false;
             	game.getScreen().dispose();
             	game.setScreen(new GameScreen(game, selection));
             }
 		});
 		
-		credits = new TextButton("CREDITS", skin, "green");
+		credits = new TextButton("CREDITS\nand\nDONATE", skin, "green");
 		credits.addListener(new InputListener(){
             public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
             	Assets.playSound(Assets.bubbleSound);
@@ -151,6 +168,7 @@ public class MainMenuScreen implements Screen{
             }
             public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
             	loopingBubbleSound.stop();
+            	Settings.MAIN_MENU = false;
             	game.getScreen().dispose();
             	game.setScreen(new CreditScreen(game));
             }
@@ -164,6 +182,7 @@ public class MainMenuScreen implements Screen{
                 return true;
             }
             public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
+            	Settings.MAIN_MENU = false;
             	stage.getRoot().clear();
             	stage.addActor(optionsMenu);
             }
@@ -224,6 +243,7 @@ public class MainMenuScreen implements Screen{
                 return true;
             }
             public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
+            	Settings.MAIN_MENU = true;
             	stage.getRoot().clear();
             	stage.addActor(table);
             }
@@ -330,7 +350,7 @@ public class MainMenuScreen implements Screen{
 		
 		sounds = new Label("SOUND EFFECTS", skin, "defaultWhite");
 		sounds.getColor().set(0, 0, 0, 1);
-		color = new Label("FAVORITE BUBBLE COLOR", skin, "defaultWhite");
+		color = new Label("CHOOSE FAVORITE COLOR", skin, "defaultWhite");
 		color.getColor().set(0, 0, 0, 1);
 		
 		optionsMenu = new Group();
@@ -370,24 +390,24 @@ public class MainMenuScreen implements Screen{
 		updateOptionsMenu();
 		if(landscape){
 			playSounds.setSize(Gdx.graphics.getHeight()/4, Gdx.graphics.getHeight()/4);
-			playSounds.setPosition(camera.position.x - playSounds.getWidth()/2, camera.position.y + playSounds.getHeight()*camera.zoom/2);
+			playSounds.setPosition(camera.position.x - playSounds.getWidth()/2, camera.position.y);
 			stopSounds.setSize(playSounds.getWidth(), playSounds.getHeight());
 			stopSounds.setPosition(playSounds.getX(), playSounds.getY());
-			back.setSize(175, 90);
-			back.setPosition(camera.position.x - Gdx.graphics.getWidth()*camera.zoom/2, camera.position.y+Gdx.graphics.getHeight()*camera.zoom/2 - 90);
+			back.setSize(Gdx.graphics.getWidth()/7, Gdx.graphics.getHeight()/10);
+			back.setPosition(camera.position.x - Gdx.graphics.getWidth()*camera.zoom/2, camera.position.y+Gdx.graphics.getHeight()*camera.zoom/2 - 2*back.getHeight());
 			float xSpacing = Gdx.graphics.getWidth()/49;
 			blue.setSize(Gdx.graphics.getWidth()/7, Gdx.graphics.getWidth()/7);
-			blue.setPosition(camera.position.x - Gdx.graphics.getWidth()*camera.zoom/2 + xSpacing, camera.position.y - blue.getHeight()*camera.zoom);
+			blue.setPosition(camera.position.x - Gdx.graphics.getWidth()*camera.zoom/2 + xSpacing, camera.position.y - Gdx.graphics.getHeight()/2 + blue.getHeight()/2);
 			yellow.setSize(Gdx.graphics.getWidth()/7, Gdx.graphics.getWidth()/7);
-			yellow.setPosition(camera.position.x - Gdx.graphics.getWidth()*camera.zoom/2 + 2*xSpacing + blue.getWidth(), camera.position.y - blue.getHeight()*camera.zoom);
+			yellow.setPosition(camera.position.x - Gdx.graphics.getWidth()*camera.zoom/2 + 2*xSpacing + blue.getWidth(), camera.position.y - Gdx.graphics.getHeight()/2 + blue.getHeight()/2);
 			orange.setSize(Gdx.graphics.getWidth()/7, Gdx.graphics.getWidth()/7);
-			orange.setPosition(camera.position.x - Gdx.graphics.getWidth()*camera.zoom/2 + 3*xSpacing + 2*blue.getWidth(), camera.position.y - blue.getHeight()*camera.zoom);
+			orange.setPosition(camera.position.x - Gdx.graphics.getWidth()*camera.zoom/2 + 3*xSpacing + 2*blue.getWidth(), camera.position.y - Gdx.graphics.getHeight()/2 + blue.getHeight()/2);
 			red.setSize(Gdx.graphics.getWidth()/7, Gdx.graphics.getWidth()/7);
-			red.setPosition(camera.position.x - Gdx.graphics.getWidth()*camera.zoom/2 + 4*xSpacing + 3*blue.getWidth(), camera.position.y - blue.getHeight()*camera.zoom);
+			red.setPosition(camera.position.x - Gdx.graphics.getWidth()*camera.zoom/2 + 4*xSpacing + 3*blue.getWidth(), camera.position.y - Gdx.graphics.getHeight()/2 + blue.getHeight()/2);
 			pink.setSize(Gdx.graphics.getWidth()/7, Gdx.graphics.getWidth()/7);
-			pink.setPosition(camera.position.x - Gdx.graphics.getWidth()*camera.zoom/2 + 5*xSpacing + 4*blue.getWidth(), camera.position.y - blue.getHeight()*camera.zoom);
+			pink.setPosition(camera.position.x - Gdx.graphics.getWidth()*camera.zoom/2 + 5*xSpacing + 4*blue.getWidth(), camera.position.y - Gdx.graphics.getHeight()/2 + blue.getHeight()/2);
 			purple.setSize(Gdx.graphics.getWidth()/7, Gdx.graphics.getWidth()/7);
-			purple.setPosition(camera.position.x - Gdx.graphics.getWidth()*camera.zoom/2 + 6*xSpacing + 5*blue.getWidth(), camera.position.y - blue.getHeight()*camera.zoom);
+			purple.setPosition(camera.position.x - Gdx.graphics.getWidth()*camera.zoom/2 + 6*xSpacing + 5*blue.getWidth(), camera.position.y - Gdx.graphics.getHeight()/2 + blue.getHeight()/2);
 		}
 		else{
 			playSounds.setSize(Gdx.graphics.getWidth()/2, Gdx.graphics.getWidth()/2);
@@ -398,9 +418,9 @@ public class MainMenuScreen implements Screen{
 			back.setPosition(camera.position.x - Gdx.graphics.getWidth()/2, camera.position.y+Gdx.graphics.getHeight() - 90);
 		}
 		sounds.setFontScale(1.5f);
-		sounds.setPosition(camera.position.x - sounds.getPrefWidth()/2, (playSounds.getY() + playSounds.getHeight() + sounds.getPrefHeight()/2)*camera.zoom);
+		sounds.setPosition(camera.position.x - sounds.getPrefWidth()/2, (playSounds.getY() + playSounds.getHeight() + sounds.getPrefHeight()/2));
 		color.setFontScale(1.5f);
-		color.setPosition(camera.position.x - color.getPrefWidth()/2, (blue.getY() + blue.getHeight() + color.getPrefHeight()/2)*camera.zoom);
+		color.setPosition(camera.position.x - color.getPrefWidth()/2, (blue.getY() + blue.getHeight() + color.getPrefHeight()/2));
 		
 		tintImage.setSize(Gdx.graphics.getWidth()*camera.zoom, Gdx.graphics.getHeight()*camera.zoom);
 		tintImage.setPosition(camera.position.x - Gdx.graphics.getWidth()*camera.zoom/2, camera.position.y - Gdx.graphics.getHeight()*camera.zoom/2);
@@ -456,23 +476,23 @@ public class MainMenuScreen implements Screen{
 			table.row();
 		if(Settings.leaderboardsEnabled){
 			table.add(highScoresOn).width(buttonWidth).height(buttonHeight).padTop(spacingH).padLeft(0);
-				highScoresOn.getLabel().setFontScale(buttonWidth / highScoresOn.getLabel().getStyle().font.getBounds("SCORES").width - .3f);
+				highScoresOn.getLabel().setFontScale(buttonWidth / highScoresOn.getLabel().getStyle().font.getBounds("SCORES").width - .4f);
 			}
 		if(!Settings.leaderboardsEnabled){
 			table.add(highScoresOff).width(buttonWidth).height(buttonHeight).padTop(spacingH).padLeft(0);
-			highScoresOff.getLabel().setFontScale(buttonWidth / highScoresOff.getLabel().getStyle().font.getBounds("SCORES").width - .3f);
+			highScoresOff.getLabel().setFontScale(buttonWidth / highScoresOff.getLabel().getStyle().font.getBounds("SCORES").width - .4f);
 			}
 			table.add(options).width(buttonWidth).height(buttonHeight).padTop(spacingH).padLeft(spacingW);
 				options.getLabel().setFontScale(buttonWidth / options.getLabel().getStyle().font.getBounds("OPTIONS").width - .2f);
 			table.add(credits).width(buttonWidth).height(buttonHeight).padTop(spacingH).padLeft(spacingW);
-				credits.getLabel().setFontScale(buttonWidth / credits.getLabel().getStyle().font.getBounds("CREDITS").width - .2f);
+				credits.getLabel().setFontScale(buttonWidth / credits.getLabel().getStyle().font.getBounds("CREDITS").width - .3f);
 		if(Settings.leaderboardsEnabled){
 			table.add(leadersOn).width(buttonWidth).height(buttonHeight).padTop(spacingH).padLeft(spacingW);
-				leadersOn.getLabel().setFontScale(buttonWidth / leadersOn.getLabel().getStyle().font.getBounds("ENABLED").width - .2f);
+				leadersOn.getLabel().setFontScale(buttonWidth / leadersOn.getLabel().getStyle().font.getBounds("ENABLED").width - .3f);
 			}
 		if(!Settings.leaderboardsEnabled)	{
 			table.add(leadersOff).width(buttonWidth).height(buttonHeight).padTop(spacingH).padLeft(spacingW);
-			leadersOff.getLabel().setFontScale(buttonWidth / leadersOff.getLabel().getStyle().font.getBounds("DISABLED").width - .1f);
+			leadersOff.getLabel().setFontScale(buttonWidth / leadersOff.getLabel().getStyle().font.getBounds("DISABLED").width - .2f);
 			}
 		}
 		else{
@@ -535,6 +555,17 @@ public class MainMenuScreen implements Screen{
 		batch.end();
 		
 		stage.draw();
+		
+		timer += delta;
+		if (Gdx.input.isKeyPressed(Keys.BACK) && !Settings.MAIN_MENU){
+			timer = 0;
+			Settings.MAIN_MENU = true;
+        	stage.getRoot().clear();
+        	stage.addActor(table);
+		}
+		else if (Gdx.input.isKeyPressed(Keys.BACK) && timer >= 3.0){
+			game.actionResolver.kill();
+		}
 	}
 
 	@Override
@@ -566,7 +597,6 @@ public class MainMenuScreen implements Screen{
 
 	@Override
 	public void pause() {
-		// TODO Auto-generated method stub
 		
 	}
 
@@ -580,6 +610,10 @@ public class MainMenuScreen implements Screen{
 	public void dispose() {
 		stage.dispose();
 		batch.dispose();
+		loopingBubbleSound.dispose();
+		background.dispose();
+		skin.dispose();
+		skinAtlas.dispose();
 	}
 	
 }

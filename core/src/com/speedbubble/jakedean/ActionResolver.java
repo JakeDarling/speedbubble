@@ -10,4 +10,9 @@ public interface ActionResolver {
 	public void getLeaderboardGPGS(String leaderboardID);
 	public void getAchievementsGPGS();
 	
+	public void kill();
+	public void showAds(boolean show);
+	
+	public void goToWeb(String URL);
+	
 }

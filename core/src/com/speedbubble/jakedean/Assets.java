@@ -28,9 +28,10 @@ public class Assets {
      * called at the creation of the game to load these assets
      * these are only the universal assets used by every screen/mode
      */
-    public static void load() {   
-    	text = Gdx.files.local("firstPlay.txt").readString();
-        lines = text.split("\n");
+    public static void load() {
+    	
+	    text = Gdx.files.local("firstPlay.txt").readString();
+	    lines = text.split("\n");
         
     	name = lines[0];
     	if (lines[1].equals("true")) firstPlayArcade = true;
@@ -94,10 +95,8 @@ public class Assets {
     		bubbleAtlas = new TextureAtlas("bubbleAnimation/bubbleAnimationBlue.pack");
             break;
     	}
-        
-        phantom.setRegion(bubbleAtlas.findRegion("bubblePhantom"));
+    	phantom.setRegion(bubbleAtlas.findRegion("bubblePhantom"));
         bubble.setRegion(bubbleAtlas.findRegion("bubble0"));
-        previousBubble.setRegion(bubbleAtlas.findRegion("bubble0"));
     }
 
     public static void relocateBubble(){
@@ -105,7 +104,7 @@ public class Assets {
     	bubble.setPosition(phantom.getX(), phantom.getY());
     	
         phantom.setPosition(MathUtils.random(0, Gdx.graphics.getWidth() - bubble.getWidth()), MathUtils.random(0,
-                Gdx.graphics.getHeight()-bubble.getHeight()- 2*gameFont.getBounds("HI").height));
+                Gdx.graphics.getHeight() - (bubble.getHeight() + 5*gameFont.getBounds("HI").height)));
     }
     
     public static void playSound(Sound s){

@@ -13,7 +13,10 @@ public class GameStateFailFB implements GameState {
     
     private BitmapFont gameFont;
 
-    public GameStateFailFB(float score) {
+    public GameStateFailFB(GameScreen screen, float score) {
+    	
+    	screen.getGame().actionResolver.showAds(true);
+    	
         batch = new SpriteBatch();
         
         gameFont = new BitmapFont(Gdx.files.internal("gameFont.fnt"));
@@ -31,7 +34,7 @@ public class GameStateFailFB implements GameState {
     	batch.begin();
     	gameFont.setColor(1, 1, 1, 1);
     	gameFont.draw(batch, "SPEED BUBBLE", (Gdx.graphics.getWidth() - gameFont.getBounds("SPEED BUBBLE").width)/2,
-    	        Gdx.graphics.getHeight()/2 + 11*gameFont.getBounds("SPEED BUBBLE").height/2);
+    	        Gdx.graphics.getHeight()/2 + 10*gameFont.getBounds("SPEED BUBBLE").height/2);
     	gameFont.setColor(0, 0, 0, 1);
     	gameFont.draw(batch, "FAIL", (Gdx.graphics.getWidth() - gameFont.getBounds("FAIL").width)/2,
     			Gdx.graphics.getHeight()/2 + 7*gameFont.getBounds("FAIL").height/2);
@@ -50,12 +53,19 @@ public class GameStateFailFB implements GameState {
 
     @Override
 	public void update(GameScreen screen, float deltaTime) {
-		if (Gdx.input.justTouched() && Gdx.input.getX() < Gdx.graphics.getWidth()/2 && -1*(Gdx.input.getY() - Gdx.graphics.getHeight()) < Gdx.graphics.getHeight()/2){
+		if (Gdx.input.justTouched() && Gdx.input.getX() < Gdx.graphics.getWidth()/2 
+				&& -1*(Gdx.input.getY() - Gdx.graphics.getHeight()) < Gdx.graphics.getHeight()/2){
+			dispose();
     		screen.getGame().setScreen(new MainMenuScreen(screen.getGame()));
     	}
-		if (Gdx.input.justTouched() && Gdx.input.getX() > Gdx.graphics.getWidth()/2 && -1*(Gdx.input.getY() - Gdx.graphics.getHeight()) < Gdx.graphics.getHeight()/2){
+		if (Gdx.input.justTouched() && Gdx.input.getX() > Gdx.graphics.getWidth()/2 
+				&& -1*(Gdx.input.getY() - Gdx.graphics.getHeight()) < Gdx.graphics.getHeight()/2){
+			dispose();
 			screen.reset();
     	}
 	}
+    
+    public void dispose(){
+    }
 
 }

@@ -15,6 +15,9 @@ public class GameStateOverTimed implements GameState {
     private Score highestScore;
 
     public GameStateOverTimed(GameScreen screen, int score) {
+    	
+    	screen.getGame().actionResolver.showAds(true);
+    	
         this.score = score;
         batch = new SpriteBatch();
         
@@ -38,7 +41,7 @@ public class GameStateOverTimed implements GameState {
     	batch.begin();
     	gameFont.setColor(1, 1, 1, 1);
     	gameFont.draw(batch, "TIMED", (Gdx.graphics.getWidth() - gameFont.getBounds("TIMED").width)/2,
-    			Gdx.graphics.getHeight()/2 + 11*gameFont.getBounds("TIMED").height/2);
+    			Gdx.graphics.getHeight()/2 + 10*gameFont.getBounds("TIMED").height/2);
     	gameFont.setColor(0, 0, 0, 1);
     	gameFont.draw(batch, "GAME OVER", (Gdx.graphics.getWidth() - gameFont.getBounds("GAME OVER").width)/2,
     			Gdx.graphics.getHeight()/2 + 7*gameFont.getBounds("GAME OVER").height/2);
@@ -59,11 +62,18 @@ public class GameStateOverTimed implements GameState {
 
     @Override
 	public void update(GameScreen screen, float deltaTime) {
-		if (Gdx.input.justTouched() && Gdx.input.getX() < Gdx.graphics.getWidth()/2 && -1*(Gdx.input.getY() - Gdx.graphics.getHeight()) < Gdx.graphics.getHeight()/2){
+		if (Gdx.input.justTouched() && Gdx.input.getX() < Gdx.graphics.getWidth()/2 
+				&& -1*(Gdx.input.getY() - Gdx.graphics.getHeight()) < Gdx.graphics.getHeight()/2){
+			dispose();
     		screen.getGame().setScreen(new MainMenuScreen(screen.getGame()));
     	}
-		if (Gdx.input.justTouched() && Gdx.input.getX() > Gdx.graphics.getWidth()/2 && -1*(Gdx.input.getY() - Gdx.graphics.getHeight()) < Gdx.graphics.getHeight()/2){
+		if (Gdx.input.justTouched() && Gdx.input.getX() > Gdx.graphics.getWidth()/2 
+				&& -1*(Gdx.input.getY() - Gdx.graphics.getHeight()) < Gdx.graphics.getHeight()/2){
+			dispose();
 			screen.reset();
     	}
+	}
+
+	private void dispose() {
 	}
 }

@@ -49,6 +49,7 @@ public class GameModePacer implements GameMode{
     	
     	popStarted = false;
     	gameStarted = false;
+    	
     	time = 10;
     	stateTime = 0;
     	bubbles = 0;
@@ -59,51 +60,56 @@ public class GameModePacer implements GameMode{
 	
 	@Override
     public void update(GameScreen screen, float deltaTime) {
-		if (gameStarted){
 		stateTime += deltaTime;
+		
+		if (gameStarted){
         time -= deltaTime;
 		}
         
-    	 if (Gdx.input.justTouched()){
-             if(Gdx.input.getX()>=Assets.bubble.getX() && Gdx.input.getX() <= Assets.bubble.getX()+Assets.bubble.getWidth()
-                     && ((Gdx.input.getY() - Gdx.graphics.getHeight()) * -1) >= Assets.bubble.getY() && ((Gdx.input.getY() - Gdx.graphics.getHeight()) * -1) <= Assets.bubble.getY()+Assets.bubble.getHeight()){
-                 stateTime=0;
-                 Assets.previousBubble.setPosition(Assets.bubble.getX(), Assets.bubble.getY());
-                 popStarted=true;
-                 gameStarted = true;
-                 Assets.relocateBubble();
-                 Assets.playSound(Assets.bubbleSound);
-                 bubbles++;
-                 tracker++;
-             }
-             else{
-            	 Assets.playSound(Assets.failSound);
-            	 Assets.setBubbleColor(Settings.favoriteColor);
-            	 screen.setState(new GameStateGetName(screen, bubbles));
-             }
-         }
     	 
-    	 if(tracker==24){
-    		 newColor++;
-    		 if (newColor>5) newColor=0;
-    		 Assets.setBubbleColor(newColor);
-    	 }
+    	if(tracker==24){
+    		newColor++;
+    		if (newColor>5) newColor=0;
+    		Assets.setBubbleColor(newColor);
+    	}
     	 
     	 if (tracker >= 25){
+    		 Assets.setBubbleColor(Settings.favoriteColor);
     		 tracker = 0;
     		 level++;
     		 
     		 if(level>5){
     			 level = 5;
     		 }
-    		 time = 10 - level*.5f;    		 
+    		 time += 9 - (float)level *.5f;    		 
     	 }
     	 
     	 if (time <= 0){
     		 Assets.playSound(Assets.failSound);
     		 Assets.setBubbleColor(Settings.favoriteColor);
+    		 dispose();
     		 screen.setState(new GameStateGetName(screen, bubbles)); 
     	 }
+    	 
+    	 if(Gdx.input.justTouched() && Gdx.input.getX()>=Assets.bubble.getX() 
+         		&& Gdx.input.getX() <= Assets.bubble.getX()+Assets.bubble.getWidth()
+                 && ((Gdx.input.getY() - Gdx.graphics.getHeight()) * -1) >= Assets.bubble.getY() 
+                 && ((Gdx.input.getY() - Gdx.graphics.getHeight()) * -1) <= Assets.bubble.getY()+Assets.bubble.getHeight()){
+             stateTime=0;
+             Assets.previousBubble.setPosition(Assets.bubble.getX(), Assets.bubble.getY());
+             popStarted=true;
+             gameStarted = true;
+             Assets.relocateBubble();
+             Assets.playSound(Assets.bubbleSound);
+             bubbles++;
+             tracker++;
+             }
+         else if (Gdx.input.justTouched()){
+         	Assets.playSound(Assets.failSound);
+         	Assets.setBubbleColor(Settings.favoriteColor);
+         	dispose();
+         	screen.setState(new GameStateGetName(screen, bubbles));
+         }
     }
 	
 	public void draw(){
@@ -117,9 +123,10 @@ public class GameModePacer implements GameMode{
         Assets.phantom.draw(batch);
         Assets.bubble.draw(batch);
         gameFont.draw(batch, "BUBBLES: " + bubbles, (Gdx.graphics.getWidth() - gameFont.getBounds("BUBBLES: "+bubbles).width)/2,
-        		Gdx.graphics.getHeight());
+        		Gdx.graphics.getHeight() - 2*gameFont.getBounds("BUBBLES:").height);
         gameFont.draw(batch, "TIME: " + String.format("%.3f", time), 
-        		(Gdx.graphics.getWidth() - gameFont.getBounds("TIME: "+String.format("%.3f", time)).width)/2,   Gdx.graphics.getHeight() - 3 * gameFont.getBounds("TIME: 10.000").height/2);
+        		(Gdx.graphics.getWidth() - gameFont.getBounds("TIME: "+String.format("%.3f", time)).width)/2, 
+        		 Gdx.graphics.getHeight() - 7*gameFont.getBounds("TIME: 10.000").height/2);
         batch.end();
 	}
 	
@@ -127,6 +134,12 @@ public class GameModePacer implements GameMode{
         Assets.currentBubble = Assets.poppingBubble.getKeyFrame(stateTime, false);
         batch.draw(Assets.currentBubble, Assets.previousBubble.getX(), Assets.previousBubble.getY(), Assets.previousBubble.getWidth(), Assets.previousBubble.getHeight());
     }
+	
+	public void dispose() {
+		gameFont.dispose();
+		batch.dispose();
+		backgroundTexture.dispose();
+	}
 	
 
 }

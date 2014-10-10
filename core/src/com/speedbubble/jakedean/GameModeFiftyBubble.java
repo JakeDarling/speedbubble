@@ -56,35 +56,38 @@ public class GameModeFiftyBubble implements GameMode{
 	
 	@Override
     public void update(GameScreen screen, float deltaTime) {
-		if (gameStarted){
 		stateTime += deltaTime;
-        time += deltaTime;
+		
+		if (gameStarted){
+			time += deltaTime;
 		}
         
-    	 if (Gdx.input.justTouched()){
-             if(Gdx.input.getX()>=Assets.bubble.getX() && Gdx.input.getX() <= Assets.bubble.getX()+Assets.bubble.getWidth()
-                     && ((Gdx.input.getY() - Gdx.graphics.getHeight()) * -1) >= Assets.bubble.getY() && ((Gdx.input.getY() - Gdx.graphics.getHeight()) * -1) <= Assets.bubble.getY()+Assets.bubble.getHeight()){
-                 stateTime=0;
-                 Assets.previousBubble.setPosition(Assets.bubble.getX(), Assets.bubble.getY());
-                 popStarted=true;
-                 gameStarted = true;
-                 Assets.relocateBubble();
-                 Assets.playSound(Assets.bubbleSound);
-                 bubbles--;
-             }
-             else{
-            	 Assets.playSound(Assets.failSound);
-            	 Assets.setBubbleColor(Settings.favoriteColor);
-            	 bubbles = 25;
-            	 screen.setState(new GameStateFailFB(time)); 
-             }
-         }
+		if(Gdx.input.justTouched() && Gdx.input.getX()>=Assets.bubble.getX() 
+				&& Gdx.input.getX() <= Assets.bubble.getX()+Assets.bubble.getWidth()
+				&& ((Gdx.input.getY() - Gdx.graphics.getHeight()) * -1) >= Assets.bubble.getY() 
+                && ((Gdx.input.getY() - Gdx.graphics.getHeight()) * -1) <= Assets.bubble.getY()+Assets.bubble.getHeight()){
+			stateTime=0;
+            Assets.previousBubble.setPosition(Assets.bubble.getX(), Assets.bubble.getY());
+            popStarted=true;
+            gameStarted = true;
+            Assets.relocateBubble();
+            Assets.playSound(Assets.bubbleSound);
+            bubbles--;
+        }
+        else if (Gdx.input.justTouched()){
+            Assets.playSound(Assets.failSound);
+            Assets.setBubbleColor(Settings.favoriteColor);
+            bubbles = 25;
+            dispose();
+            screen.setState(new GameStateFailFB(screen, time));
+        }
     	 
-    	 if (bubbles == 1) Assets.setBubbleColor(Settings.favoriteColor + 1);
-    	 if (bubbles <= 0){
-    		 Assets.setBubbleColor(Settings.favoriteColor);
-    		 screen.setState(new GameStateGetName(screen, time)); 
-    	 }
+    	if (bubbles == 1) Assets.setBubbleColor(Settings.favoriteColor + 1);
+    	if (bubbles <= 0){
+    		Assets.setBubbleColor(Settings.favoriteColor);
+    		dispose();
+    		screen.setState(new GameStateGetName(screen, time)); 
+    	}
     }
 	
 	public void draw(){
@@ -98,9 +101,9 @@ public class GameModeFiftyBubble implements GameMode{
         if(bubbles>0) Assets.bubble.draw(batch);
         if(bubbles>1) Assets.phantom.draw(batch);
         gameFont.draw(batch, "BUBBLES: " + bubbles, (Gdx.graphics.getWidth() - gameFont.getBounds("BUBBLES: " + bubbles).width)/2,
-        		Gdx.graphics.getHeight());
+        		Gdx.graphics.getHeight() - 2*gameFont.getBounds("BUBBLES:").height);
         gameFont.draw(batch, "TIME: " + String.format("%.3f", time), 
-        		(Gdx.graphics.getWidth() - gameFont.getBounds("TIME: " + String.format("%.3f", time)).width)/2,   Gdx.graphics.getHeight() - 3 * gameFont.getBounds("TIME: 10.000").height/2);
+        		(Gdx.graphics.getWidth() - gameFont.getBounds("TIME: 0.000").width)/2,   Gdx.graphics.getHeight() - 7 * gameFont.getBounds("TIME: 10.000").height/2);
         batch.end();
 	}
 	
@@ -108,5 +111,11 @@ public class GameModeFiftyBubble implements GameMode{
         Assets.currentBubble = Assets.poppingBubble.getKeyFrame(stateTime, false);
         batch.draw(Assets.currentBubble, Assets.previousBubble.getX(), Assets.previousBubble.getY(), Assets.previousBubble.getWidth(), Assets.previousBubble.getHeight());
     }
+	
+	public void dispose(){
+		batch.dispose();
+		gameFont.dispose();
+		backgroundTexture.dispose();
+	}
 
 }

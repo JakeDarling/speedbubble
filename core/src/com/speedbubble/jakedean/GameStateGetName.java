@@ -2,13 +2,11 @@ package com.speedbubble.jakedean;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.utils.Array;
 
 public class GameStateGetName implements GameState{
 	
 	MyTextInputListener listener;
 	float score;
-	Array<Score> scoreArray;
 	
 	public GameStateGetName(GameScreen screen, float score){
 		this.score = score;

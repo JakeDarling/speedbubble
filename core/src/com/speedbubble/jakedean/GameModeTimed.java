@@ -49,7 +49,7 @@ public class GameModeTimed implements GameMode {
     	
     	popStarted = false;
     	gameStarted = false;
-    	timeLeft = 15F;
+    	timeLeft = 15;
     	stateTime = 0;
     	score = 0;
     }
@@ -60,6 +60,7 @@ public class GameModeTimed implements GameMode {
 		stateTime += deltaTime;
         timeLeft -= deltaTime;
 		}
+		
         
     	 if (Gdx.input.justTouched()){
              if(Gdx.input.getX()>=Assets.bubble.getX() && Gdx.input.getX() <= Assets.bubble.getX()+Assets.bubble.getWidth()
@@ -74,11 +75,17 @@ public class GameModeTimed implements GameMode {
              }
              else{
             	 Assets.playSound(Assets.failSound);
-            	 screen.setState(new GameStateFailTimed(score));
+            	 Assets.setBubbleColor(Settings.favoriteColor);
+            	 dispose();
+            	 screen.setState(new GameStateFailTimed(screen, score));
              }
          }
     	 
-    	 if (timeLeft < 0){
+    	 if(timeLeft<=3 && timeLeft>2.9) Assets.setBubbleColor(Settings.favoriteColor+1);
+    	 
+    	 if (timeLeft <= 0){
+    		 dispose();
+    		 Assets.setBubbleColor(Settings.favoriteColor);
     		 screen.setState(new GameStateGetName(screen, score)); 
     	 }
     }
@@ -94,9 +101,10 @@ public class GameModeTimed implements GameMode {
         Assets.phantom.draw(batch);
         Assets.bubble.draw(batch);
         gameFont.draw(batch, "BUBBLES: " + score, (Gdx.graphics.getWidth() - gameFont.getBounds("BUBBLES: " + score).width)/2,
-        		Gdx.graphics.getHeight() - 3 * gameFont.getBounds("BUBBLES POPPED: 10").height/2);
+        		Gdx.graphics.getHeight() - 7*gameFont.getBounds("BUBBLES POPPED: 10").height/2);
         gameFont.draw(batch, "TIME: " + String.format("%.2f", timeLeft), 
-        		(Gdx.graphics.getWidth() - gameFont.getBounds("TIME: "+String.format("%.2f", timeLeft)).width)/2,   Gdx.graphics.getHeight());
+        		(Gdx.graphics.getWidth() - gameFont.getBounds("TIME: 15.00").width)/2,   
+        		Gdx.graphics.getHeight() - 2*gameFont.getBounds("TIME:").height);
         batch.end();
 	}
 	
@@ -104,5 +112,12 @@ public class GameModeTimed implements GameMode {
         Assets.currentBubble = Assets.poppingBubble.getKeyFrame(stateTime, false);
         batch.draw(Assets.currentBubble, Assets.previousBubble.getX(), Assets.previousBubble.getY(), Assets.previousBubble.getWidth(), Assets.previousBubble.getHeight());
     }
+
+	@Override
+	public void dispose() {
+		gameFont.dispose();
+		batch.dispose();
+		backgroundTexture.dispose();
+	}
 
 }
