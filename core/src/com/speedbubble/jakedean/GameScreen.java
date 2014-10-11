@@ -7,7 +7,7 @@ import com.badlogic.gdx.Input.Keys;
 public class GameScreen implements Screen {
 	
 	private SpeedBubble game;
-	public GameModeEnum selector;
+	private GameModeEnum selector;
     private GameMode mode;
     private GameState state;
 
@@ -44,6 +44,10 @@ public class GameScreen implements Screen {
     
     public GameMode getMode(){
     	return mode;
+    }
+    
+    public GameModeEnum getEnum(){
+    	return selector;
     }
     
     public void setMode(GameModeEnum m){

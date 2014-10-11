@@ -77,7 +77,7 @@ public class GameModeTimed implements GameMode {
             	 Assets.playSound(Assets.failSound);
             	 Assets.setBubbleColor(Settings.favoriteColor);
             	 dispose();
-            	 screen.setState(new GameStateFailTimed(screen, score));
+            	 screen.setState(new GameStateGetName(screen, (int)score, "15 SECOND RUSH", "FAILED!"));
              }
          }
     	 
@@ -86,7 +86,7 @@ public class GameModeTimed implements GameMode {
     	 if (timeLeft <= 0){
     		 dispose();
     		 Assets.setBubbleColor(Settings.favoriteColor);
-    		 screen.setState(new GameStateGetName(screen, score)); 
+    		 screen.setState(new GameStateGetName(screen, (int)score, "15 SECOND RUSH", "SUCCESS!")); 
     	 }
     }
 	

@@ -71,7 +71,7 @@ public class AndroidLauncher extends AndroidApplication implements GameHelperLis
 		adView = new AdView(this);
 		adView.setAdSize(AdSize.SMART_BANNER);
 		adView.setAdUnitId(AD_UNIT_ID_BANNER);
-		adView.setId(12345); // this is an arbitrary id, allows for relative positioning in createGameView()
+//		adView.setId(12345); // this is an arbitrary id, allows for relative positioning in createGameView()
 		RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
 		params.addRule(RelativeLayout.ALIGN_PARENT_TOP, RelativeLayout.TRUE);
 		params.addRule(RelativeLayout.CENTER_HORIZONTAL, RelativeLayout.TRUE);
@@ -81,7 +81,7 @@ public class AndroidLauncher extends AndroidApplication implements GameHelperLis
 	
 	private void createGameView(AndroidApplicationConfiguration cfg) {
 		gameView = initializeForView(new SpeedBubble(this), cfg);
-		RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
+		RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
 		params.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM, RelativeLayout.TRUE);
 		params.addRule(RelativeLayout.CENTER_HORIZONTAL, RelativeLayout.TRUE);
 //		params.addRule(RelativeLayout.BELOW, adView.getId());

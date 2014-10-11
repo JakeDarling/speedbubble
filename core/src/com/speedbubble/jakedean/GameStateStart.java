@@ -17,7 +17,7 @@ public class GameStateStart implements GameState {
 		gameFont = new BitmapFont(Gdx.files.internal("gameFont.fnt"));
     	gameFont.setColor(1, 1, 1, 1);
     	
-    	switch (screen.selector){
+    	switch (screen.getEnum()){
 		case ARCADE:
 			if (Assets.lines[1].equals("true")){
 					gameFont.setScale(Gdx.graphics.getWidth()/gameFont.getBounds("HOW LONG CAN YOU LAST? JUST TOUCH THE BUBBLES TO POP THEM!").width-.1f);
@@ -47,7 +47,7 @@ public class GameStateStart implements GameState {
 	
 	public void update(GameScreen screen, float deltaTime){
 		
-		switch (screen.selector){
+		switch (screen.getEnum()){
 		case ARCADE:
 			if (Gdx.input.justTouched()){
 	    		Assets.lines[1] = "false";
@@ -85,7 +85,7 @@ public class GameStateStart implements GameState {
         
         batch.begin();
         
-		switch (screen.selector){
+		switch (screen.getEnum()){
 		case ARCADE:
 			if (Assets.lines[1].equals("true")){
 				gameFont.draw(batch, "POP THE BUBBLES WHEN THEY REACH THE RED LINE!", (Gdx.graphics.getWidth() - gameFont.getBounds("POP THE BUBBLES WHEN THEY REACH THE SURFACE!").width) / 2,

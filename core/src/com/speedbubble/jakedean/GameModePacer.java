@@ -88,7 +88,7 @@ public class GameModePacer implements GameMode{
     		 Assets.playSound(Assets.failSound);
     		 Assets.setBubbleColor(Settings.favoriteColor);
     		 dispose();
-    		 screen.setState(new GameStateGetName(screen, bubbles)); 
+    		 screen.setState(new GameStateGetName(screen, (int)bubbles, "PACER", "SUCCESS!")); 
     	 }
     	 
     	 if(Gdx.input.justTouched() && Gdx.input.getX()>=Assets.bubble.getX() 
@@ -108,7 +108,7 @@ public class GameModePacer implements GameMode{
          	Assets.playSound(Assets.failSound);
          	Assets.setBubbleColor(Settings.favoriteColor);
          	dispose();
-         	screen.setState(new GameStateGetName(screen, bubbles));
+         	screen.setState(new GameStateGetName(screen, (int)bubbles, "PACER", "SUCCESS!"));
          }
     }
 	
