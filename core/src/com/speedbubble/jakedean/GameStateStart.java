@@ -5,6 +5,11 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
+/** Game state class for pre-game instructions and "tap to start" screens
+ * 
+ * @author Dean
+ *
+ */
 public class GameStateStart implements GameState {
 	
 	private SpriteBatch batch;
@@ -17,6 +22,12 @@ public class GameStateStart implements GameState {
 		gameFont = new BitmapFont(Gdx.files.internal("gameFont.fnt"));
     	gameFont.setColor(1, 1, 1, 1);
     	
+    	
+    	/**This will  check the file "firsPlayed.txt" to see if this is the first time this specific game mode has been played.
+    	 * 	if it is the first time the game mode has been played, it will present instructions on how to play the game.
+    	 * 	If it is not the first time this mode has been played, it will say "tap anywhere to begin"
+    	 * 
+    	 */
     	switch (screen.getEnum()){
 		case ARCADE:
 			if (Assets.lines[1].equals("true")){
@@ -45,6 +56,11 @@ public class GameStateStart implements GameState {
 		}
 	}
 	
+	/** if it was the first play through of a certain mode, it will manually write to a file to make sure the instructions
+	 * 		do not show the next time the user plays that mode
+	 * 
+	 * waits for the user to tap the screen and sets the game state to running state
+	 */
 	public void update(GameScreen screen, float deltaTime){
 		
 		switch (screen.getEnum()){
@@ -79,6 +95,8 @@ public class GameStateStart implements GameState {
 		}
 	}
 	
+	/** Draws the specific instructions for each game mode or "tap anywhere to begin"
+	 */
 	public void draw(GameScreen screen, float deltaTime){
 		Gdx.gl.glClearColor(0,0,0,1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
@@ -88,9 +106,9 @@ public class GameStateStart implements GameState {
 		switch (screen.getEnum()){
 		case ARCADE:
 			if (Assets.lines[1].equals("true")){
-				gameFont.draw(batch, "POP THE BUBBLES WHEN THEY REACH THE RED LINE!", (Gdx.graphics.getWidth() - gameFont.getBounds("POP THE BUBBLES WHEN THEY REACH THE SURFACE!").width) / 2,
+				gameFont.draw(batch, "POP THE LEADING BUBBLE!", (Gdx.graphics.getWidth() - gameFont.getBounds("POP THE LEADING BUBBLE!").width) / 2,
 		        		Gdx.graphics.getHeight()/2 + 7*gameFont.getBounds("TAP ANYWHERE TO BEGIN").height);
-				gameFont.draw(batch, "CAREFUL, THE LONGER YOU LAST THE FASTER THEY DROP!", (Gdx.graphics.getWidth() - gameFont.getBounds("CAREFUL, THE LONGER YOU LAST THE FASTER THEY RISE!").width) / 2,
+				gameFont.draw(batch, "CAREFUL, THE LONGER YOU LAST THE FASTER THEY DROP!", (Gdx.graphics.getWidth() - gameFont.getBounds("CAREFUL, THE LONGER YOU LAST THE FASTER THEY DROP!").width) / 2,
 		        		Gdx.graphics.getHeight()/2 + 5*gameFont.getBounds("TAP ANYWHERE TO BEGIN").height);
 				gameFont.draw(batch, "HOW LONG CAN YOU LAST? JUST TOUCH THE BUBBLES TO POP THEM!", (Gdx.graphics.getWidth() - gameFont.getBounds("HOW LONG CAN YOU LAST? JUST TOUCH THE BUBBLES TO POP THEM!").width) / 2,
 		        		Gdx.graphics.getHeight()/2 + 3*gameFont.getBounds("TAP ANYWHERE TO BEGIN").height);

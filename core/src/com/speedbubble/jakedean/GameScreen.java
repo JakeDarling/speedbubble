@@ -4,6 +4,12 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.Input.Keys;
 
+/** Screen class for when the user is in-game
+ * 	This class holds information about the state of the game, and the mode the user has selected
+ * 
+ * @author Dean
+ *
+ */
 public class GameScreen implements Screen {
 	
 	private SpeedBubble game;
@@ -13,17 +19,27 @@ public class GameScreen implements Screen {
 
     public GameScreen(SpeedBubble sb, GameModeEnum selection) {
     	
+    	// Stop the Android back-button from exiting the app, set custom behavior in render method
     	Gdx.input.setCatchBackKey(true);
         
+    	// pass in the Speed Bubble game created when the app launched
     	game = sb;
+    	
+    	// remove ads from the top of the screen
     	sb.actionResolver.showAds(false);
     	
+    	// MainMenuScreen passes in the Enum of the selected game mode, this sets the game mode accordingly
     	selector = selection;
         setMode(selector);
+        
+        // Start the game 
         setState(new GameStateStart(this));
         
     }
     
+    /** At the end of the game, if the user clicks the "retry" button, this will recreate all of the objects necessary
+     * 		for another play-through
+     */
     public void reset(){
     	game.actionResolver.showAds(false);
     	setMode(selector);
@@ -38,6 +54,10 @@ public class GameScreen implements Screen {
     	return state;
     }
     
+    /** Used by other classes to alternate between Game States
+     * 
+     * @param state
+     */
     public void setState(GameState state) {
 	    this.state = state;
     }
@@ -68,7 +88,8 @@ public class GameScreen implements Screen {
     }
     
     
-    
+    /** calls the methods to update and draw each state, checks if the back button was tapped to send user back to main menu
+     */
     @Override
     public void render(float delta) {
         state.update(this, delta);
@@ -98,7 +119,7 @@ public class GameScreen implements Screen {
     }
     @Override
     public void pause() {
-//    	setState(new GameStatePaused());
+    	
     }
     @Override
     public void resume() {

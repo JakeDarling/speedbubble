@@ -13,6 +13,11 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 
+/** Screen Class to display credits and offer a donate option to help support WTGS app developments
+ * 
+ * @author Dean
+ *
+ */
 public class CreditScreen implements Screen {
 	
 	private SpeedBubble game;
@@ -37,6 +42,8 @@ public class CreditScreen implements Screen {
 		skinAtlas = new TextureAtlas(Gdx.files.internal("skin/newButtons.pack"));
 		skin = new Skin(Gdx.files.internal("skin/skin.json"), skinAtlas);
 		
+		/** creates my donation button, when clicked it will start a new Intent to go to the supplied URL
+		 */
 		button = new TextButton("DONATE!", skin, "green");
 		button.setSize(Gdx.graphics.getWidth()/5, Gdx.graphics.getWidth()/5);
 		button.setPosition(0, (Gdx.graphics.getHeight() - button.getHeight())/2);
@@ -66,9 +73,6 @@ public class CreditScreen implements Screen {
 		button.draw(batch, 1);
 		batch.end();
 		
-//		if(Gdx.input.justTouched()){
-//			game.setScreen(new MainMenuScreen(game));
-//		}
 		
 		if (Gdx.input.isKeyPressed(Keys.BACK) && !Settings.MAIN_MENU){
         	game.setScreen(new MainMenuScreen(game));
@@ -106,7 +110,6 @@ public class CreditScreen implements Screen {
 	@Override
 	public void dispose() {
 		batch.dispose();
-		Gdx.app.exit();
 	}
 
 }

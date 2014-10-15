@@ -7,6 +7,12 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
+/** Game Mode class for Pacer mode
+ * 	This class uses the exact same methods and concepts as "GameModeFiftyBubble"
+ * 
+ * @author Dean
+ *
+ */
 public class GameModePacer implements GameMode{
 	
 	private boolean popStarted, gameStarted;
@@ -55,6 +61,8 @@ public class GameModePacer implements GameMode{
     	bubbles = 0;
     	tracker = 0;
     	level = 0;
+    	
+    	Assets.setBubbleColor(Settings.favoriteColor);
     	newColor = Settings.favoriteColor;
     }
 	
@@ -122,6 +130,7 @@ public class GameModePacer implements GameMode{
         if(popStarted) drawAnimation();
         Assets.phantom.draw(batch);
         Assets.bubble.draw(batch);
+        Assets.face.draw(batch);
         gameFont.draw(batch, "BUBBLES: " + bubbles, (Gdx.graphics.getWidth() - gameFont.getBounds("BUBBLES: "+bubbles).width)/2,
         		Gdx.graphics.getHeight() - 2*gameFont.getBounds("BUBBLES:").height);
         gameFont.draw(batch, "TIME: " + String.format("%.3f", time), 

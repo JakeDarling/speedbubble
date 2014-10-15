@@ -7,6 +7,11 @@ import com.badlogic.gdx.utils.Array;
 import java.io.IOException;
 import java.util.Comparator;
 
+/** Class to create high score files, organize the scores, request them to display in other screens, save them
+ * 
+ * @author Jake
+ *
+ */
 public class HighScores {
     public static final String TIMED = "timedScores.txt";
     public static final String ARCADE = "arcadeScores.txt";
@@ -41,7 +46,6 @@ public class HighScores {
 				Gdx.files.local(ARCADE).file().createNewFile();
 				Gdx.files.local(ARCADE).writeString("not_set 0\nnot_set 0\nnot_set 0\nnot_set 0\nnot_set 0\n", false);
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
     	}
@@ -50,7 +54,6 @@ public class HighScores {
 				Gdx.files.local(FIFTY).file().createNewFile();
 				Gdx.files.local(FIFTY).writeString("not_set 99.999\nnot_set 99.999\nnot_set 99.999\nnot_set 99.999\nnot_set 99.999\n", false);
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
     	}
@@ -59,7 +62,6 @@ public class HighScores {
 				Gdx.files.local(PACER).file().createNewFile();
 				Gdx.files.local(PACER).writeString("not_set 0\nnot_set 0\nnot_set 0\nnot_set 0\nnot_set 0\n", false);
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
     	}
@@ -68,7 +70,6 @@ public class HighScores {
 				Gdx.files.local(TIMED).file().createNewFile();
 				Gdx.files.local(TIMED).writeString("not_set 0\nnot_set 0\nnot_set 0\nnot_set 0\nnot_set 0\n", false);
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
     	}

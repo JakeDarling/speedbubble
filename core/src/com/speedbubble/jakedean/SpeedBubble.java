@@ -5,7 +5,17 @@ import java.io.IOException;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 
-
+/** Game Class
+ * This is the main class for the game, on launch, the system will initialize this game class.
+ * This class will check to make sure the user has the proper internal files on start up
+ * If the user does not have the files, it will create them with "first play through" indicators inside
+ * 		It will also set the screen to "BlackScreen" which will ask the user for their name and save it to a file
+ * 
+ * If the user has the files, it will assume they have already played the game, and therefore it will send the user right to a main menu
+ * 
+ * @author Dean
+ *
+ */
 public class SpeedBubble extends Game {
 	
 	ActionResolver actionResolver;
@@ -24,12 +34,10 @@ public class SpeedBubble extends Game {
 				e.printStackTrace();
 			}
     		setScreen(new BlackScreen(this));
-//    		actionResolver.loginGPGS();
     	}
         else{
         	Assets.load();
         	setScreen(new MainMenuScreen(this));
-//        	actionResolver.loginGPGS();
         }
 	}
 

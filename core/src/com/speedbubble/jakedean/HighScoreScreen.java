@@ -15,15 +15,19 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 
+/** Screen class for displaying both local and google high scores
+ * 
+ * @author Dean
+ *
+ */
 public class HighScoreScreen implements Screen {
 	
-	private enum Mode{
-		ARCADE, FIFTY, PACER, TIMED;
-	}
-	
 	private SpeedBubble game;
-	private Mode mode;
 	
+	// used to change between which leaderboard to show
+	private GameModeEnum mode;
+	
+	// libgdx variables
 	private SpriteBatch batch;
 	private Texture background, tint;
 	private Stage stage;
@@ -34,6 +38,7 @@ public class HighScoreScreen implements Screen {
 	private Table table;
 	private TextButton back, arcade, fifty, pacer, timed;
 	
+	// used to determine where to place the buttons
 	private int i, spacing, buttonWidth;
 	
 	public HighScoreScreen (SpeedBubble sb){
@@ -42,15 +47,19 @@ public class HighScoreScreen implements Screen {
 		
 		Gdx.input.setCatchBackKey(true);
 		
-		mode = Mode.ARCADE;
+		// since arcade mode is the main game mode, we initialize our leaderboard with arcade mode stats
+		mode = GameModeEnum.ARCADE;
 		
+		// initialize libgdx variables
 		batch = new SpriteBatch();
 		background = new Texture(Gdx.files.internal("mainMenuBackground.png"));
 		tint = new Texture(Gdx.files.internal("tint.png"));
 		
+		//used for my buttons, skin is connected to a json file and a file mapping out packaged images
 		skinAtlas = new TextureAtlas(Gdx.files.internal("skin/newButtons.pack"));
 		skin = new Skin(Gdx.files.internal("skin/skin.json"), skinAtlas);
 		
+		// initializing all variables that will be used to display scores
 		title = new Label("", skin, "defaultWhite");
 		first = new Label("LEADER", skin, "defaultWhite");
 		firstName = new Label("", skin, "defaultWhite");
@@ -68,8 +77,14 @@ public class HighScoreScreen implements Screen {
 		fifthName = new Label("", skin, "defaultWhite");
 		fifthScore = new Label("", skin, "defaultWhite");
 		
+		// initializing the variables used to determine how the bubbles will be displayed
 		spacing = Gdx.graphics.getWidth()/25;
 		buttonWidth = Gdx.graphics.getWidth()/5;
+		
+		
+	/**	All of these are my buttons used to cycle between the leaderboards
+	 * 	if global leaderboards are disabled by the user, we will not prompt them to sign into google
+	 */
 		
 		arcade = new TextButton("SPEED", skin, "green");
 		arcade.setSize(buttonWidth, 75);
@@ -77,7 +92,7 @@ public class HighScoreScreen implements Screen {
 		arcade.addListener(new InputListener(){
             public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
             	Assets.playSound(Assets.bubbleSound);
-            	mode = Mode.ARCADE;
+            	mode = GameModeEnum.ARCADE;
                 return true;
             }
             public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
@@ -94,7 +109,7 @@ public class HighScoreScreen implements Screen {
 		fifty.addListener(new InputListener(){
             public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
             	Assets.playSound(Assets.bubbleSound);
-            	mode = Mode.FIFTY;
+            	mode = GameModeEnum.FIFTY_BUBBLE;
                 return true;
             }
             public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
@@ -111,7 +126,7 @@ public class HighScoreScreen implements Screen {
 		pacer.addListener(new InputListener(){
             public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
             	Assets.playSound(Assets.bubbleSound);
-            	mode = Mode.PACER;
+            	mode = GameModeEnum.PACER;
                 return true;
             }
             public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
@@ -128,7 +143,7 @@ public class HighScoreScreen implements Screen {
 		timed.addListener(new InputListener(){
             public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
             	Assets.playSound(Assets.bubbleSound);
-            	mode = Mode.TIMED;
+            	mode = GameModeEnum.TIMED;
                 return true;
             }
             public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
@@ -155,11 +170,14 @@ public class HighScoreScreen implements Screen {
             }
 		});
 		
+		// initializing my iterator for getting high scores from the local high scores files
 		i = 0;
 		
+		// initializing and setting the table that will contain the high scores
 		table = new Table();
 		setTable(table);
 		
+		// adding buttons to the stage (the stage is basically just an input processor that holds actors)
 		stage = new Stage();
 		stage.addActor(table);
 		stage.addActor(back);
@@ -168,18 +186,34 @@ public class HighScoreScreen implements Screen {
 		stage.addActor(pacer);
 		stage.addActor(timed);
 		
+		// set the input processor to the stage so the actors inside the stage are activated and waiting for user interaction
 		Gdx.input.setInputProcessor(stage);
 		
 	}
-
+	
+	/** This method will check which mode we want to view the local high scores for
+	 * 		-> grab the information from the high scores file
+	 * 		-> set our labels, title = game mode title, the rest hold the names and scores of the top 5 LOCAL scores
+	 * 		-> if no score was set, we give the name "not_set" and a score of either 0 or 99.99 (this is written in the high score file)
+	 * 
+	 *  This is just for the local scores. not global scores.
+	 */
 	private void prepareTable(){
 		switch(mode){
 		case ARCADE:
+			// based on the selected mode we set the labels accordingly
 			title.setText("SPEED BUBBLE - PERSONAL TOP 5");
 			i = 0;
+			
+			// we fetch the high scores of the specified file (arcade),
+			// this returns a string with 2 pieces of data separated by a space
+			//		getName() returns what comes before the space, getScore() returns what comes after the space
+			// set name to the first piece of data, set score to second piece of data
 			while(i < HighScores.fetchHighScores(HighScores.ARCADE, false).size){
 				if (i == 0){
 					firstName.setText(HighScores.fetchHighScores(HighScores.ARCADE, false).get(i).getName());
+					
+					// the method "toText(float)" was created by me to return a string holding an integer with no decimal places
 					firstScore.setText(toText(HighScores.fetchHighScores(HighScores.ARCADE, false).get(i).getScore()));
 				}
 				else if (i == 1){
@@ -200,32 +234,16 @@ public class HighScoreScreen implements Screen {
 				}
 				i++;
 			}
-			for (int j = i; j<5; j++){
-				if (j == 1){
-					secondName.setText("");
-					secondScore.setText("");
-				}
-				else if (j == 2){
-					thirdName.setText("");
-					thirdScore.setText("");
-				}
-				else if (j == 3){
-					fourthName.setText("");
-					fourthScore.setText("");
-				}
-				else if (j == 4){
-					fifthName.setText("");
-					fifthScore.setText("");
-				}
-			}
-						
 			break;
-		case FIFTY:
+			
+		case FIFTY_BUBBLE:
 			title.setText("RAPID 25 - PERSONAL TOP 5");
 			i = 0;
 			while(i < HighScores.fetchHighScores(HighScores.FIFTY, false).size){
 				if (i == 0){
 					firstName.setText(HighScores.fetchHighScores(HighScores.FIFTY, false).get(i).getName());
+					
+					// the method "toLongText(float) was created by me in order to return a string holding a number with 3 decimal places
 					firstScore.setText(toLongText(HighScores.fetchHighScores(HighScores.FIFTY, false).get(i).getScore()));
 				}
 				else if (i == 1){
@@ -246,26 +264,8 @@ public class HighScoreScreen implements Screen {
 				}
 				i++;
 			}
-			for (int j = i; j<5; j++){
-				if (j == 1){
-					secondName.setText("");
-					secondScore.setText("");
-				}
-				else if (j == 2){
-					thirdName.setText("");
-					thirdScore.setText("");
-				}
-				else if (j == 3){
-					fourthName.setText("");
-					fourthScore.setText("");
-				}
-				else if (j == 4){
-					fifthName.setText("");
-					fifthScore.setText("");
-				}
-			}
-			
 			break;
+			
 		case PACER:
 			title.setText("PACER - PERSONAL TOP 5");
 			i = 0;
@@ -292,26 +292,8 @@ public class HighScoreScreen implements Screen {
 				}
 				i++;
 			}
-			for (int j = i; j<5; j++){
-				if (j == 1){
-					secondName.setText("");
-					secondScore.setText("");
-				}
-				else if (j == 2){
-					thirdName.setText("");
-					thirdScore.setText("");
-				}
-				else if (j == 3){
-					fourthName.setText("");
-					fourthScore.setText("");
-				}
-				else if (j == 4){
-					fifthName.setText("");
-					fifthScore.setText("");
-				}
-			}
-			
 			break;
+			
 		case TIMED:
 			title.setText("15 SECOND RUSH - PERSONAL TOP 5");
 			i = 0;
@@ -338,29 +320,15 @@ public class HighScoreScreen implements Screen {
 				}
 				i++;
 			}
-			for (int j = i; j<5; j++){
-				if (j == 1){
-					secondName.setText("");
-					secondScore.setText("");
-				}
-				else if (j == 2){
-					thirdName.setText("");
-					thirdScore.setText("");
-				}
-				else if (j == 3){
-					fourthName.setText("");
-					fourthScore.setText("");
-				}
-				else if (j == 4){
-					fifthName.setText("");
-					fifthScore.setText("");
-				}
-			}
-			
 			break;
 		}
 	}
 	
+	/** This will erase all content from the table, update all of the labels based on which mode we select
+	 *  Then it will add all of the labels containing score, name, and title to the table
+	 * 
+	 * @param t = the table to be modified
+	 */
 	private void setTable(Table t){
 		t.reset();
 		prepareTable();
@@ -392,29 +360,42 @@ public class HighScoreScreen implements Screen {
 		t.row();
 	}
 	
+	/** When the high score files are created and updated, they are always passed a float for a "score"
+	 *  This method is necessary to take that float, and transform it into a string with no decimal places
+	 * 
+	 */
 	private String toText(float f){
 		String s = new String();
 		s = String.format("%.0f", f);
 		return s;
 	}
 	
+	/** When the high score files are created and updated, they are always passed a float for a "score"
+	 *  This method is necessary to take that float, and transform it into a string with 3 decimal places
+	 * 
+	 */
 	private String toLongText(float f){
 		String s = new String();
 		s = String.format("%.3f", f);
 		return s;
 	}
 	
+	// called every time a new frame is drawn to the screen
     @Override
     public void render(float delta) {
     	Gdx.gl.glClearColor(0, 0, 0, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+		
+		// draw background
 		batch.begin();
 		batch.draw(background, (Gdx.graphics.getWidth() - 2048)/2, (Gdx.graphics.getHeight() - 1024)/2);
 		batch.draw(tint, 0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 		batch.end();
 		
+		// draw foreground (everything that has been added to the stage will draw)
 		stage.draw();
 		
+		//check if the Android back button has been tapped -> dispose the high score screen's objects and send user back to the main menu
 		if (Gdx.input.isKeyPressed(Keys.BACK) && !Settings.MAIN_MENU){
 			dispose();
         	game.setScreen(new MainMenuScreen(game));

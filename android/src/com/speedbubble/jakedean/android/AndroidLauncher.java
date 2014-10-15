@@ -16,6 +16,7 @@ import com.badlogic.gdx.backends.android.AndroidApplicationConfiguration;
 import com.speedbubble.jakedean.ActionResolver;
 import com.speedbubble.jakedean.Settings;
 import com.speedbubble.jakedean.SpeedBubble;
+import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdSize;
 import com.google.android.gms.ads.AdView;
@@ -34,6 +35,21 @@ public class AndroidLauncher extends AndroidApplication implements GameHelperLis
 	protected View gameView;
 	protected RelativeLayout layout;
 	
+	private class Listener extends AdListener{
+		public boolean check=false;
+		@Override
+		public void onAdLoaded(){
+			check = true;
+		}
+		@Override
+		public void onAdFailedToLoad(int errorCode){
+			check = false;
+		}
+		
+	}
+	
+	protected Listener listener = new Listener();
+	
 	@Override
 	protected void onCreate (Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -50,10 +66,11 @@ public class AndroidLauncher extends AndroidApplication implements GameHelperLis
 		layout = new RelativeLayout(this);
 		RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.MATCH_PARENT);
 		layout.setLayoutParams(params);
+		layout.setPadding(0, 0, 0, 0);
 		
-		createAdView();
 		createGameView(config);
 		layout.addView(gameView);
+		createAdView();
 		layout.addView(adView);
 		
 		setContentView(layout);
@@ -77,7 +94,8 @@ public class AndroidLauncher extends AndroidApplication implements GameHelperLis
 		params.addRule(RelativeLayout.CENTER_HORIZONTAL, RelativeLayout.TRUE);
 		adView.setLayoutParams(params);
 		adView.setBackgroundColor(Color.TRANSPARENT);
-		}
+		adView.setAdListener(listener);
+	}
 	
 	private void createGameView(AndroidApplicationConfiguration cfg) {
 		gameView = initializeForView(new SpeedBubble(this), cfg);
@@ -86,12 +104,13 @@ public class AndroidLauncher extends AndroidApplication implements GameHelperLis
 		params.addRule(RelativeLayout.CENTER_HORIZONTAL, RelativeLayout.TRUE);
 //		params.addRule(RelativeLayout.BELOW, adView.getId());
 		gameView.setLayoutParams(params);
-		}
+	}
 	
 	private void startAdvertising() {
 		AdRequest adRequest = new AdRequest.Builder().build();
 		adView.loadAd(adRequest);
 	}
+	
 	
 	@Override
 	public void showAds(boolean show){
@@ -100,6 +119,9 @@ public class AndroidLauncher extends AndroidApplication implements GameHelperLis
 	            @Override
 	            public void run() {
 	            	if(!Settings.ADS_ON) {
+	            		if(!listener.check) {
+	            			startAdvertising();
+	            		}
 	            		layout.addView(adView);
 	            		Settings.ADS_ON = true;
 	            	}

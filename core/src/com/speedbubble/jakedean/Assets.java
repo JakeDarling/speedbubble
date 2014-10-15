@@ -5,10 +5,15 @@ import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.g2d.*;
 import com.badlogic.gdx.math.MathUtils;
 
+/** Assets class to load all of the main assets. Everything in this class is public and accessable in every other class
+ * 
+ * @author Dean
+ *
+ */
 public class Assets {
 
     public static Animation poppingBubble;
-    public static TextureAtlas bubbleAtlas, greenAtlas;
+    public static TextureAtlas bubbleAtlas, greenAtlas, faceAtlas;
     public static TextureRegion[] bubbleFrames;
     public static TextureRegion currentBubble;
     public static BitmapFont gameFont;
@@ -20,7 +25,7 @@ public class Assets {
 
     public static Sound bubbleSound, failSound;
 
-    public static Sprite bubble, previousBubble, phantom;
+    public static Sprite bubble, previousBubble, phantom, face;
     
     public static final int BLUE=0, YELLOW=1, ORANGE=2, RED=3, PINK=4, PURPLE=5;
     
@@ -48,6 +53,7 @@ public class Assets {
         
         gameFont = new BitmapFont(Gdx.files.internal("gameFont.fnt"));
         
+        faceAtlas = new TextureAtlas("faceAtlas.pack");
         
         greenAtlas = new TextureAtlas("bubbleAnimation/bubbleAnimationGreen.pack");
         bubbleFrames = new TextureRegion[5];
@@ -60,6 +66,7 @@ public class Assets {
         phantom = new Sprite();
         bubble = new Sprite();
         previousBubble = new Sprite();
+        face = new Sprite();
         
         setBubbleColor(Settings.favoriteColor);
         
@@ -68,8 +75,14 @@ public class Assets {
         phantom.setColor(1, 1, 1, .2f);
         bubble.setSize(Gdx.graphics.getWidth()/5, Gdx.graphics.getWidth()/5);
         previousBubble.setSize(Gdx.graphics.getWidth()/5, Gdx.graphics.getWidth()/5);
+        face.setSize(bubble.getWidth(), bubble.getHeight());
+        face.setRegion(faceAtlas.findRegion("face"+MathUtils.random(1, 5)));
     }
     
+    /** Sets the color of the bubbles, used by every game mode
+     * 
+     * @param color  - the color we want the bubble to be
+     */
     public static void setBubbleColor(int color){
     	
     	switch(color){
@@ -99,23 +112,37 @@ public class Assets {
         bubble.setRegion(bubbleAtlas.findRegion("bubble0"));
     }
 
+    /** Used in all modes besides Arcade,
+     *  moves the target bubble to where the "phantom" bubble is located, moves the phantom bubble to a random location
+     */
     public static void relocateBubble(){
     	
     	bubble.setPosition(phantom.getX(), phantom.getY());
+    	face.setPosition(bubble.getX(), bubble.getY());
+    	face.setRegion(faceAtlas.findRegion("face"+MathUtils.random(1, 5)));
     	
         phantom.setPosition(MathUtils.random(0, Gdx.graphics.getWidth() - bubble.getWidth()), MathUtils.random(0,
                 Gdx.graphics.getHeight() - (bubble.getHeight() + 5*gameFont.getBounds("HI").height)));
     }
     
+    /**  method to play the provided sound, if the user has not turned off sound effects
+     * 
+     * @param s   - sound to be played
+     */
     public static void playSound(Sound s){
 		if (Settings.soundEnabled){
 			s.play();
 		}
 	}
     
+    /** method to play the provided sound in a loop, if the user has not turned off sound effects 
+     * 
+     * @param s  - sound to be looped
+     */
     public static void playLoopingSound(Sound s){
     	if (Settings.soundEnabled){
     		s.loop();
     	}
     }
+    
 }

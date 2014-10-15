@@ -21,6 +21,12 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
+//TODO last class needing comments
+/** Main Menu screen
+ * 
+ * @author Dean
+ *
+ */
 public class MainMenuScreen implements Screen{
 	
 	private final SpeedBubble game;
@@ -44,7 +50,7 @@ public class MainMenuScreen implements Screen{
 	
 	private Sound loopingBubbleSound;
 	
-/** all menu stuff */
+	/** all menu stuff */
 	private Table table;
 	private TextButton timed, fiftyBubble, arcade, pacer, highScoresOn, highScoresOff, credits, options, leadersOn, leadersOff, 
 							playSounds, stopSounds, back, blue, yellow, orange, red, pink, purple;
@@ -585,13 +591,11 @@ public class MainMenuScreen implements Screen{
 
 	@Override
 	public void show() {
-		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
 	public void hide() {
-		// TODO Auto-generated method stub
 		
 	}
 
@@ -602,7 +606,6 @@ public class MainMenuScreen implements Screen{
 
 	@Override
 	public void resume() {
-		// TODO Auto-generated method stub
 		
 	}
 

@@ -1,9 +1,12 @@
 package com.speedbubble.jakedean;
 
-import java.io.Serializable;
-
-@SuppressWarnings("serial")
-public class Score implements Serializable {
+/** Score class
+ * used by HighScores to write into the high score files and provides means of coupling someone's name to their score
+ * 
+ * @author Dean
+ *
+ */
+public class Score{
 
     private String name;
     private float score;
@@ -21,6 +24,7 @@ public class Score implements Serializable {
         return score;
     }
 
+    // separated by a space because we break strings up by new lines and spaces
     public String toString() {
         return name + " " + score;
     }

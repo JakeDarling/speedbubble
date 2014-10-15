@@ -1,0 +1,52 @@
+
+faceAtlas.png
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+face1
+  rotate: false
+  xy: 1, 510
+  size: 500, 500
+  orig: 500, 500
+  offset: 0, 0
+  index: -1
+face2
+  rotate: false
+  xy: 1, 8
+  size: 500, 500
+  orig: 500, 500
+  offset: 0, 0
+  index: -1
+face3
+  rotate: false
+  xy: 503, 510
+  size: 500, 500
+  orig: 500, 500
+  offset: 0, 0
+  index: -1
+face4
+  rotate: false
+  xy: 503, 8
+  size: 500, 500
+  orig: 500, 500
+  offset: 0, 0
+  index: -1
+face0
+  rotate: false
+  xy: 1, 1
+  size: 5, 5
+  orig: 5, 5
+  offset: 0, 0
+  index: -1
+
+faceAtlas2.png
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+face5
+  rotate: false
+  xy: 1, 1
+  size: 500, 500
+  orig: 500, 500
+  offset: 0, 0
+  index: -1

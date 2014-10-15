@@ -9,9 +9,13 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.utils.Array;
 
+/** Game Mode Class for Arcade mode
+ * 
+ * @author Dean
+ *
+ */
 public class GameModeArcade implements GameMode{
 	
 	private SpriteBatch batch;
@@ -19,10 +23,11 @@ public class GameModeArcade implements GameMode{
 	private BitmapFont gameFont;
 	private boolean popStarted, missedBubble, removeBubble;
 
-	private Array<Sprite> bubbles;
-	private Sprite leadBubble, background;
+	private Array<Bubble> bubbles;
+	private Bubble leadBubble;
+	private Sprite background;
 	private int bubblesPopped, cols, sideLength, bubbleColor, colorInterval;
-	private float stateTime, speed, yPos, width, height;
+	private float stateTime, speed, yPos, width, height, postGameTimer;
 	
 	public GameModeArcade(){
 		
@@ -57,6 +62,7 @@ public class GameModeArcade implements GameMode{
     	bubblesPopped = 0;
 		width = Gdx.graphics.getWidth();
 		height = Gdx.graphics.getHeight();
+		postGameTimer = 0;
 		
 		/** Used to determine the size of the background image for all screen sizes
 		 * This is to ensure the background does not look stretched by maintaining the image's aspect ratio
@@ -79,22 +85,22 @@ public class GameModeArcade implements GameMode{
 		 *       as we remove the index of a bubble from the array whenever it gets popped. normally maxes out at 3-4 bubbles
 		 *       in the array at all times
 		 * 
-		 * bubbles = array of bubble sprites (images)
-		 * cols = used to determine how many columns
-		 * sideLength = sets the bubble to be contained inside a perfect square, the exact width of 1 column
+		 * bubbles = array of bubble objects
+		 * cols = used to determine how many columns of bubbles
 		 */
-		bubbles = new Array<Sprite>();
+		bubbles = new Array<Bubble>();
 		cols = 5;
-		sideLength = (int)(width/cols);
 		
 		/** Variables used to determine when to spawn the next bubble (a new bubble spawns at the top of the screen
 		 *		as soon as the bubble before it makes it one side-length down the screen)
 		 */
 		speed = height/2;
 		yPos = 0;
+		sideLength = (int)(width/cols);
 		
 		/** Variables used to determine what color to make the bubbles as they are falling.
-		 * 		the bubble color will alternate every 25th bubble 
+		 * 		the bubble color will alternate every 25th bubble
+		 * 		resets the color at the beginning of the game
 		 */
 		bubbleColor=Settings.favoriteColor;
 		colorInterval=0;
@@ -109,25 +115,13 @@ public class GameModeArcade implements GameMode{
 	 */
 	private void spawnBubble(){
 		
-	//Xpos = the x-position of the bubble, always assigned to a specific column
-		int xPos = MathUtils.random(0,(int)(width)-cols);
+		Bubble b = new Bubble();
+		b.spawn(cols);
+		bubbles.add(b);
 		
-	//Xpos is always assigned to a specific column so they dont drop from from random locations
-		for(int i = 0; i<cols; i++){
-			if(i*sideLength <= xPos && xPos < (i+1)*sideLength){
-				xPos = i*sideLength;
-			}
-		}
-		
-	//a sprite of a bubble, with the above x-position is added to the array created earlier
-		Sprite bubble = new Sprite(Assets.bubbleAtlas.findRegion("bubble0"));
-		bubble.setPosition(xPos, height);
-		bubble.setSize(sideLength, sideLength);
-		bubbles.add(bubble);
-		
-	// this makes it so that if the highest bubble on the screen is 24, 49, 74, 99 ... etc. the next bubble will be a new color
-		if(bubblesPopped + bubbles.lastIndexOf(bubble, true) - colorInterval == 24){
-			colorInterval = bubblesPopped + bubbles.lastIndexOf(bubble, true) + 1;
+	// this makes it so that if the highest bubble on the screen is 25, 50, 75, 100 ... etc. the next bubble will be a new color
+		if(bubblesPopped + bubbles.lastIndexOf(b, true) - colorInterval == 24){
+			colorInterval = bubblesPopped + bubbles.lastIndexOf(b, true) + 1;
 			bubbleColor++;
 			if(bubbleColor > 5) bubbleColor=0;
 			Assets.setBubbleColor(bubbleColor);
@@ -137,76 +131,95 @@ public class GameModeArcade implements GameMode{
 	@Override
 	public void update(GameScreen screen, float deltaTime) {
 		
-	// used to determine animation frames, set to 0 when a bubble is popped, bubble is flagged as popped, then the animation plays
-	// 		using this frameTime
-		stateTime += deltaTime;
-		
-	// new bubble spawns as soon as the one ahead of it moves one sidelength down the screen
-		yPos += speed*deltaTime;
-		if(yPos - sideLength >= 0){
-			yPos = 0;
-			spawnBubble();
-		}
-		
-	/** This makes it so you can only pop the lowest bubble on the screen or else you activate the failure flag
-	 * 
-	 * 	If the lead bubble is tapped AND the tap was within reasonable distance of the red line
-	 * 		-> start pop animation at its location, remove bubble from array, increment score
-	 * 
-	 *  Else the lead bubble was missed 
-	 *  	-> set game over flag true
-	 */
-		leadBubble = bubbles.first();
-        if (Gdx.input.justTouched()){
-        	if(Gdx.input.getX()>=leadBubble.getX() && Gdx.input.getX() <= leadBubble.getX()+leadBubble.getWidth()
-    			&& ((Gdx.input.getY() - Gdx.graphics.getHeight()) * -1) >= leadBubble.getY() 
-    			&& ((Gdx.input.getY() - Gdx.graphics.getHeight()) * -1) <= leadBubble.getY()+leadBubble.getHeight()
-    			&& ((Gdx.input.getY() - Gdx.graphics.getHeight()) * -1) <= sideLength)
-        	{
-	    		stateTime=0;
-	    		Assets.previousBubble.setPosition(leadBubble.getX(), leadBubble.getY());
-	    		popStarted=true;
-	    		removeBubble = true;
-	    		Assets.playSound(Assets.bubbleSound);
-	    		bubblesPopped++;
-        	}
-        	else{
-        		missedBubble = true;
-        	}
-        }
-        
-    // This is here to update the array of bubbles
-		Iterator<Sprite> iter = bubbles.iterator();
-        while (iter.hasNext()) {
-        	
-        // moves each bubble in the array down by a distance proportional to the speed
-        	Sprite bubble = iter.next();
-            bubble.setY(bubble.getY() - speed * deltaTime);
-            
-        // if the bubble was tapped, removeBubble was set to true, therefore remove it from the array and reset the flag to false
-            if(removeBubble)
-            {
-    	       	iter.remove();
-    	       	removeBubble = false;
-            }
-            
-        // If the bubble makes it off the bottom of the screen you missed it, therefore you fail
-            if (bubble.getY() < -sideLength){
-                iter.remove();
-                missedBubble = true;
-            }
-        }
-        
-    // fail the game if a bubble has been missed, dispose the items associated with this play-through to free memory
+		/**	fail the game if a bubble has been missed
+		 * 	pause the game for 1 second
+		 * 	dispose the items associated with this play-through to free memory
+		 * 	set the game-state to game-over
+		 */
         if (missedBubble){
-        	Assets.playSound(Assets.failSound);
-        	dispose();
-        	screen.setState(new GameStateGetName(screen, (int)bubblesPopped, "SPEED BUBBLES", "SUCCESS!"));
+        	postGameTimer += deltaTime;
+        	if (postGameTimer >=1){
+        		Assets.playSound(Assets.failSound);
+        		dispose();
+        		screen.setState(new GameStateGetName(screen, (int)bubblesPopped, "SPEED BUBBLES", "SUCCESS!"));
+        	}
         }
         
-    // increments the speed at a constant proportion of the screen height, so the bubbles don't wind up moving at different speeds
-    //		for different phone sizes.
-        speed += (height/25) * deltaTime;
+        // if the user has not missed a bubble, continue updating the game normally
+	    else{
+			
+		// used to determine animation frames, set to 0 when a bubble is popped, bubble is flagged as popped, then the animation plays
+		// 		using this stateTime to determine when to cycle through frames
+			stateTime += deltaTime;
+			
+		// new bubble spawns as soon as the one ahead of it moves one sidelength down the screen
+			yPos += speed*deltaTime;
+			if(yPos - sideLength >= 0){
+				yPos = 0;
+				spawnBubble();
+			}
+			
+		/** This makes it so you can only pop the lowest bubble on the screen or else you activate the failure flag
+		 * 
+		 * 	If the lead bubble is tapped, (input is located inside the bubble boundaries)
+		 * 		-> start pop animation at its location, remove bubble from array, increment score
+		 * 
+		 *  Else (the screen was tapped, but the lead bubble was missed)
+		 *  	-> set game over flag true
+		 */
+			leadBubble = bubbles.first();
+	        if (Gdx.input.justTouched()){
+	        	if(Gdx.input.getX()>=leadBubble.xPosition && Gdx.input.getX() <= leadBubble.xPosition+leadBubble.sideLength
+	    			&& ((Gdx.input.getY() - Gdx.graphics.getHeight()) * -1) >= leadBubble.yPosition 
+	    			&& ((Gdx.input.getY() - Gdx.graphics.getHeight()) * -1) <= leadBubble.yPosition+leadBubble.sideLength)
+	        	{
+		    		stateTime=0;
+		    		Assets.previousBubble.setPosition(leadBubble.xPosition, leadBubble.yPosition);
+		    		popStarted=true;
+		    		removeBubble = true;
+		    		Assets.playSound(Assets.bubbleSound);
+		    		bubblesPopped++;
+	        	}
+	        	else{
+	        		missedBubble = true;
+	        	}
+	        }
+	        
+	    // This is here to update the array of bubbles
+			Iterator<Bubble> iter = bubbles.iterator();
+	        while (iter.hasNext()) {
+	        	
+	        // moves each bubble in the array down by a distance proportional to the speed
+	        // moves each bubble side to side in a sin wave pattern according to its amplitude, frequency, and waveBegin properties
+	        	Bubble bubble = iter.next();
+	        	bubble.waveBegin += deltaTime;
+	            bubble.yPosition = bubble.yPosition - speed * deltaTime;
+	            bubble.xPosition = bubble.originalXPosition + bubble.amplitude*(float)Math.sin(bubble.frequency*bubble.waveBegin);
+	            bubble.updatePosition();
+	            
+	        // if the LEAD bubble was tapped, removeBubble was set to true, therefore remove it from the array and reset the flag to false
+	            if(removeBubble)
+	            {
+	    	       	iter.remove();
+	    	       	removeBubble = false;
+	            }
+	            
+	        // If the bubble makes it off the bottom of the screen, the user missed it, therefore activate the failure flag
+	            if (bubble.yPosition < -sideLength){
+	                iter.remove();
+	                missedBubble = true;
+	            }
+	        }
+	        
+	        /**increments the speed at a constant proportion of the screen height, so the bubbles don't wind up moving at different speeds
+	         * for different phone sizes. Sprite positions are determined by pixels. 
+	         * 
+	         * Think this: 2 phones, one phone has 1000x1000 resolution and a second has 2000x2000 resolution, 
+	         * if the object is moving at 1000 pixels/second
+	         * it will be moving faster on the first phone (clears screen in 1 second) than the second (clears screen in 2 seconds)
+	         */
+	        speed += (height/25) * deltaTime;
+	    }
 	}
 
 	@Override
@@ -217,15 +230,15 @@ public class GameModeArcade implements GameMode{
 	// draw background
 		batch.begin();
 		background.draw(batch);
-		batch.draw(arcadeLine, 0, 2*sideLength/5, width, 3*sideLength/5);
 		batch.end();
 		
 	// draw foreground
 		batch.begin();
 		gameFont.draw(batch, ""+bubblesPopped, (Gdx.graphics.getWidth() - gameFont.getBounds(""+bubblesPopped).width)/2,
 				gameFont.getBounds(""+bubblesPopped).height*3/2);
-		for (Sprite bubble : bubbles){
-			bubble.draw(batch);
+		for (Bubble bubble : bubbles){
+			bubble.background.draw(batch);
+			bubble.face.draw(batch);
 		}
 		if(popStarted) drawAnimation();
 		batch.end();
@@ -238,6 +251,8 @@ public class GameModeArcade implements GameMode{
         batch.draw(Assets.currentBubble, Assets.previousBubble.getX(), Assets.previousBubble.getY(), Assets.previousBubble.getWidth(), Assets.previousBubble.getHeight());
     }
 	
+	/** destroys objects associated with this play through to free memory
+	 */
 	public void dispose(){
 		batch.dispose();
 		backgroundTexture.dispose();

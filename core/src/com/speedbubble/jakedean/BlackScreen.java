@@ -4,6 +4,12 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 
+/** Screen class to be called the very first time the game is played. Will wait for a text input to acquire a username
+ * 		and will make that the permanent username for the device, before calling assets.load
+ * 
+ * @author Dean
+ *
+ */
 public class BlackScreen implements Screen{
 	
 	private SpeedBubble game;

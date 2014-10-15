@@ -7,6 +7,12 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
+/** Game Mode class for 15 Second Rush mode
+ * 	This class uses the exact same methods and concepts as "GameModeFiftyBubble"
+ * 
+ * @author Dean
+ *
+ */
 public class GameModeTimed implements GameMode {
 	
 	private boolean popStarted, gameStarted;
@@ -52,6 +58,8 @@ public class GameModeTimed implements GameMode {
     	timeLeft = 15;
     	stateTime = 0;
     	score = 0;
+    	
+    	Assets.setBubbleColor(Settings.favoriteColor);
     }
 	
 	@Override
@@ -100,6 +108,7 @@ public class GameModeTimed implements GameMode {
         if(popStarted) drawAnimation();
         Assets.phantom.draw(batch);
         Assets.bubble.draw(batch);
+        Assets.face.draw(batch);
         gameFont.draw(batch, "BUBBLES: " + score, (Gdx.graphics.getWidth() - gameFont.getBounds("BUBBLES: " + score).width)/2,
         		Gdx.graphics.getHeight() - 7*gameFont.getBounds("BUBBLES POPPED: 10").height/2);
         gameFont.draw(batch, "TIME: " + String.format("%.2f", timeLeft), 
