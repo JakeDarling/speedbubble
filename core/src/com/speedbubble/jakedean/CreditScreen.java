@@ -26,7 +26,7 @@ public class CreditScreen implements Screen {
 	
 	private TextureAtlas skinAtlas;
 	private Skin skin;
-	private TextButton button;
+	private TextButton donate, back;
 	private Stage stage;
 	
 	public CreditScreen (SpeedBubble sb){
@@ -44,11 +44,11 @@ public class CreditScreen implements Screen {
 		
 		/** creates my donation button, when clicked it will start a new Intent to go to the supplied URL
 		 */
-		button = new TextButton("DONATE!", skin, "green");
-		button.setSize(Gdx.graphics.getWidth()/5, Gdx.graphics.getWidth()/5);
-		button.setPosition(0, (Gdx.graphics.getHeight() - button.getHeight())/2);
-		button.getLabel().setFontScale(button.getWidth() / button.getLabel().getStyle().font.getBounds("DONATE!").width - .3f);
-		button.addListener(new InputListener(){
+		donate = new TextButton("DONATE!", skin, "green");
+		donate.setSize(Gdx.graphics.getWidth()/5, Gdx.graphics.getWidth()/5);
+		donate.setPosition(Gdx.graphics.getWidth() - donate.getWidth(), (Gdx.graphics.getHeight() - donate.getHeight())/2);
+		donate.getLabel().setFontScale(donate.getWidth() / donate.getLabel().getStyle().font.getBounds("DONATE!").width - .3f);
+		donate.addListener(new InputListener(){
             public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
                 return true;
             }
@@ -57,8 +57,22 @@ public class CreditScreen implements Screen {
             }
 		});
 		
+		back = new TextButton("BACK", skin, "red");
+		back.setSize(Gdx.graphics.getWidth()/5, Gdx.graphics.getWidth()/5);
+		back.setPosition(0, (Gdx.graphics.getHeight() - back.getHeight())/2);
+		back.getLabel().setFontScale(back.getWidth() / back.getLabel().getStyle().font.getBounds("BACK").width - .7f);
+		back.addListener(new InputListener(){
+            public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
+                return true;
+            }
+            public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
+            	game.setScreen(new MainMenuScreen(game));
+            }
+		});
+		
 		stage = new Stage();
-		stage.addActor(button);
+		stage.addActor(donate);
+		stage.addActor(back);
 		Gdx.input.setInputProcessor(stage);
 	}
 	
@@ -70,9 +84,9 @@ public class CreditScreen implements Screen {
 		batch.begin();
 		batch.draw(tint, 0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 		batch.draw(credits, Gdx.graphics.getWidth()/2 - 530*Gdx.graphics.getHeight()/480/2, 0, 530*Gdx.graphics.getHeight()/480, 9*Gdx.graphics.getHeight()/10);
-		button.draw(batch, 1);
 		batch.end();
 		
+		stage.draw();
 		
 		if (Gdx.input.isKeyPressed(Keys.BACK) && !Settings.MAIN_MENU){
         	game.setScreen(new MainMenuScreen(game));

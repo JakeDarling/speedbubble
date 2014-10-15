@@ -194,7 +194,7 @@ public class MainMenuScreen implements Screen{
             }
 		});
 		
-		leadersOn = new TextButton("ONLINE\nLEADERS\nENABLED", skin, "green");
+		leadersOn = new TextButton("GOOGLE\nLEADERS\nENABLED", skin, "green");
 		leadersOn.addListener(new InputListener(){
             public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
             	Assets.playSound(Assets.bubbleSound);
@@ -206,7 +206,7 @@ public class MainMenuScreen implements Screen{
             }
 		});
 		
-		leadersOff = new TextButton("ONLINE\nLEADERS\nDISABLED", skin, "red");
+		leadersOff = new TextButton("GOOGLE\nLEADERS\nDISABLED", skin, "red");
 		leadersOff.addListener(new InputListener(){
             public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
             	Assets.playSound(Assets.bubbleSound);

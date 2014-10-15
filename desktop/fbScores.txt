@@ -1,5 +1,5 @@
-not_set 99.999
-not_set 99.999
-not_set 99.999
-not_set 99.999
+Dean 7.1143265
+ 7.3901057
+Dean 7.9659896
+Dean 10.445971
 not_set 99.999
