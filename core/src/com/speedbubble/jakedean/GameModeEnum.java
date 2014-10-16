@@ -6,5 +6,5 @@ package com.speedbubble.jakedean;
  *
  */
 public enum GameModeEnum {
-	ARCADE, FIFTY_BUBBLE, TIMED, PACER
+	ARCADE, FIFTY_BUBBLE, TIMED, PACER, SURVIVAL, CORNERS
 }
